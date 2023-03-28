@@ -1,5 +1,38 @@
 # MVP
 ---
+Puzzle object shape:
+```json
+{
+  "title": "string",
+  "size": 0,
+  "solution": [[],[],[]],
+  "hint": "string"
+}
+```
+Example:
+```json
+{
+    "title": "Box",
+    "size": 10,
+    "solution": [
+            [1,1,1,1,1,1,1,1,1,1],
+            [1,0,0,0,0,0,0,0,0,1],
+            [1,0,0,0,0,0,0,0,0,1],
+            [1,0,0,0,0,0,0,0,0,1],
+            [1,0,0,0,0,0,0,0,0,1],
+            [1,0,0,0,0,0,0,0,0,1],
+            [1,0,0,0,0,0,0,0,0,1],
+            [1,0,0,0,0,0,0,0,0,1],
+            [1,0,0,0,0,0,0,0,0,1],
+            [1,1,1,1,1,1,1,1,1,1]
+        ],
+    "hint": "It's just a box"
+}
+```
+<br>
+<br>
+<br>
+
 ## MVP User Stories
 - As a user I want to be able to play picross
   - I want to **_break_** tiles
@@ -12,7 +45,6 @@
   - I want to select a different puzzle when I preform **_an action_** *(button?)*
   - I want **_guiding numbers_** that indicate how many consecutive tiles need to be filled for each respective column and row
   - I want to strikethrough guiding numbers that I believe I have been completed for a given row or column
-  - I want a modal that gives me instructions about how to play the game when I click a button
 - As a user I want an easily viewable timer
   - I want the timer to count up in seconds
   - I want the timer to begin counting when I start the puzzle
@@ -20,6 +52,8 @@
   - I want the timer to reset when I select a different puzzle
   - I want to pause the timer
   - I want to resume the timer after it has been paused
+- I want a modal that gives me instructions about how to play the game when I click a button
+- I want to see the title of the puzzle once I have completed it
 <br>
 <br>
 <br>
@@ -31,6 +65,12 @@
 - Wiring up to a database
 
 - AI generated images
+
+- An undo button
+
+- Display image with color upon completion of the puzzle
+
+- Image encoder (turning image into solution array)
 <br>
 <br>
 
