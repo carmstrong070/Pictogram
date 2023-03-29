@@ -54,6 +54,7 @@ Example:
   - I want to resume the timer after it has been paused
 - I want a modal that gives me instructions about how to play the game when I click a button
 - I want to see the title of the puzzle once I have completed it
+- I want a button that will provide a hint when I am stuck on the puzzle
 <br>
 <br>
 <br>
@@ -85,3 +86,19 @@ Example:
 **_Flag_** - A mechanic that allows the player to mark a tile. A marked tile indicates that a tile is not part of the image, and should not be broken.
 
 **_Guiding Number(s)_** - number(s) written on the sides of the puzzle board, which provide clues to the player on how many tiles in a row or column should be broken and how they should be arranged.
+
+<br>
+<br>
+<br>
+
+# Controls
+---
+Tile state controls:
+```
+Empty -> Filled : Left-click
+Empty -> Flagged: Right-click
+Filled -> Empty: Left-click OR right-click
+Filled -> Flagged: Not possible
+Flagged -> Empty: Right-click
+Flagged -> Filled: Not possible
+```
