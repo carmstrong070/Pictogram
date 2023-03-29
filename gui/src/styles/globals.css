@@ -1,3 +1,39 @@
+
+table {
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+td.cell {
+  border: 1px solid black;
+  margin: 0;
+  padding: 0;
+  width: 25px;
+  height: 25px;
+  text-align: center;
+}
+
+td.cell:hover {
+  cursor: pointer;
+}
+
+.thick-border-left {
+  border-left: 2px solid black !important;
+}
+
+.thick-border-right {
+  border-right: 2px solid black !important;
+}
+
+.thick-border-top {
+  border-top: 2px solid black !important;
+}
+
+.thick-border-bottom {
+  border-bottom: 2px solid black !important;
+}
+
+
 /* :root {
   --max-width: 1100px;
   --border-radius: 12px;

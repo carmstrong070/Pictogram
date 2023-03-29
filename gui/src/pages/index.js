@@ -23,6 +23,21 @@ const index = () => {
     })
   }, [])
 
+  const BorderClasses = (rowIndex, cellIndex) => {
+    var classes = "";
+
+    if(rowIndex === 0)
+      classes += "thick-border-top ";
+
+    if((rowIndex + 1) % 5 === 0)
+      classes += "thick-border-bottom ";
+
+    if((cellIndex + 1) % 5 === 0)
+      classes += "thick-border-right ";
+
+    return classes;
+  };
+
   const Board = ({ puzzle }) => {
     if (puzzle) {
       return (
@@ -49,12 +64,14 @@ const index = () => {
                       return ([
                         <React.Fragment key={rowIndex}>
                           <td key={`${rowIndex}`}>{cellIndex}</td>
-                          <td key={`${rowIndex} ${cellIndex}`} y={cellIndex} x={rowIndex}>[{cell ? "X" : " "}]</td>
+                          <td className={`cell thick-border-left ${BorderClasses(rowIndex, cellIndex)}`} key={`${rowIndex} ${cellIndex}`} y={cellIndex} x={rowIndex}>{cell ? "X" : " "}</td>
                         </React.Fragment>
                       ])
                     }
                     else return (
-                      <td key={`${rowIndex} ${cellIndex}`} y={cellIndex} x={rowIndex}>[{cell ? "X" : " "}]</td>
+                      <td className={`cell ${BorderClasses(rowIndex, cellIndex)}`} key={`${rowIndex} ${cellIndex}`} y={cellIndex} x={rowIndex}>
+                        {cell ? "X" : " "}
+                      </td>
                     )
                   })}
                 </tr>
