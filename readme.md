@@ -72,6 +72,8 @@ Example:
 - Display image with color upon completion of the puzzle
 
 - Image encoder (turning image into solution array)
+
+- Gamepad support (requires a cursor)
 <br>
 <br>
 
