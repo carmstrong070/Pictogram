@@ -83,15 +83,8 @@ const index = () => {
           </React.Fragment>
         )
       }
-      if (R.equals(guideNumbers, [])) {
-        return (
-          <td key={columnIndex}>
-            0 <br></br>
-          </td>
-        )
-      }
       return (
-        <td key={columnIndex}>{guideNumbers}</td>
+        <td className="text-center" key={columnIndex}>{R.equals(guideNumbers, []) ? 0 : guideNumbers}</td>
       )
     }
 
@@ -121,13 +114,8 @@ const index = () => {
           </React.Fragment>
         )
       }
-      if (R.equals(guideNumbers, [])) {
-        return (
-          <td key={rowIndex}>0</td>
-        )
-      }
       return (
-        <td key={rowIndex}>{guideNumbers}</td>
+        <td class="text-center" key={rowIndex}>{R.equals(guideNumbers, []) ? 0 : guideNumbers}</td>
       )
     }
   }
@@ -197,8 +185,8 @@ const index = () => {
     if (cellIndex === 0)
       classes += "thick-border-left ";
 
-      if (rowIndex === 0)
-        classes += "thick-border-top ";
+    if (rowIndex === 0)
+      classes += "thick-border-top ";
 
     if ((rowIndex + 1) % 5 === 0)
       classes += "thick-border-bottom ";
