@@ -12,16 +12,16 @@ const index = () => {
       "title": "Box",
       "size": 10,
       "solution": [
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
       ],
       "hint": "It's just a box"
     })
@@ -55,6 +55,47 @@ const index = () => {
     )
   }, [])
 
+  const GuideNumbers = ({ columnIndex, rowIndex, puzzleSolution }) => {
+    if (rowIndex < 0) {
+      console.log(columnIndex)
+      let guideNumber = []
+      let counter = 0
+      for (let i = 0; i < puzzleSolution[0].length; i++) {
+        if (puzzleSolution[i][columnIndex] === 1) {
+          counter += 1
+        }
+        else if (puzzleSolution[i][columnIndex] === 0) {
+          if (counter > 0) {
+            guideNumber.push(
+              <React.Fragment key={`${columnIndex} ${i}`}>
+                {counter} <br></br>
+              </React.Fragment>
+            )
+            counter = 0
+          }
+        }
+      }
+      if (counter > 0) {
+        guideNumber.push(
+          <React.Fragment key={`${columnIndex}`}>
+            {counter} <br></br>
+          </React.Fragment>
+        )
+      }
+      if (R.equals(guideNumber, [])) {
+        return (
+          <th key={columnIndex}>
+            0 <br></br>
+          </th>
+        )
+      }
+      console.log(guideNumber)
+      return (
+        <th key={columnIndex}>{guideNumber}</th>
+      )
+    }
+
+  }
 
   const Tile = ({ rowIndex, cellIndex, handlePuzzleChange }) => {
     const [tileState, setTileState] = useState(0)
@@ -156,17 +197,20 @@ const index = () => {
     return classes;
   };
 
-  const Board = ({ puzzle }) => {
+  const Board = ({ puzzle, puzzleSolution }) => {
     if (puzzle[0] !== undefined) {
       return (
         <table>
           <thead>
             <tr>
-              <th>😐</th>
+              <th></th>
               {/* Create a header row for each column that will contain the guide numbers*/}
-              {puzzle[0].map((_, headIndex) => {
+              {puzzle[0].map((_, columnIndex) => {
                 return (
-                  <th key={headIndex}>{headIndex + 1}</th>
+                  <React.Fragment key={columnIndex}>
+                    {/* <th key={columnIndex}>{columnIndex + 1}</th> */}
+                    <GuideNumbers columnIndex={columnIndex} rowIndex={-1} puzzleSolution={puzzleSolution} />
+                  </React.Fragment>
                 )
               })}
             </tr>
@@ -201,11 +245,16 @@ const index = () => {
     }
   };
 
-  return (
-    <>
-      <Board puzzle={puzzleProgress} />
-    </>
-  )
+  if (puzzle !== undefined && puzzleProgress) {
+    return (
+      <>
+        <Board puzzle={puzzleProgress} puzzleSolution={puzzle.solution} />
+      </>
+    )
+  }
+  else {
+    return null
+  }
 }
 
 export default index
