@@ -56,9 +56,10 @@ const index = () => {
   }, [])
 
   const GuideNumbers = ({ columnIndex, rowIndex, puzzleSolution }) => {
+
+    // Create guide numbers for each column
     if (rowIndex < 0) {
-      console.log(columnIndex)
-      let guideNumber = []
+      let guideNumbers = []
       let counter = 0
       for (let i = 0; i < puzzleSolution[0].length; i++) {
         if (puzzleSolution[i][columnIndex] === 1) {
@@ -66,7 +67,7 @@ const index = () => {
         }
         else if (puzzleSolution[i][columnIndex] === 0) {
           if (counter > 0) {
-            guideNumber.push(
+            guideNumbers.push(
               <React.Fragment key={`${columnIndex} ${i}`}>
                 {counter} <br></br>
               </React.Fragment>
@@ -76,25 +77,59 @@ const index = () => {
         }
       }
       if (counter > 0) {
-        guideNumber.push(
+        guideNumbers.push(
           <React.Fragment key={`${columnIndex}`}>
             {counter} <br></br>
           </React.Fragment>
         )
       }
-      if (R.equals(guideNumber, [])) {
+      if (R.equals(guideNumbers, [])) {
         return (
-          <th key={columnIndex}>
+          <td key={columnIndex}>
             0 <br></br>
-          </th>
+          </td>
         )
       }
-      console.log(guideNumber)
       return (
-        <th key={columnIndex}>{guideNumber}</th>
+        <td key={columnIndex}>{guideNumbers}</td>
       )
     }
 
+    // Create guide numbers for each row
+    if (columnIndex < 0) {
+      let guideNumbers = []
+      let counter = 0
+      for (let i = 0; i < puzzleSolution[0].length; i++) {
+        if (puzzleSolution[rowIndex][i] === 1) {
+          counter += 1
+        }
+        else if (puzzleSolution[rowIndex][i] === 0) {
+          if (counter > 0) {
+            guideNumbers.push(
+              <React.Fragment key={`${rowIndex} ${i}`}>
+                {counter} &nbsp;
+              </React.Fragment>
+            )
+            counter = 0
+          }
+        }
+      }
+      if (counter > 0) {
+        guideNumbers.push(
+          <React.Fragment key={`${rowIndex}`}>
+            {counter} &nbsp;
+          </React.Fragment>
+        )
+      }
+      if (R.equals(guideNumbers, [])) {
+        return (
+          <td key={rowIndex}>0</td>
+        )
+      }
+      return (
+        <td key={rowIndex}>{guideNumbers}</td>
+      )
+    }
   }
 
   const Tile = ({ rowIndex, cellIndex, handlePuzzleChange }) => {
@@ -102,7 +137,6 @@ const index = () => {
 
     const handleClick = (e, num, cellIndex, rowIndex) => {
       e.preventDefault()
-
       if (e.type === "click") {
         setTileState(num)
         handlePuzzleChange(num, cellIndex, rowIndex)
@@ -113,19 +147,18 @@ const index = () => {
       }
     }
 
+    // Render left-most tiles to add styling
     if (cellIndex == 0) {
       if (tileState === 0) {
         return (
           <td onContextMenu={(e) => handleClick(e, 2, cellIndex, rowIndex)} className={`cell thick-border-left ${BorderClasses(rowIndex, cellIndex)}`} tilestate={tileState} y-index={cellIndex} x-index={rowIndex} onClick={(e) => handleClick(e, 1, cellIndex, rowIndex)}></td>
         )
       }
-
       else if (tileState === 1) {
         return (
-          <td onContextMenu={(e) => handleClick(e, 0, cellIndex, rowIndex)} className={`cell thick-border-left ${BorderClasses(rowIndex, cellIndex)}`} tilestate={tileState} y-index={cellIndex} x-index={rowIndex} onClick={(e) => handleClick(e, 0, cellIndex, rowIndex)}>✖️</td>
+          <td onContextMenu={(e) => handleClick(e, 0, cellIndex, rowIndex)} className={`cell thick-border-left ${BorderClasses(rowIndex, cellIndex)}`} tilestate={tileState} y-index={cellIndex} x-index={rowIndex} onClick={(e) => handleClick(e, 0, cellIndex, rowIndex)}>⬛</td>
         )
       }
-
       else if (tileState === 2) {
         return (
           <td onContextMenu={(e) => handleClick(e, 0, cellIndex, rowIndex)} className={`cell thick-border-left ${BorderClasses(rowIndex, cellIndex)}`} tilestate={tileState} y-index={cellIndex} x-index={rowIndex} onClick={(e) => handleClick(e, 2, cellIndex, rowIndex)}>🚩</td>
@@ -133,19 +166,18 @@ const index = () => {
       }
     }
 
+    // Render the remaining tiles
     else {
       if (tileState === 0) {
         return (
           <td onContextMenu={(e) => handleClick(e, 2, cellIndex, rowIndex)} className={`cell ${BorderClasses(rowIndex, cellIndex)}`} tilestate={tileState} y-index={cellIndex} x-index={rowIndex} onClick={(e) => handleClick(e, 1, cellIndex, rowIndex)}></td>
         )
       }
-
       else if (tileState === 1) {
         return (
-          <td onContextMenu={(e) => handleClick(e, 0, cellIndex, rowIndex)} className={`cell ${BorderClasses(rowIndex, cellIndex)}`} tilestate={tileState} y-index={cellIndex} x-index={rowIndex} onClick={(e) => handleClick(e, 0, cellIndex, rowIndex)}>✖️</td>
+          <td onContextMenu={(e) => handleClick(e, 0, cellIndex, rowIndex)} className={`cell ${BorderClasses(rowIndex, cellIndex)}`} tilestate={tileState} y-index={cellIndex} x-index={rowIndex} onClick={(e) => handleClick(e, 0, cellIndex, rowIndex)}>⬛</td>
         )
       }
-
       else if (tileState === 2) {
         return (
           <td onContextMenu={(e) => handleClick(e, 0, cellIndex, rowIndex)} className={`cell ${BorderClasses(rowIndex, cellIndex)}`} tilestate={tileState} y-index={cellIndex} x-index={rowIndex} onClick={(e) => handleClick(e, 2, cellIndex, rowIndex)}>🚩</td>
@@ -208,7 +240,6 @@ const index = () => {
               {puzzle[0].map((_, columnIndex) => {
                 return (
                   <React.Fragment key={columnIndex}>
-                    {/* <th key={columnIndex}>{columnIndex + 1}</th> */}
                     <GuideNumbers columnIndex={columnIndex} rowIndex={-1} puzzleSolution={puzzleSolution} />
                   </React.Fragment>
                 )
@@ -224,7 +255,7 @@ const index = () => {
                     if (cellIndex == 0) {
                       return (
                         <React.Fragment key={rowIndex}>
-                          <td key={`${rowIndex}`}>{rowIndex + 1}</td>
+                          <GuideNumbers columnIndex={-1} rowIndex={rowIndex} puzzleSolution={puzzleSolution} />
                           <Tile key={`${rowIndex} ${cellIndex}`} rowIndex={rowIndex} cellIndex={cellIndex} handlePuzzleChange={handlePuzzleChange} />
                         </React.Fragment>
                       )
