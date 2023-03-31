@@ -4,6 +4,7 @@ import * as R from 'ramda'
 const index = () => {
   const [puzzle, setPuzzle] = useState()
   const [puzzleProgress, setPuzzleProgress] = useState([])
+  const [completionProgress, setCompletionProgress] = useState([])
 
   // Initialize puzzle
   useEffect(() => {
@@ -11,20 +12,34 @@ const index = () => {
       "title": "Box",
       "size": 10,
       "solution": [
-        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
       ],
       "hint": "It's just a box"
     })
     setPuzzleProgress(
+      [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      ]
+    )
+    setCompletionProgress(
       [
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -46,63 +61,82 @@ const index = () => {
 
     const handleClick = (e, num, cellIndex, rowIndex) => {
       e.preventDefault()
+
       if (e.type === "click") {
         setTileState(num)
-        handlePuzzleChange(cellIndex, rowIndex)
+        handlePuzzleChange(num, cellIndex, rowIndex)
       }
       else {
         setTileState(num)
-        handlePuzzleChange(cellIndex, rowIndex)
+        handlePuzzleChange(num, cellIndex, rowIndex)
       }
     }
 
     if (cellIndex == 0) {
       if (tileState === 0) {
         return (
-          <td onContextMenu={(e) => handleClick(e, 3, cellIndex, rowIndex)} className={`cell thick-border-left ${BorderClasses(rowIndex, cellIndex)}`} tilestate={tileState} y-index={cellIndex} x-index={rowIndex} onClick={(e) => handleClick(e, 1, cellIndex, rowIndex)}></td>
+          <td onContextMenu={(e) => handleClick(e, 2, cellIndex, rowIndex)} className={`cell thick-border-left ${BorderClasses(rowIndex, cellIndex)}`} tilestate={tileState} y-index={cellIndex} x-index={rowIndex} onClick={(e) => handleClick(e, 1, cellIndex, rowIndex)}></td>
         )
       }
+
       else if (tileState === 1) {
         return (
           <td onContextMenu={(e) => handleClick(e, 0, cellIndex, rowIndex)} className={`cell thick-border-left ${BorderClasses(rowIndex, cellIndex)}`} tilestate={tileState} y-index={cellIndex} x-index={rowIndex} onClick={(e) => handleClick(e, 0, cellIndex, rowIndex)}>✖️</td>
         )
       }
-      else if (tileState === 3) {
+
+      else if (tileState === 2) {
         return (
-          <td onContextMenu={(e) => handleClick(e, 0, cellIndex, rowIndex)} className={`cell thick-border-left ${BorderClasses(rowIndex, cellIndex)}`} tilestate={tileState} y-index={cellIndex} x-index={rowIndex} onClick={(e) => handleClick(e, 3, cellIndex, rowIndex)}>🚩</td>
+          <td onContextMenu={(e) => handleClick(e, 0, cellIndex, rowIndex)} className={`cell thick-border-left ${BorderClasses(rowIndex, cellIndex)}`} tilestate={tileState} y-index={cellIndex} x-index={rowIndex} onClick={(e) => handleClick(e, 2, cellIndex, rowIndex)}>🚩</td>
         )
       }
     }
+
     else {
       if (tileState === 0) {
         return (
-          <td onContextMenu={(e) => handleClick(e, 3, cellIndex, rowIndex)} className={`cell ${BorderClasses(rowIndex, cellIndex)}`} tilestate={tileState} y-index={cellIndex} x-index={rowIndex} onClick={(e) => handleClick(e, 1, cellIndex, rowIndex)}></td>
+          <td onContextMenu={(e) => handleClick(e, 2, cellIndex, rowIndex)} className={`cell ${BorderClasses(rowIndex, cellIndex)}`} tilestate={tileState} y-index={cellIndex} x-index={rowIndex} onClick={(e) => handleClick(e, 1, cellIndex, rowIndex)}></td>
         )
       }
+
       else if (tileState === 1) {
         return (
           <td onContextMenu={(e) => handleClick(e, 0, cellIndex, rowIndex)} className={`cell ${BorderClasses(rowIndex, cellIndex)}`} tilestate={tileState} y-index={cellIndex} x-index={rowIndex} onClick={(e) => handleClick(e, 0, cellIndex, rowIndex)}>✖️</td>
         )
       }
-      else if (tileState === 3) {
+
+      else if (tileState === 2) {
         return (
-          <td onContextMenu={(e) => handleClick(e, 0, cellIndex, rowIndex)} className={`cell ${BorderClasses(rowIndex, cellIndex)}`} tilestate={tileState} y-index={cellIndex} x-index={rowIndex} onClick={(e) => handleClick(e, 3, cellIndex, rowIndex)}>🚩</td>
+          <td onContextMenu={(e) => handleClick(e, 0, cellIndex, rowIndex)} className={`cell ${BorderClasses(rowIndex, cellIndex)}`} tilestate={tileState} y-index={cellIndex} x-index={rowIndex} onClick={(e) => handleClick(e, 2, cellIndex, rowIndex)}>🚩</td>
         )
       }
     }
 
   }
 
-  const handlePuzzleChange = (xIndex, yIndex) => {
+  const handlePuzzleChange = (num, xIndex, yIndex) => {
     let currentPuzzle = puzzleProgress
-    if (currentPuzzle[yIndex][xIndex] === 0) {
-      currentPuzzle[yIndex][xIndex] = 1
+    let currentPuzzleCompletion = completionProgress
+
+    if (num === 0) {
+      currentPuzzle[yIndex][xIndex] = num
+      currentPuzzleCompletion[yIndex][xIndex] = num
     }
-    else if (currentPuzzle[yIndex][xIndex] === 1) {
-      currentPuzzle[yIndex][xIndex] = 0
+
+    else if (num === 1) {
+      currentPuzzle[yIndex][xIndex] = num
+      currentPuzzleCompletion[yIndex][xIndex] = num
     }
+
+    else if (num === 2) {
+      currentPuzzle[yIndex][xIndex] = num
+      currentPuzzleCompletion[yIndex][xIndex] = 0
+    }
+
     setPuzzleProgress(currentPuzzle)
-    if (R.equals(puzzleProgress, puzzle.solution)) {
+    setCompletionProgress(currentPuzzleCompletion)
+
+    if (R.equals(completionProgress, puzzle.solution)) {
       console.log("Puzzle finished!")
     }
   }
@@ -151,6 +185,7 @@ const index = () => {
                         </React.Fragment>
                       )
                     }
+
                     else return (
                       <Tile key={`${rowIndex} ${cellIndex}`} rowIndex={rowIndex} cellIndex={cellIndex} handlePuzzleChange={handlePuzzleChange} />
                     )
