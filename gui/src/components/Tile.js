@@ -35,18 +35,26 @@ const Tile = ({ rowIndex, cellIndex, handlePuzzleChange }) => {
       x: Number(e.target.getAttribute("x-index")),
       y: Number(e.target.getAttribute("y-index"))
     })
+    console.log(mouseDownTile)
   }
 
   const handleMouseUp = (e, y, x) => {
+    e.preventDefault()
     if (mouseDownTile !== undefined) {
-      console.log(mouseDownTile)
+      // console.log(mouseDownTile)
       // determine if the tile that triggered the mouse up is on the same row or column
-      if (y === mouseDownTile.y) {
-        console.log("same column")
+      if (y === mouseDownTile.y && x === mouseDownTile.x) {
+        console.log("same column & row")
       }
-      if (x === mouseDownTile.x) {
+      else if (x === mouseDownTile.x) {
         console.log("same row")
       }
+      else if (y === mouseDownTile.y) {
+        console.log("same column")
+      }
+      // else {
+      //   setMouseDownTile()
+      // }
     }
   }
 
