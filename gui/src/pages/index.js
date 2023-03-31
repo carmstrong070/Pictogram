@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react"
 import * as R from 'ramda'
+import Tile from '@/components/Tile'
+import GuideNumbers from "@/components/GuideNumbers"
 
 const index = () => {
   const [puzzle, setPuzzle] = useState()
@@ -55,103 +57,6 @@ const index = () => {
     )
   }, [])
 
-  const GuideNumbers = ({ columnIndex, rowIndex, puzzleSolution }) => {
-
-    // Create guide numbers for each column
-    if (rowIndex < 0) {
-      let guideNumbers = []
-      let counter = 0
-      for (let i = 0; i < puzzleSolution[0].length; i++) {
-        if (puzzleSolution[i][columnIndex] === 1) {
-          counter += 1
-        }
-        else if (puzzleSolution[i][columnIndex] === 0) {
-          if (counter > 0) {
-            guideNumbers.push(
-              <React.Fragment key={`${columnIndex} ${i}`}>
-                {counter} <br></br>
-              </React.Fragment>
-            )
-            counter = 0
-          }
-        }
-      }
-      if (counter > 0) {
-        guideNumbers.push(
-          <React.Fragment key={`${columnIndex}`}>
-            {counter}
-          </React.Fragment>
-        )
-      }
-      return (
-        <td className="text-center" key={columnIndex}>{R.equals(guideNumbers, []) ? 0 : guideNumbers}</td>
-      )
-    }
-
-    // Create guide numbers for each row
-    if (columnIndex < 0) {
-      let guideNumbers = []
-      let counter = 0
-      for (let i = 0; i < puzzleSolution[0].length; i++) {
-        if (puzzleSolution[rowIndex][i] === 1) {
-          counter += 1
-        }
-        else if (puzzleSolution[rowIndex][i] === 0) {
-          if (counter > 0) {
-            guideNumbers.push(
-              <React.Fragment key={`${rowIndex} ${i}`}>
-                {counter} &nbsp;
-              </React.Fragment>
-            )
-            counter = 0
-          }
-        }
-      }
-      if (counter > 0) {
-        guideNumbers.push(
-          <React.Fragment key={`${rowIndex}`}>
-            {counter}
-          </React.Fragment>
-        )
-      }
-      return (
-        <td class="text-center" key={rowIndex}>{R.equals(guideNumbers, []) ? 0 : guideNumbers}</td>
-      )
-    }
-  }
-
-  const Tile = ({ rowIndex, cellIndex, handlePuzzleChange }) => {
-    const [tileState, setTileState] = useState(0)
-
-    const handleClick = (e, num, cellIndex, rowIndex) => {
-      e.preventDefault()
-      if (e.type === "click") {
-        setTileState(num)
-        handlePuzzleChange(num, cellIndex, rowIndex)
-      }
-      else {
-        setTileState(num)
-        handlePuzzleChange(num, cellIndex, rowIndex)
-      }
-    }
-    
-    if (tileState === 0) {
-      return (
-        <td onContextMenu={(e) => handleClick(e, 2, cellIndex, rowIndex)} className={`cell ${BorderClasses(rowIndex, cellIndex)}`} tilestate={tileState} y-index={cellIndex} x-index={rowIndex} onClick={(e) => handleClick(e, 1, cellIndex, rowIndex)}></td>
-      )
-    }
-    else if (tileState === 1) {
-      return (
-        <td onContextMenu={(e) => handleClick(e, 0, cellIndex, rowIndex)} className={`cell ${BorderClasses(rowIndex, cellIndex)}`} tilestate={tileState} y-index={cellIndex} x-index={rowIndex} onClick={(e) => handleClick(e, 0, cellIndex, rowIndex)}>⬛</td>
-      )
-    }
-    else if (tileState === 2) {
-      return (
-        <td onContextMenu={(e) => handleClick(e, 0, cellIndex, rowIndex)} className={`cell ${BorderClasses(rowIndex, cellIndex)}`} tilestate={tileState} y-index={cellIndex} x-index={rowIndex} onClick={(e) => handleClick(e, 2, cellIndex, rowIndex)}>🚩</td>
-      )
-    }
-  }
-
   const handlePuzzleChange = (num, xIndex, yIndex) => {
     let currentPuzzle = puzzleProgress
     let currentPuzzleCompletion = completionProgress
@@ -178,24 +83,6 @@ const index = () => {
       console.log("Puzzle finished!")
     }
   }
-
-  const BorderClasses = (rowIndex, cellIndex) => {
-    let classes = "";
-
-    if (cellIndex === 0)
-      classes += "thick-border-left ";
-
-    if (rowIndex === 0)
-      classes += "thick-border-top ";
-
-    if ((rowIndex + 1) % 5 === 0)
-      classes += "thick-border-bottom ";
-
-    if ((cellIndex + 1) % 5 === 0)
-      classes += "thick-border-right ";
-
-    return classes;
-  };
 
   const Board = ({ puzzle, puzzleSolution }) => {
     if (puzzle[0] !== undefined) {
