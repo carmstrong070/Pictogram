@@ -35,8 +35,8 @@ Example:
 
 ## MVP User Stories
 - As a user I want to be able to play picross
-  - I want to **_break_** tiles
   - I want to **_fill_** empty tiles
+  - I want to **_empty_** filled or flagged tiles
   - I want to **_flag_** tiles that I believe should not be filled
   - I want visual feedback to see what tile my cursor is hovering on, regardless of whether the tile is filled or empty
   - I want to click and drag across a range of tiles in a given column or row to fill or empty

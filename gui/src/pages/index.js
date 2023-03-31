@@ -61,12 +61,7 @@ const index = () => {
     let currentPuzzle = puzzleProgress
     let currentPuzzleCompletion = completionProgress
 
-    if (num === 0) {
-      currentPuzzle[yIndex][xIndex] = num
-      currentPuzzleCompletion[yIndex][xIndex] = num
-    }
-
-    else if (num === 1) {
+    if (num === 0 || num === 1) {
       currentPuzzle[yIndex][xIndex] = num
       currentPuzzleCompletion[yIndex][xIndex] = num
     }
@@ -85,53 +80,49 @@ const index = () => {
   }
 
   const Board = ({ puzzle, puzzleSolution }) => {
-    if (puzzle[0] !== undefined) {
-      return (
-        <table>
-          <thead>
-            <tr>
-              <th></th>
-              {/* Create a header row for each column that will contain the guide numbers*/}
-              {puzzle[0].map((_, columnIndex) => {
-                return (
-                  <React.Fragment key={columnIndex}>
-                    <GuideNumbers columnIndex={columnIndex} rowIndex={-1} puzzleSolution={puzzleSolution} />
-                  </React.Fragment>
-                )
-              })}
-            </tr>
-          </thead>
-          <tbody>
-            {/* Create a table row for each array in the solution array */}
-            {puzzle.map((row, rowIndex) => {
+    return (
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            {/* Create a header row for each column that will contain the guide numbers*/}
+            {puzzle[0].map((_, columnIndex) => {
               return (
-                <tr row={rowIndex + 1} key={rowIndex}>
-                  {row.map((_, cellIndex) => {
-                    if (cellIndex == 0) {
-                      return (
-                        <React.Fragment key={rowIndex}>
-                          <GuideNumbers columnIndex={-1} rowIndex={rowIndex} puzzleSolution={puzzleSolution} />
-                          <Tile key={`${rowIndex} ${cellIndex}`} rowIndex={rowIndex} cellIndex={cellIndex} handlePuzzleChange={handlePuzzleChange} />
-                        </React.Fragment>
-                      )
-                    }
-
-                    else return (
-                      <Tile key={`${rowIndex} ${cellIndex}`} rowIndex={rowIndex} cellIndex={cellIndex} handlePuzzleChange={handlePuzzleChange} />
-                    )
-                  })}
-                </tr>
+                <React.Fragment key={columnIndex}>
+                  <GuideNumbers columnIndex={columnIndex} rowIndex={-1} puzzleSolution={puzzleSolution} />
+                </React.Fragment>
               )
             })}
-          </tbody>
-        </table>
-      );
-    } else {
-      return null;
-    }
+          </tr>
+        </thead>
+        <tbody>
+          {/* Create a table row for each array in the solution array */}
+          {puzzle.map((row, rowIndex) => {
+            return (
+              <tr row={rowIndex + 1} key={rowIndex}>
+                {row.map((_, cellIndex) => {
+                  if (cellIndex == 0) {
+                    return (
+                      <React.Fragment key={rowIndex}>
+                        <GuideNumbers columnIndex={-1} rowIndex={rowIndex} puzzleSolution={puzzleSolution} />
+                        <Tile key={`${rowIndex} ${cellIndex}`} rowIndex={rowIndex} cellIndex={cellIndex} handlePuzzleChange={handlePuzzleChange} />
+                      </React.Fragment>
+                    )
+                  }
+
+                  else return (
+                    <Tile key={`${rowIndex} ${cellIndex}`} rowIndex={rowIndex} cellIndex={cellIndex} handlePuzzleChange={handlePuzzleChange} />
+                  )
+                })}
+              </tr>
+            )
+          })}
+        </tbody>
+      </table>
+    );
   };
 
-  if (puzzle !== undefined && puzzleProgress) {
+  if (puzzle !== undefined && puzzleProgress !== []) {
     return (
       <>
         <Board puzzle={puzzleProgress} puzzleSolution={puzzle.solution} />

@@ -2,6 +2,8 @@ import React, { useState } from "react"
 
 const Tile = ({ rowIndex, cellIndex, handlePuzzleChange }) => {
   const [tileState, setTileState] = useState(0)
+  const [mouseDownTile, setMouseDownTile] = useState()
+  const [mouseUpFlag, setMouseUpFlag] = useState(false)
 
   const handleClick = (e, num, cellIndex, rowIndex) => {
     e.preventDefault()
@@ -27,19 +29,40 @@ const Tile = ({ rowIndex, cellIndex, handlePuzzleChange }) => {
     return classes;
   };
 
+  const handleMouseDown = (e) => {
+    e.preventDefault()
+    setMouseDownTile({
+      x: Number(e.target.getAttribute("x-index")),
+      y: Number(e.target.getAttribute("y-index"))
+    })
+  }
+
+  const handleMouseUp = (e, y, x) => {
+    if (mouseDownTile !== undefined) {
+      console.log(mouseDownTile)
+      // determine if the tile that triggered the mouse up is on the same row or column
+      if (y === mouseDownTile.y) {
+        console.log("same column")
+      }
+      if (x === mouseDownTile.x) {
+        console.log("same row")
+      }
+    }
+  }
+
   if (tileState === 0) {
     return (
-      <td onContextMenu={(e) => handleClick(e, 2, cellIndex, rowIndex)} className={`cell ${BorderClasses(rowIndex, cellIndex)}`} tilestate={tileState} y-index={cellIndex} x-index={rowIndex} onClick={(e) => handleClick(e, 1, cellIndex, rowIndex)}></td>
+      <td onMouseDown={e => handleMouseDown(e)} onMouseUp={e => handleMouseUp(e, rowIndex, cellIndex)} onContextMenu={(e) => handleClick(e, 2, cellIndex, rowIndex)} className={`cell ${BorderClasses(rowIndex, cellIndex)}`} tilestate={tileState} x-index={cellIndex} y-index={rowIndex} onClick={(e) => handleClick(e, 1, cellIndex, rowIndex)}></td>
     )
   }
   else if (tileState === 1) {
     return (
-      <td onContextMenu={(e) => handleClick(e, 0, cellIndex, rowIndex)} className={`cell ${BorderClasses(rowIndex, cellIndex)}`} tilestate={tileState} y-index={cellIndex} x-index={rowIndex} onClick={(e) => handleClick(e, 0, cellIndex, rowIndex)}>⬛</td>
+      <td onContextMenu={(e) => handleClick(e, 0, rowIndex, cellIndex)} className={`cell ${BorderClasses(cellIndex, rowIndex)}`} tilestate={tileState} x-index={cellIndex} y-index={rowIndex} onClick={(e) => handleClick(e, 0, rowIndex, cellIndex)}>⬛</td>
     )
   }
   else if (tileState === 2) {
     return (
-      <td onContextMenu={(e) => handleClick(e, 0, cellIndex, rowIndex)} className={`cell ${BorderClasses(rowIndex, cellIndex)}`} tilestate={tileState} y-index={cellIndex} x-index={rowIndex} onClick={(e) => handleClick(e, 2, cellIndex, rowIndex)}>🚩</td>
+      <td onContextMenu={(e) => handleClick(e, 0, rowIndex, cellIndex)} className={`cell ${BorderClasses(cellIndex, rowIndex)}`} tilestate={tileState} x-index={cellIndex} y-index={rowIndex} onClick={(e) => handleClick(e, 2, rowIndex, cellIndex)}>🚩</td>
     )
   }
 }
