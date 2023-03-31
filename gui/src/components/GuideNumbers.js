@@ -1,7 +1,15 @@
 import React from "react"
 import * as R from 'ramda'
 
+
 const GuideNumbers = ({ columnIndex, rowIndex, puzzleSolution }) => {
+
+  const ToggleStrikethrough = (e) => {
+    if(e.target.classList.contains("strikethrough"))
+      e.target.classList.remove("strikethrough");
+    else
+      e.target.classList.add("strikethrough");
+  }
 
   // Create guide numbers for each column
   if (rowIndex < 0) {
@@ -14,9 +22,9 @@ const GuideNumbers = ({ columnIndex, rowIndex, puzzleSolution }) => {
       else if (puzzleSolution[i][columnIndex] === 0) {
         if (counter > 0) {
           guideNumbers.push(
-            <React.Fragment key={`${columnIndex} ${i}`}>
-              {counter} <br></br>
-            </React.Fragment>
+            <span className="guide-number" onClick={(e) => ToggleStrikethrough(e)} key={`${columnIndex} ${i}`}>
+              {counter} <br/>
+            </span>
           )
           counter = 0
         }
@@ -24,13 +32,13 @@ const GuideNumbers = ({ columnIndex, rowIndex, puzzleSolution }) => {
     }
     if (counter > 0) {
       guideNumbers.push(
-        <React.Fragment key={`${columnIndex}`}>
+        <span className="guide-number" onClick={(e) => ToggleStrikethrough(e)} key={`${columnIndex}`}>
           {counter}
-        </React.Fragment>
+        </span>
       )
     }
     return (
-      <td className="text-center" key={columnIndex}>{R.equals(guideNumbers, []) ? 0 : guideNumbers}</td>
+      <td className="vertical-guide-numbers" key={columnIndex}>{R.equals(guideNumbers, []) ? 0 : guideNumbers}</td>
     )
   }
 
@@ -45,9 +53,9 @@ const GuideNumbers = ({ columnIndex, rowIndex, puzzleSolution }) => {
       else if (puzzleSolution[rowIndex][i] === 0) {
         if (counter > 0) {
           guideNumbers.push(
-            <React.Fragment key={`${rowIndex} ${i}`}>
-              {counter} &nbsp;
-            </React.Fragment>
+            <span className="guide-number" onClick={(e) => ToggleStrikethrough(e)} key={`${rowIndex} ${i}`}>
+              {counter}
+            </span>
           )
           counter = 0
         }
@@ -55,13 +63,13 @@ const GuideNumbers = ({ columnIndex, rowIndex, puzzleSolution }) => {
     }
     if (counter > 0) {
       guideNumbers.push(
-        <React.Fragment key={`${rowIndex}`}>
+        <span className="guide-number" onClick={(e) => ToggleStrikethrough(e)} key={`${rowIndex}`}>
           {counter}
-        </React.Fragment>
+        </span>
       )
     }
     return (
-      <td className="text-center" key={rowIndex}>{R.equals(guideNumbers, []) ? 0 : guideNumbers}</td>
+      <td className="horizontal-guide-numbers" key={rowIndex}>{R.equals(guideNumbers, []) ? 0 : guideNumbers}</td>
     )
   }
 }
