@@ -79,7 +79,7 @@ const index = () => {
       if (counter > 0) {
         guideNumbers.push(
           <React.Fragment key={`${columnIndex}`}>
-            {counter} <br></br>
+            {counter}
           </React.Fragment>
         )
       }
@@ -117,7 +117,7 @@ const index = () => {
       if (counter > 0) {
         guideNumbers.push(
           <React.Fragment key={`${rowIndex}`}>
-            {counter} &nbsp;
+            {counter}
           </React.Fragment>
         )
       }
