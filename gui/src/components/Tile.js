@@ -57,12 +57,12 @@ const Tile = ({ rowIndex, cellIndex, handlePuzzleChange }) => {
   }
   else if (tileState === 1) {
     return (
-      <td onContextMenu={(e) => handleClick(e, 0, rowIndex, cellIndex)} className={`cell ${BorderClasses(cellIndex, rowIndex)}`} tilestate={tileState} x-index={cellIndex} y-index={rowIndex} onClick={(e) => handleClick(e, 0, rowIndex, cellIndex)}>⬛</td>
+      <td onContextMenu={(e) => handleClick(e, 0, rowIndex, cellIndex)} className={`cell ${BorderClasses(rowIndex, cellIndex)}`} tilestate={tileState} x-index={cellIndex} y-index={rowIndex} onClick={(e) => handleClick(e, 0, rowIndex, cellIndex)}>⬛</td>
     )
   }
   else if (tileState === 2) {
     return (
-      <td onContextMenu={(e) => handleClick(e, 0, rowIndex, cellIndex)} className={`cell ${BorderClasses(cellIndex, rowIndex)}`} tilestate={tileState} x-index={cellIndex} y-index={rowIndex} onClick={(e) => handleClick(e, 2, rowIndex, cellIndex)}>🚩</td>
+      <td onContextMenu={(e) => handleClick(e, 0, rowIndex, cellIndex)} className={`cell ${BorderClasses(rowIndex, cellIndex)}`} tilestate={tileState} x-index={cellIndex} y-index={rowIndex} onClick={(e) => handleClick(e, 2, rowIndex, cellIndex)}>🚩</td>
     )
   }
 }
