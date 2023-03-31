@@ -146,45 +146,22 @@ const index = () => {
         handlePuzzleChange(num, cellIndex, rowIndex)
       }
     }
-
-    // Render left-most tiles to add styling
-    if (cellIndex == 0) {
-      if (tileState === 0) {
-        return (
-          <td onContextMenu={(e) => handleClick(e, 2, cellIndex, rowIndex)} className={`cell thick-border-left ${BorderClasses(rowIndex, cellIndex)}`} tilestate={tileState} y-index={cellIndex} x-index={rowIndex} onClick={(e) => handleClick(e, 1, cellIndex, rowIndex)}></td>
-        )
-      }
-      else if (tileState === 1) {
-        return (
-          <td onContextMenu={(e) => handleClick(e, 0, cellIndex, rowIndex)} className={`cell thick-border-left ${BorderClasses(rowIndex, cellIndex)}`} tilestate={tileState} y-index={cellIndex} x-index={rowIndex} onClick={(e) => handleClick(e, 0, cellIndex, rowIndex)}>⬛</td>
-        )
-      }
-      else if (tileState === 2) {
-        return (
-          <td onContextMenu={(e) => handleClick(e, 0, cellIndex, rowIndex)} className={`cell thick-border-left ${BorderClasses(rowIndex, cellIndex)}`} tilestate={tileState} y-index={cellIndex} x-index={rowIndex} onClick={(e) => handleClick(e, 2, cellIndex, rowIndex)}>🚩</td>
-        )
-      }
+    
+    if (tileState === 0) {
+      return (
+        <td onContextMenu={(e) => handleClick(e, 2, cellIndex, rowIndex)} className={`cell ${BorderClasses(rowIndex, cellIndex)}`} tilestate={tileState} y-index={cellIndex} x-index={rowIndex} onClick={(e) => handleClick(e, 1, cellIndex, rowIndex)}></td>
+      )
     }
-
-    // Render the remaining tiles
-    else {
-      if (tileState === 0) {
-        return (
-          <td onContextMenu={(e) => handleClick(e, 2, cellIndex, rowIndex)} className={`cell ${BorderClasses(rowIndex, cellIndex)}`} tilestate={tileState} y-index={cellIndex} x-index={rowIndex} onClick={(e) => handleClick(e, 1, cellIndex, rowIndex)}></td>
-        )
-      }
-      else if (tileState === 1) {
-        return (
-          <td onContextMenu={(e) => handleClick(e, 0, cellIndex, rowIndex)} className={`cell ${BorderClasses(rowIndex, cellIndex)}`} tilestate={tileState} y-index={cellIndex} x-index={rowIndex} onClick={(e) => handleClick(e, 0, cellIndex, rowIndex)}>⬛</td>
-        )
-      }
-      else if (tileState === 2) {
-        return (
-          <td onContextMenu={(e) => handleClick(e, 0, cellIndex, rowIndex)} className={`cell ${BorderClasses(rowIndex, cellIndex)}`} tilestate={tileState} y-index={cellIndex} x-index={rowIndex} onClick={(e) => handleClick(e, 2, cellIndex, rowIndex)}>🚩</td>
-        )
-      }
+    else if (tileState === 1) {
+      return (
+        <td onContextMenu={(e) => handleClick(e, 0, cellIndex, rowIndex)} className={`cell ${BorderClasses(rowIndex, cellIndex)}`} tilestate={tileState} y-index={cellIndex} x-index={rowIndex} onClick={(e) => handleClick(e, 0, cellIndex, rowIndex)}>⬛</td>
+      )
     }
-
+    else if (tileState === 2) {
+      return (
+        <td onContextMenu={(e) => handleClick(e, 0, cellIndex, rowIndex)} className={`cell ${BorderClasses(rowIndex, cellIndex)}`} tilestate={tileState} y-index={cellIndex} x-index={rowIndex} onClick={(e) => handleClick(e, 2, cellIndex, rowIndex)}>🚩</td>
+      )
+    }
   }
 
   const handlePuzzleChange = (num, xIndex, yIndex) => {
@@ -217,8 +194,11 @@ const index = () => {
   const BorderClasses = (rowIndex, cellIndex) => {
     let classes = "";
 
-    if (rowIndex === 0)
-      classes += "thick-border-top ";
+    if (cellIndex === 0)
+      classes += "thick-border-left ";
+
+      if (rowIndex === 0)
+        classes += "thick-border-top ";
 
     if ((rowIndex + 1) % 5 === 0)
       classes += "thick-border-bottom ";
