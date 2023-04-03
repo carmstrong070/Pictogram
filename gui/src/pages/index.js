@@ -6,7 +6,6 @@ import GuideNumbers from "@/components/GuideNumbers"
 const index = () => {
   const [puzzle, setPuzzle] = useState()
   const [puzzleProgress, setPuzzleProgress] = useState([])
-  const [completionProgress, setCompletionProgress] = useState([])
 
   // Initialize puzzle
   useEffect(() => {
@@ -41,40 +40,37 @@ const index = () => {
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
       ]
     )
-    setCompletionProgress(
-      [
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-      ]
-    )
   }, [])
 
-  const handlePuzzleChange = (num, xIndex, yIndex) => {
-    let currentPuzzle = puzzleProgress
-    let currentPuzzleCompletion = completionProgress
+  const handlePuzzleChange = (e, value, columnIndex, rowIndex) => {
+    e.preventDefault()
+    let currentPuzzle = [...puzzleProgress]
+    let currentRow = [...currentPuzzle[rowIndex]]
 
-    if (num === 0 || num === 1) {
-      currentPuzzle[yIndex][xIndex] = num
-      currentPuzzleCompletion[yIndex][xIndex] = num
+    // Left click logic
+    if (e.button === 0) {
+      if (value === 0) {
+        currentRow[columnIndex] = 1
+      }
+      else if (value === 1) {
+        currentRow[columnIndex] = 0
+      }
     }
 
-    else if (num === 2) {
-      currentPuzzle[yIndex][xIndex] = num
-      currentPuzzleCompletion[yIndex][xIndex] = 0
+    // Right click logic
+    else if (e.button === 2) {
+      if (value === 0) {
+        currentRow[columnIndex] = 2
+      }
+      else if (value === 2 || value === 1) {
+        currentRow[columnIndex] = 0
+      }
     }
 
+    currentPuzzle[rowIndex] = currentRow
     setPuzzleProgress(currentPuzzle)
-    setCompletionProgress(currentPuzzleCompletion)
 
-    if (R.equals(completionProgress, puzzle.solution)) {
+    if (R.equals(puzzleProgress, puzzle.solution)) {
       console.log("Puzzle finished!")
     }
   }
@@ -100,18 +96,14 @@ const index = () => {
           {puzzle.map((row, rowIndex) => {
             return (
               <tr row={rowIndex + 1} key={rowIndex}>
-                {row.map((_, cellIndex) => {
-                  if (cellIndex == 0) {
-                    return (
-                      <React.Fragment key={rowIndex}>
-                        <GuideNumbers columnIndex={-1} rowIndex={rowIndex} puzzleSolution={puzzleSolution} />
-                        <Tile key={`${rowIndex} ${cellIndex}`} rowIndex={rowIndex} cellIndex={cellIndex} handlePuzzleChange={handlePuzzleChange} />
-                      </React.Fragment>
-                    )
-                  }
-
-                  else return (
-                    <Tile key={`${rowIndex} ${cellIndex}`} rowIndex={rowIndex} cellIndex={cellIndex} handlePuzzleChange={handlePuzzleChange} />
+                {row.map((_, columnIndex) => {
+                  return (
+                    <React.Fragment key={`fragment ${rowIndex} ${columnIndex}`}>
+                      {columnIndex ? <></> :
+                        <GuideNumbers key={`guide ${rowIndex} ${columnIndex}`} columnIndex={-1} rowIndex={rowIndex} puzzleSolution={puzzleSolution} />
+                      }
+                      <Tile key={`tile ${rowIndex} ${columnIndex}`} rowIndex={rowIndex} columnIndex={columnIndex} handlePuzzleChange={handlePuzzleChange} value={puzzleProgress[rowIndex][columnIndex]} />
+                    </React.Fragment>
                   )
                 })}
               </tr>
