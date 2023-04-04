@@ -1,4 +1,4 @@
-const Tile = ({ rowIndex, columnIndex, handlePuzzleChange, value }) => {
+const Tile = ({ rowIndex, columnIndex, value, handleMouseDown, handleMouseUp }) => {
 
   const BorderClasses = (rowIndex, columnIndex) => {
     let classes = "";
@@ -21,7 +21,7 @@ const Tile = ({ rowIndex, columnIndex, handlePuzzleChange, value }) => {
   let tileStates = ["", "⬛", "🚩"]
 
   return (
-    <td onContextMenu={(e) => handlePuzzleChange(e, value, columnIndex, rowIndex)} className={`cell ${BorderClasses(rowIndex, columnIndex)}`} x-index={columnIndex} y-index={rowIndex} onClick={(e) => handlePuzzleChange(e, value, columnIndex, rowIndex)}>{tileStates[value]}</td>
+    <td onMouseUp={(e) => handleMouseUp(e, value, columnIndex, rowIndex)} onMouseDown={(e) => handleMouseDown(e, value, columnIndex, rowIndex)} className={`cell ${BorderClasses(rowIndex, columnIndex)}`} x-index={columnIndex} y-index={rowIndex} onContextMenu={e => e.preventDefault()} >{tileStates[value]}</td>
   )
 }
 

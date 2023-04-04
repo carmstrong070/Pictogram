@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react"
 import Tile from '@/components/Tile'
 import GuideNumbers from "@/components/GuideNumbers"
-import puzzleList from "@/content/puzzles"
 import * as puzzleHelpers from "../helpers/puzzleHelpers"
 import PuzzleSelection from "@/components/PuzzleSelection"
 
 const index = () => {
   const [puzzle, setPuzzle] = useState()
   const [puzzleProgress, setPuzzleProgress] = useState([])
+  const [mouseDownPosition, setMouseDownPosition] = useState()
 
   useEffect(() => {
     if (puzzle && puzzleProgress) {
@@ -17,33 +17,99 @@ const index = () => {
     }
   }, [puzzleProgress])
 
-  const handlePuzzleChange = (e, value, columnIndex, rowIndex) => {
+  const handleMouseDown = (e, value, columnIndex, rowIndex) => {
     e.preventDefault()
-    let currentPuzzle = [...puzzleProgress]
-    let currentRow = [...currentPuzzle[rowIndex]]
+    setMouseDownPosition({
+      column: columnIndex,
+      row: rowIndex,
+      initialValue: value
+    })
+  }
+
+  const handleClick = (button, startValue, endValue, currentPuzzle, columnIndex, rowIndex) => {
+    let currentCell = currentPuzzle[rowIndex][columnIndex]
 
     // Left click logic
-    if (e.button === 0) {
-      if (value === 0) {
-        currentRow[columnIndex] = 1
+    if (button === 0) {
+      if (currentCell === 0) {
+        currentPuzzle[rowIndex][columnIndex] = 1
       }
-      else if (value === 1) {
-        currentRow[columnIndex] = 0
+      else if (startValue === 0 && endValue === 1 && currentCell !== 2) {
+        currentPuzzle[rowIndex][columnIndex] = 1
+      }
+      else if (endValue === 1 && currentCell !== 2) {
+        currentPuzzle[rowIndex][columnIndex] = 0
       }
     }
 
     // Right click logic
-    else if (e.button === 2) {
-      if (value === 0) {
-        currentRow[columnIndex] = 2
+    else if (button === 2) {
+      if (startValue === 0 && endValue === 0 && currentCell !== 1) {
+        currentPuzzle[rowIndex][columnIndex] = 2
+        console.log("1st case")
       }
-      else if (value === 2 || value === 1) {
-        currentRow[columnIndex] = 0
+      else if (startValue === 0 && endValue === 0 && currentCell === 1) {
+        currentPuzzle[rowIndex][columnIndex] = 1
+        console.log("2nd case")
+      }
+      else if (startValue === 0 && endValue === 2 && currentCell !== 1 || startValue === 0 && endValue === 2 && currentCell !== 1) {
+        currentPuzzle[rowIndex][columnIndex] = 2
+        console.log("3rd case")
+      }
+      else if (currentCell === 2 && startValue !== 1 && endValue !== 1 || currentCell === 1) {
+        currentPuzzle[rowIndex][columnIndex] = 0
+        console.log("4th case")
       }
     }
+  }
 
-    currentPuzzle[rowIndex] = currentRow
-    setPuzzleProgress(currentPuzzle)
+  const handleMouseUp = (e, value, columnIndex, rowIndex) => {
+    e.preventDefault()
+    if (mouseDownPosition) {
+      let currentPuzzle = [...puzzleProgress]
+      // Clicking on the same cell
+      if (mouseDownPosition.column === columnIndex && mouseDownPosition.row === rowIndex) {
+        handleClick(e.button, mouseDownPosition.initialValue, value, currentPuzzle, columnIndex, rowIndex)
+        setPuzzleProgress(currentPuzzle)
+      }
+
+      // Dragging over a cell in the same column
+      else if (mouseDownPosition.column === columnIndex) {
+        // Dragging Up
+        if (rowIndex < mouseDownPosition.row) {
+          for (let i = rowIndex; i < mouseDownPosition.row + 1; i++) {
+            handleClick(e.button, mouseDownPosition.initialValue, value, currentPuzzle, columnIndex, i)
+          }
+          setPuzzleProgress(currentPuzzle)
+        }
+        // Dragging Down
+        else {
+          for (let i = mouseDownPosition.row; i < rowIndex + 1; i++) {
+            handleClick(e.button, mouseDownPosition.initialValue, value, currentPuzzle, columnIndex, i)
+          }
+          setPuzzleProgress(currentPuzzle)
+        }
+      }
+
+      // Dragging over a cell in the same row
+      else if (mouseDownPosition.row === rowIndex) {
+        // Dragging to the left
+        if (columnIndex < mouseDownPosition.column) {
+          for (let i = columnIndex; i < mouseDownPosition.column + 1; i++) {
+            handleClick(e.button, mouseDownPosition.initialValue, value, currentPuzzle, i, rowIndex)
+          }
+          setPuzzleProgress(currentPuzzle)
+        }
+        // Dragging to the right
+        else {
+          for (let i = mouseDownPosition.column; i < columnIndex + 1; i++) {
+            handleClick(e.button, mouseDownPosition.initialValue, value, currentPuzzle, i, rowIndex)
+          }
+          setPuzzleProgress(currentPuzzle)
+        }
+      }
+    }
+    setMouseDownPosition()
   }
 
   const Board = ({ puzzleProgress, puzzleSolution }) => {
@@ -73,7 +139,7 @@ const index = () => {
                       {columnIndex ? <></> :
                         <GuideNumbers key={`guide ${rowIndex} ${columnIndex}`} columnIndex={-1} rowIndex={rowIndex} puzzleSolution={puzzleSolution} />
                       }
-                      <Tile key={`tile ${rowIndex} ${columnIndex}`} rowIndex={rowIndex} columnIndex={columnIndex} handlePuzzleChange={handlePuzzleChange} value={puzzleProgress[rowIndex][columnIndex]} />
+                      <Tile key={`tile ${rowIndex} ${columnIndex}`} rowIndex={rowIndex} columnIndex={columnIndex} handleMouseDown={handleMouseDown} handleMouseUp={handleMouseUp} value={puzzleProgress[rowIndex][columnIndex]} />
                     </React.Fragment>
                   )
                 })}
