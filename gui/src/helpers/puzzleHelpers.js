@@ -1,18 +1,8 @@
-export const resetPuzzleProgress = () => {
-  return (
-    [
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    ]
-  );
+export const resetPuzzleProgress = (puzzleSolution) => {
+  let newPuzzle = puzzleSolution.map((row) => {
+    return row.map(() => 0)
+  })
+  return newPuzzle
 }
 
 export const checkFinished = (puzzleSolution, puzzleProgress) => {

@@ -14,7 +14,7 @@ const PuzzleSelection = ({ setPuzzleProgress, setPuzzle }) => {
     let newPuzzle = puzzleList.find((puzz) => {
       return puzz.id == e.currentTarget.getAttribute("id");
     })
-    setPuzzleProgress(resetPuzzleProgress);
+    setPuzzleProgress(resetPuzzleProgress(newPuzzle.solution));
     setPuzzle(newPuzzle);
   }
 

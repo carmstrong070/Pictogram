@@ -11,6 +11,7 @@ const index = () => {
     if (puzzle && puzzleProgress) {
       if (puzzleHelpers.checkFinished(puzzle.solution, puzzleProgress)) {
         console.log("Puzzle Finished! 🎉")
+        alert("Puzzle Finished! 🎉")
       }
     }
   }, [puzzleProgress])

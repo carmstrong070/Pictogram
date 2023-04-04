@@ -1,5 +1,3 @@
-import * as R from 'ramda'
-
 const GuideNumbers = ({ columnIndex, rowIndex, puzzleSolution }) => {
 
   const ToggleStrikethrough = (e) => {
@@ -36,8 +34,15 @@ const GuideNumbers = ({ columnIndex, rowIndex, puzzleSolution }) => {
         </span>
       )
     }
+    if (guideNumbers.length === 0) {
+      guideNumbers = [
+        <span className="guide-number" onContextMenu={e => e.preventDefault()} onClick={(e) => ToggleStrikethrough(e)} key={`${columnIndex}`}>
+          {counter}
+        </span>
+      ]
+    }
     return (
-      <td className="vertical-guide-numbers" key={columnIndex}>{R.equals(guideNumbers, []) ? 0 : guideNumbers}</td>
+      <td className="vertical-guide-numbers" key={columnIndex}>{guideNumbers.length === 0 ? 0 : guideNumbers}</td>
     )
   }
 
@@ -67,8 +72,15 @@ const GuideNumbers = ({ columnIndex, rowIndex, puzzleSolution }) => {
         </span>
       )
     }
+    if (guideNumbers.length === 0) {
+      guideNumbers = [
+        <span className="guide-number" onContextMenu={e => e.preventDefault()} onClick={(e) => ToggleStrikethrough(e)} key={`${columnIndex}`}>
+          {counter}
+        </span>
+      ]
+    }
     return (
-      <td className="horizontal-guide-numbers" key={rowIndex}>{R.equals(guideNumbers, []) ? 0 : guideNumbers}</td>
+      <td className="horizontal-guide-numbers" key={rowIndex}>{guideNumbers.length === 0 ? 0 : guideNumbers}</td>
     )
   }
 }
