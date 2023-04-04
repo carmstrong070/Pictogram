@@ -64,7 +64,7 @@ const index = () => {
   const HandlePuzzleSelection = (e) => {
     console.log(e);
     let newPuzzle = puzzleList.find((puzz) => {
-      return puzz.id == e.target.getAttribute("id");
+      return puzz.id == e.currentTarget.getAttribute("id");
     })
     resetPuzzleProgress([]);
     setPuzzle(newPuzzle);
