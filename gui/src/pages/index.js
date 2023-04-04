@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import * as R from 'ramda'
 import Tile from '@/components/Tile'
 import GuideNumbers from "@/components/GuideNumbers"
+import puzzleList from "@/content/puzzles"
 
 const index = () => {
   const [puzzle, setPuzzle] = useState()
@@ -10,9 +11,10 @@ const index = () => {
   // Initialize puzzle
   useEffect(() => {
     setPuzzle({
-      "title": "Box",
-      "size": 10,
-      "solution": [
+      id: 1,
+      title: "Box",
+      size: 10,
+      solution: [
         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
         [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
         [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
@@ -24,7 +26,7 @@ const index = () => {
         [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
       ],
-      "hint": "It's just a box"
+      hint: "It's just a box."
     })
     setPuzzleProgress(
       [
@@ -75,14 +77,57 @@ const index = () => {
     }
   }
 
-  const Board = ({ puzzle, puzzleSolution }) => {
+  const PuzzleSelectTile = ({puzzle}) => {
+    return (<div onClick={e => HandlePuzzleSelection(e)} id={puzzle.id} className="puzzle-card">
+      <p>Title: {puzzle.title}</p>
+      <p>Size: {puzzle.size}x{puzzle.size}</p>
+    </div>);
+  }
+
+  const HandlePuzzleSelection =  (e) => {
+    console.log(e);
+    let newPuzzle = puzzleList.find((puzz) => {
+      return puzz.id == e.target.getAttribute("id");
+    })
+    resetPuzzleProgress([]);
+    setPuzzle(newPuzzle);
+  }
+
+  const resetPuzzleProgress = () => {
+    setPuzzleProgress(
+      [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      ]
+    );
+  }
+
+  const RenderPuzzleSelection = () => {
+    return(
+    <React.Fragment>
+      {puzzleList.map((puzzleItem) => {
+        return (<PuzzleSelectTile key={puzzleItem.id} puzzle={puzzleItem} />);
+      })}
+    </React.Fragment>
+    );
+  }
+
+  const Board = ({ puzzleProgress, puzzleSolution }) => {
     return (
       <table>
         <thead>
           <tr>
             <th></th>
             {/* Create a header row for each column that will contain the guide numbers*/}
-            {puzzle[0].map((_, columnIndex) => {
+            {puzzleProgress[0].map((_, columnIndex) => {
               return (
                 <React.Fragment key={columnIndex}>
                   <GuideNumbers columnIndex={columnIndex} rowIndex={-1} puzzleSolution={puzzleSolution} />
@@ -93,7 +138,7 @@ const index = () => {
         </thead>
         <tbody>
           {/* Create a table row for each array in the solution array */}
-          {puzzle.map((row, rowIndex) => {
+          {puzzleProgress.map((row, rowIndex) => {
             return (
               <tr row={rowIndex + 1} key={rowIndex}>
                 {row.map((_, columnIndex) => {
@@ -117,7 +162,9 @@ const index = () => {
   if (puzzle !== undefined && puzzleProgress !== []) {
     return (
       <>
-        <Board puzzle={puzzleProgress} puzzleSolution={puzzle.solution} />
+        <Board puzzleProgress={puzzleProgress} puzzleSolution={puzzle.solution} />
+        <br />
+        <RenderPuzzleSelection />
       </>
     )
   }

@@ -75,6 +75,17 @@ td.cell:hover {
   transform:rotate(-35deg);
 }
 
+.puzzle-card{
+  border: 1px solid black;
+  display: inline-block;
+  padding: 10px;
+  margin-right: 15px;
+}
+
+.puzzle-card:hover{
+  cursor: pointer;
+}
+
 
 /* :root {
   --max-width: 1100px;
