@@ -19,7 +19,7 @@ export const handleClick = (button, startValue, endValue, currentPuzzle, columnI
     else if (startValue === 1 && endValue !== 2 && currentCell === 1 || startValue === 2 && endValue === 0 && currentCell !== 1) {
       currentPuzzle[rowIndex][columnIndex] = 0
     }
-    else if (startValue === 2 && endValue === 2 && currentCell === 2 || startValue === 1 && endValue === 1 && currentCell === 1) {
+    else if (startValue === 2 && endValue === 2 && currentCell === 2 || startValue === 1 && endValue !== 0 && currentCell === 1) {
       currentPuzzle[rowIndex][columnIndex] = 0
     }
   }

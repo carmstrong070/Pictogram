@@ -29,7 +29,7 @@ Example:
     "hint": "It's just a box"
 }
 ```
-<br>
+
 <br>
 <br>
 
@@ -55,14 +55,16 @@ Example:
 - I want a modal that gives me instructions about how to play the game when I click a button
 - I want to see the title of the puzzle once I have completed it
 - I want a button that will provide a hint when I am stuck on the puzzle
+
 <br>
 <br>
 <br>
+
 # Stretch Goals
 ---
 ## Stretch Goal User Stories
-<br>
-<br>
+
+
 - Wiring up to a database
 
 - AI generated images
@@ -74,6 +76,8 @@ Example:
 - Image encoder (turning image into solution array)
 
 - Gamepad support (requires a cursor)
+
+<br>
 <br>
 <br>
 
@@ -95,7 +99,7 @@ Example:
 
 # Controls
 ---
-Tile state controls:
+## Tile state controls on click:
 ```
 Empty -> Filled : Left-click
 Empty -> Flagged: Right-click
@@ -104,3 +108,290 @@ Filled -> Flagged: Not possible
 Flagged -> Empty: Right-click
 Flagged -> Filled: Not possible
 ```
+
+<br />
+<br />
+
+## Tile state controls on drag:
+
+### Notation format:
+**mouseDownTileState to mouseUpTileStartingState**
+```
+[mouseDownTileState -> mouseDownTileEndState]
+=>(drag)
+[Empty -> newState]
+=>(drag)
+[Filled -> newState]
+=>(drag)
+[Flagged -> newState]
+=>(drag)
+[mouseUpTileStartingState -> mouseUpTileEndState]
+```
+
+<br />
+
+## Left Click
+<details>
+<summary> Empty Start </summary>
+<br />
+
+**EMPTY to EMPTY**
+```
+[Empty -> Filled]
+=>
+[Empty -> Filled]
+=>
+[Filled -> Filled]
+=>
+[Flagged -> Flagged]
+=>
+[Empty -> Filled]
+```
+**EMPTY to FILLED**
+```
+[Empty -> Filled]
+=>
+[Empty -> Filled]
+=>
+[Filled -> Filled]
+=>
+[Flagged -> Flagged]
+=>
+[Filled -> Filled]
+```
+**EMPTY to FLAGGED**
+```
+[Empty -> Filled]
+=>
+[Empty -> Filled]
+=>
+[Filled -> Filled]
+=>
+[Flagged -> Flagged]
+=>
+[Flagged -> Flagged]
+```
+</details>
+
+<br />
+
+<details>
+<summary> Filled Start </summary>
+<br />
+
+**FILLED to EMPTY**
+```
+[Filled -> Empty]
+=>
+[Empty -> Empty]
+=>
+[Filled -> Empty]
+=>
+[Flagged -> Flagged]
+=>
+[Empty -> Empty]
+```
+**FILLED to FILLED**
+```
+[Filled -> Empty]
+=>
+[Empty -> Empty]
+=>
+[Filled -> Empty]
+=>
+[Flagged -> Flagged]
+=>
+[Filled -> Empty]
+```
+**FILLED to FLAGGED**
+```
+[Filled -> Empty]
+=>
+[Empty -> Empty]
+=>
+[Filled -> Empty]
+=>
+[Flagged -> Flagged]
+=>
+[Flagged -> Flagged]
+```
+</details>
+
+<br />
+
+<details>
+<summary> Flagged Start </summary>
+<br />
+
+**FLAGGED to EMPTY**
+## Unsure
+```
+[Flagged -> Flagged]
+=>
+[Empty -> Filled]
+=>
+[Filled -> Filled]
+=>
+[Flagged -> Flagged]
+=>
+[Empty -> Filled]
+```
+**FLAGGED to FILLED**
+## Unsure
+```
+[Flagged -> Empty]
+=>
+[Empty -> Filled]
+=>
+[Filled -> Empty]
+=>
+[Flagged -> Flagged]
+=>
+[Filled -> Empty]
+```
+**FLAGGED to FLAGGED**
+## Unsure
+```
+[Flagged -> Flagged]
+=>
+[Empty -> Filled]
+=>
+[Filled -> Filled]
+=>
+[Flagged -> Flagged]
+=>
+[Flagged -> Flagged]
+```
+</details>
+
+## Right Click
+<details>
+<summary> Empty Start </summary>
+<br />
+
+**EMPTY to EMPTY**
+```
+[Empty -> Flagged]
+=>
+[Empty -> Flagged]
+=>
+[Filled -> Filled]
+=>
+[Flagged -> Flagged]
+=>
+[Empty -> Flagged]
+```
+**EMPTY to FILLED**
+```
+[Empty -> Flagged]
+=>
+[Empty -> Flagged]
+=>
+[Filled -> Filled]
+=>
+[Flagged -> Flagged]
+=>
+[Filled -> Filled]
+```
+**EMPTY to FLAGGED**
+```
+[Empty -> Flagged]
+=>
+[Empty -> Flagged]
+=>
+[Filled -> Filled]
+=>
+[Flagged -> Flagged]
+=>
+[Flagged -> Flagged]
+```
+</details>
+
+<br />
+
+<details>
+<summary> Filled Start </summary>
+<br />
+
+**FILLED to EMPTY**
+```
+[Filled -> Empty]
+=>
+[Empty -> Empty]
+=>
+[Filled -> Empty]
+=>
+[Flagged -> Flagged]
+=>
+[Empty -> Empty]
+```
+**FILLED to FILLED**
+```
+[Filled -> Empty]
+=>
+[Empty -> Empty]
+=>
+[Filled -> Empty]
+=>
+[Flagged -> Flagged]
+=>
+[Filled -> Empty]
+```
+**FILLED to FLAGGED**
+```
+[Filled -> Empty]
+=>
+[Empty -> Empty]
+=>
+[Filled -> Empty]
+=>
+[Flagged -> Flagged]
+=>
+[Flagged -> Flagged]
+```
+</details>
+
+<br />
+
+<details>
+<summary> Flagged Start </summary>
+<br />
+
+**FLAGGED to EMPTY**
+```
+[Flagged -> Empty]
+=>
+[Empty -> Empty]
+=>
+[Filled -> Filled]
+=>
+[Flagged -> Empty]
+=>
+[Empty -> Empty]
+```
+**FLAGGED to FILLED**
+## Unsure
+```
+[Flagged -> Flagged]
+=>
+[Empty -> Empty]
+=>
+[Filled -> Filled]
+=>
+[Flagged -> Flagged]
+=>
+[Filled -> Filled]
+```
+**FLAGGED to FLAGGED**
+```
+[Flagged -> Empty]
+=>
+[Empty -> Empty]
+=>
+[Filled -> Filled]
+=>
+[Flagged -> Empty]
+=>
+[Flagged -> Empty]
+```
+</details>
