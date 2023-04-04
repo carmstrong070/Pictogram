@@ -8,41 +8,18 @@ const index = () => {
   const [puzzle, setPuzzle] = useState()
   const [puzzleProgress, setPuzzleProgress] = useState([])
 
-  // Initialize puzzle
-  useEffect(() => {
-    setPuzzle({
-      id: 1,
-      title: "Box",
-      size: 10,
-      solution: [
-        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-      ],
-      hint: "It's just a box."
-    })
-    setPuzzleProgress(
-      [
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-      ]
-    )
-  }, [])
+  // const checkFinished = (puzzleSolution, puzzleProgress) => {
+  //   for (let i = 0; i < puzzleSolution[0].length; i++){
+  //     for (let j = 0; j < puzzleSolution[0].length; j++){
+  //       if (puzzleSolution[i][j]){
+
+  //       }
+  //       else (
+  //         puzzleSolution[i][j]
+  //       )
+  //     }
+  //   }
+  // }
 
   const handlePuzzleChange = (e, value, columnIndex, rowIndex) => {
     e.preventDefault()
@@ -77,14 +54,14 @@ const index = () => {
     }
   }
 
-  const PuzzleSelectTile = ({puzzle}) => {
+  const PuzzleSelectTile = ({ puzzle }) => {
     return (<div onClick={e => HandlePuzzleSelection(e)} id={puzzle.id} className="puzzle-card">
       <p>Title: {puzzle.title}</p>
       <p>Size: {puzzle.size}x{puzzle.size}</p>
     </div>);
   }
 
-  const HandlePuzzleSelection =  (e) => {
+  const HandlePuzzleSelection = (e) => {
     console.log(e);
     let newPuzzle = puzzleList.find((puzz) => {
       return puzz.id == e.target.getAttribute("id");
@@ -111,12 +88,12 @@ const index = () => {
   }
 
   const RenderPuzzleSelection = () => {
-    return(
-    <React.Fragment>
-      {puzzleList.map((puzzleItem) => {
-        return (<PuzzleSelectTile key={puzzleItem.id} puzzle={puzzleItem} />);
-      })}
-    </React.Fragment>
+    return (
+      <React.Fragment>
+        {puzzleList.map((puzzleItem) => {
+          return (<PuzzleSelectTile key={puzzleItem.id} puzzle={puzzleItem} />);
+        })}
+      </React.Fragment>
     );
   }
 
@@ -159,18 +136,13 @@ const index = () => {
     );
   };
 
-  if (puzzle !== undefined && puzzleProgress !== []) {
-    return (
-      <>
-        <Board puzzleProgress={puzzleProgress} puzzleSolution={puzzle.solution} />
-        <br />
-        <RenderPuzzleSelection />
-      </>
-    )
-  }
-  else {
-    return null
-  }
+  return (
+    <>
+      {puzzle && puzzleProgress ? <Board puzzleProgress={puzzleProgress} puzzleSolution={puzzle.solution} /> : <></>}
+      <br />
+      <RenderPuzzleSelection />
+    </>
+  )
 }
 
 export default index
