@@ -1,5 +1,3 @@
-import React, { useState, memo } from "react"
-
 const Tile = ({ rowIndex, columnIndex, handlePuzzleChange, value }) => {
 
   const BorderClasses = (rowIndex, columnIndex) => {

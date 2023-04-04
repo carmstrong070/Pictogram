@@ -1,25 +1,21 @@
 import React, { useState, useEffect } from "react"
-import * as R from 'ramda'
 import Tile from '@/components/Tile'
 import GuideNumbers from "@/components/GuideNumbers"
 import puzzleList from "@/content/puzzles"
+import * as puzzleHelpers from "../helpers/puzzleHelpers"
+import PuzzleSelection from "@/components/PuzzleSelection"
 
 const index = () => {
   const [puzzle, setPuzzle] = useState()
   const [puzzleProgress, setPuzzleProgress] = useState([])
 
-  // const checkFinished = (puzzleSolution, puzzleProgress) => {
-  //   for (let i = 0; i < puzzleSolution[0].length; i++){
-  //     for (let j = 0; j < puzzleSolution[0].length; j++){
-  //       if (puzzleSolution[i][j]){
-
-  //       }
-  //       else (
-  //         puzzleSolution[i][j]
-  //       )
-  //     }
-  //   }
-  // }
+  useEffect(() => {
+    if (puzzle && puzzleProgress) {
+      if (puzzleHelpers.checkFinished(puzzle.solution, puzzleProgress)) {
+        console.log("Puzzle Finished! 🎉")
+      }
+    }
+  }, [puzzleProgress])
 
   const handlePuzzleChange = (e, value, columnIndex, rowIndex) => {
     e.preventDefault()
@@ -48,53 +44,6 @@ const index = () => {
 
     currentPuzzle[rowIndex] = currentRow
     setPuzzleProgress(currentPuzzle)
-
-    if (R.equals(puzzleProgress, puzzle.solution)) {
-      console.log("Puzzle finished!")
-    }
-  }
-
-  const PuzzleSelectTile = ({ puzzle }) => {
-    return (<div onClick={e => HandlePuzzleSelection(e)} id={puzzle.id} className="puzzle-card">
-      <p>Title: {puzzle.title}</p>
-      <p>Size: {puzzle.size}x{puzzle.size}</p>
-    </div>);
-  }
-
-  const HandlePuzzleSelection = (e) => {
-    console.log(e);
-    let newPuzzle = puzzleList.find((puzz) => {
-      return puzz.id == e.currentTarget.getAttribute("id");
-    })
-    resetPuzzleProgress([]);
-    setPuzzle(newPuzzle);
-  }
-
-  const resetPuzzleProgress = () => {
-    setPuzzleProgress(
-      [
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-      ]
-    );
-  }
-
-  const RenderPuzzleSelection = () => {
-    return (
-      <React.Fragment>
-        {puzzleList.map((puzzleItem) => {
-          return (<PuzzleSelectTile key={puzzleItem.id} puzzle={puzzleItem} />);
-        })}
-      </React.Fragment>
-    );
   }
 
   const Board = ({ puzzleProgress, puzzleSolution }) => {
@@ -140,7 +89,7 @@ const index = () => {
     <>
       {puzzle && puzzleProgress ? <Board puzzleProgress={puzzleProgress} puzzleSolution={puzzle.solution} /> : <></>}
       <br />
-      <RenderPuzzleSelection />
+      <PuzzleSelection setPuzzleProgress={setPuzzleProgress} setPuzzle={setPuzzle} />
     </>
   )
 }

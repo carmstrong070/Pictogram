@@ -1,11 +1,9 @@
-import React from "react"
 import * as R from 'ramda'
-
 
 const GuideNumbers = ({ columnIndex, rowIndex, puzzleSolution }) => {
 
   const ToggleStrikethrough = (e) => {
-    if(e.target.classList.contains("strikethrough"))
+    if (e.target.classList.contains("strikethrough"))
       e.target.classList.remove("strikethrough");
     else
       e.target.classList.add("strikethrough");
@@ -23,7 +21,7 @@ const GuideNumbers = ({ columnIndex, rowIndex, puzzleSolution }) => {
         if (counter > 0) {
           guideNumbers.push(
             <span className="guide-number" onClick={(e) => ToggleStrikethrough(e)} key={`${columnIndex} ${i}`}>
-              {counter} <br/>
+              {counter} <br />
             </span>
           )
           counter = 0
