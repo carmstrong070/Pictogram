@@ -4,7 +4,7 @@ import puzzleList from "@/content/puzzles";
 const PuzzleSelection = ({ setPuzzleProgress, setPuzzle }) => {
 
   const PuzzleSelectTile = ({ puzzle }) => {
-    return (<div onClick={e => handlePuzzleSelection(e)} id={puzzle.id} className="puzzle-card">
+    return (<div onContextMenu={e => e.preventDefault()} onClick={e => handlePuzzleSelection(e)} id={puzzle.id} className="puzzle-card">
       <p>Title: {puzzle.title}</p>
       <p>Size: {puzzle.size}x{puzzle.size}</p>
     </div>);

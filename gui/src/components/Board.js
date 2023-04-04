@@ -4,7 +4,7 @@ import GuideNumbers from "./GuideNumbers";
 import * as clickHelpers from "../helpers/clickHelpers"
 
 
-export const Board = ({ puzzleProgress, setPuzzleProgress, puzzleSolution }) => {
+const Board = ({ puzzleProgress, setPuzzleProgress, puzzleSolution }) => {
   const [mouseDownPosition, setMouseDownPosition] = useState()
 
   const handleMouseDown = (e, value, columnIndex, rowIndex) => {

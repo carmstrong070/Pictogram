@@ -3,6 +3,7 @@ import * as R from 'ramda'
 const GuideNumbers = ({ columnIndex, rowIndex, puzzleSolution }) => {
 
   const ToggleStrikethrough = (e) => {
+    e.preventDefault()
     if (e.target.classList.contains("strikethrough"))
       e.target.classList.remove("strikethrough");
     else
@@ -20,7 +21,7 @@ const GuideNumbers = ({ columnIndex, rowIndex, puzzleSolution }) => {
       else if (puzzleSolution[i][columnIndex] === 0) {
         if (counter > 0) {
           guideNumbers.push(
-            <span className="guide-number" onClick={(e) => ToggleStrikethrough(e)} key={`${columnIndex} ${i}`}>
+            <span className="guide-number" onContextMenu={e => e.preventDefault()} onClick={(e) => ToggleStrikethrough(e)} key={`${columnIndex} ${i}`}>
               {counter} <br />
             </span>
           )
@@ -30,7 +31,7 @@ const GuideNumbers = ({ columnIndex, rowIndex, puzzleSolution }) => {
     }
     if (counter > 0) {
       guideNumbers.push(
-        <span className="guide-number" onClick={(e) => ToggleStrikethrough(e)} key={`${columnIndex}`}>
+        <span className="guide-number" onContextMenu={e => e.preventDefault()} onClick={(e) => ToggleStrikethrough(e)} key={`${columnIndex}`}>
           {counter}
         </span>
       )
@@ -51,7 +52,7 @@ const GuideNumbers = ({ columnIndex, rowIndex, puzzleSolution }) => {
       else if (puzzleSolution[rowIndex][i] === 0) {
         if (counter > 0) {
           guideNumbers.push(
-            <span className="guide-number" onClick={(e) => ToggleStrikethrough(e)} key={`${rowIndex} ${i}`}>
+            <span className="guide-number" onContextMenu={e => e.preventDefault()} onClick={(e) => ToggleStrikethrough(e)} key={`${rowIndex} ${i}`}>
               {counter}
             </span>
           )
@@ -61,7 +62,7 @@ const GuideNumbers = ({ columnIndex, rowIndex, puzzleSolution }) => {
     }
     if (counter > 0) {
       guideNumbers.push(
-        <span className="guide-number" onClick={(e) => ToggleStrikethrough(e)} key={`${rowIndex}`}>
+        <span className="guide-number" onContextMenu={e => e.preventDefault()} onClick={(e) => ToggleStrikethrough(e)} key={`${rowIndex}`}>
           {counter}
         </span>
       )
