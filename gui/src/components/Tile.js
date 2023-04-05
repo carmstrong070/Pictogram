@@ -38,7 +38,7 @@ const Tile = ({ rowIndex, columnIndex, value, handleMouseDown, handleMouseUp, ha
           // column drag highlighting logic
           if (columnIndex === mouseDownPosition.column && ((rowIndex <= mouseDownPosition.row && rowIndex >= highlightedCell.rowIndex) || (rowIndex >= mouseDownPosition.row && rowIndex <= highlightedCell.rowIndex))) {
             classes += "hover-cursor "
-            value = (handlePreview(value, columnIndex, rowIndex))
+            value = (handlePreview(value))
           }
         }
 
@@ -46,7 +46,7 @@ const Tile = ({ rowIndex, columnIndex, value, handleMouseDown, handleMouseUp, ha
           // row drag highlighting logic
           if (rowIndex === mouseDownPosition.row && ((columnIndex <= mouseDownPosition.column && columnIndex >= highlightedCell.columnIndex) || (columnIndex >= mouseDownPosition.column && columnIndex <= highlightedCell.columnIndex))) {
             classes += "hover-cursor "
-            value = (handlePreview(value, columnIndex, rowIndex))
+            value = (handlePreview(value))
           }
         }
 

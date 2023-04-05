@@ -23,7 +23,6 @@ export const handleClick = (button, startValue, currentPuzzle, columnIndex, rowI
 }
 
 export const handleDragPreview = (button, startValue, currentValue, isDragging) => {
-  console.log(isDragging)
   if (button === 0) {
     if (currentValue === 2) {
       return 2

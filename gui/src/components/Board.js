@@ -129,14 +129,14 @@ const Board = ({ puzzleProgress, setPuzzleProgress, puzzleSolution }) => {
     setIsDragging(false)
   }
 
-  const handlePreview = (value, columnIndex, rowIndex) => {
+  const handlePreview = (value) => {
     return clickHelpers.handleDragPreview(isClicking, mouseDownPosition.initialValue, value, isDragging)
   }
 
   return (
     <table onMouseLeave={e => handleMouseOut(e)}>
       <thead>
-        <tr>
+        <tr onMouseEnter={(e) => handleMouseOut(e)}>
           <th></th>
           {/* Create a header row for each column that will contain the guide numbers*/}
           {puzzleProgress[0].map((_, columnIndex) => {
@@ -157,7 +157,7 @@ const Board = ({ puzzleProgress, setPuzzleProgress, puzzleSolution }) => {
                 return (
                   <React.Fragment key={`fragment ${rowIndex} ${columnIndex}`}>
                     {columnIndex ? <></> :
-                      <GuideNumbers key={`guide ${rowIndex} ${columnIndex}`} columnIndex={-1} rowIndex={rowIndex} puzzleSolution={puzzleSolution} />
+                      <GuideNumbers key={`guide ${rowIndex} ${columnIndex}`} columnIndex={-1} rowIndex={rowIndex} puzzleSolution={puzzleSolution} handleMouseOut={handleMouseOut} />
                     }
                     <Tile key={`tile ${rowIndex} ${columnIndex}`} rowIndex={rowIndex} columnIndex={columnIndex} handleMouseDown={handleMouseDown} handleMouseUp={handleMouseUp} handleCellHighlight={handleCellHighlight} highlightedCell={highlightedCell} isClicking={isClicking} mouseDownPosition={mouseDownPosition} handlePreview={handlePreview} value={puzzleProgress[rowIndex][columnIndex]} />
                   </React.Fragment>

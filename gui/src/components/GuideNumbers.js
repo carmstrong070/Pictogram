@@ -1,4 +1,4 @@
-const GuideNumbers = ({ columnIndex, rowIndex, puzzleSolution }) => {
+const GuideNumbers = ({ columnIndex, rowIndex, puzzleSolution, handleMouseOut }) => {
 
   const ToggleStrikethrough = (e) => {
     e.preventDefault()
@@ -80,7 +80,7 @@ const GuideNumbers = ({ columnIndex, rowIndex, puzzleSolution }) => {
       ]
     }
     return (
-      <td className="horizontal-guide-numbers" key={rowIndex}>{guideNumbers.length === 0 ? 0 : guideNumbers}</td>
+      <td className="horizontal-guide-numbers" key={rowIndex} onMouseEnter={(e) => handleMouseOut(e)}>{guideNumbers.length === 0 ? 0 : guideNumbers}</td>
     )
   }
 }
