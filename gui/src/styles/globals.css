@@ -13,7 +13,7 @@ td.cell {
 }
 
 td.cell:hover {
-  cursor: none;
+  cursor: pointer;
 }
 
 .thick-border-left {
@@ -99,18 +99,18 @@ td.cell:hover {
   background-color: rgb(61, 61, 61);
 }
 
-.timer-wrapper{
+.timer-wrapper {
   border: 1px solid black;
   text-align: center;
   padding: 5px 0px;
 }
 
-.timer{
+.timer {
   display: inline;
   margin-right: 5px;
 }
 
-.timer-button{
+.timer-button {
   margin-right: 5px;
 }
 
