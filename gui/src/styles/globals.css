@@ -99,6 +99,11 @@ td.cell:hover {
   background-color: rgb(61, 61, 61);
 }
 
+.timer-wrapper{
+  border: 1px solid black;
+  text-align: center;
+}
+
 /* :root {
   --max-width: 1100px;
   --border-radius: 12px;
