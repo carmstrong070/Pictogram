@@ -87,12 +87,16 @@ td.cell:hover {
   cursor: pointer;
 }
 
-.highlighted {
+.hover-highlighted {
   background-color: gainsboro;
 }
 
-.cursor {
+.hover-cursor {
   background-color: gray;
+}
+
+.stage-highlight {
+  background-color: rgb(61, 61, 61);
 }
 
 /* :root {

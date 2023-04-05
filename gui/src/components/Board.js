@@ -7,6 +7,7 @@ import * as clickHelpers from "../helpers/clickHelpers"
 const Board = ({ puzzleProgress, setPuzzleProgress, puzzleSolution }) => {
   const [mouseDownPosition, setMouseDownPosition] = useState()
   const [highlightedCell, setHighlightedCell] = useState()
+  const [isDragging, setIsDragging] = useState(false)
 
   const handleMouseDown = (e, value, columnIndex, rowIndex) => {
     e.preventDefault()
@@ -15,10 +16,23 @@ const Board = ({ puzzleProgress, setPuzzleProgress, puzzleSolution }) => {
       row: rowIndex,
       initialValue: value
     })
+    setIsDragging(true)
   }
 
   const handleMouseUp = (e, columnIndex, rowIndex) => {
     e.preventDefault()
+
+    if (isDragging) {
+      if (Math.abs(mouseDownPosition.column - highlightedCell.columnIndex) <= Math.abs(mouseDownPosition.row - highlightedCell.rowIndex)) {
+        rowIndex = highlightedCell.rowIndex
+        columnIndex = mouseDownPosition.column
+      }
+      else {
+        columnIndex = highlightedCell.columnIndex
+        rowIndex = mouseDownPosition.row
+      }
+    }
+
     if (mouseDownPosition) {
       let currentPuzzle = [...puzzleProgress]
       // Clicking on the same cell
@@ -64,6 +78,7 @@ const Board = ({ puzzleProgress, setPuzzleProgress, puzzleSolution }) => {
       }
     }
     setMouseDownPosition()
+    setIsDragging(false)
   }
 
   const handleCellHighlight = (e, columnIndex, rowIndex) => {
@@ -76,6 +91,9 @@ const Board = ({ puzzleProgress, setPuzzleProgress, puzzleSolution }) => {
     }
     else {
       setHighlightedCell()
+    }
+    if (!highlightedCell) {
+      setIsDragging(false)
     }
   }
 
@@ -105,7 +123,7 @@ const Board = ({ puzzleProgress, setPuzzleProgress, puzzleSolution }) => {
                     {columnIndex ? <></> :
                       <GuideNumbers key={`guide ${rowIndex} ${columnIndex}`} columnIndex={-1} rowIndex={rowIndex} puzzleSolution={puzzleSolution} />
                     }
-                    <Tile key={`tile ${rowIndex} ${columnIndex}`} rowIndex={rowIndex} columnIndex={columnIndex} handleMouseDown={handleMouseDown} handleMouseUp={handleMouseUp} handleCellHighlight={handleCellHighlight} highlightedCell={highlightedCell} value={puzzleProgress[rowIndex][columnIndex]} />
+                    <Tile key={`tile ${rowIndex} ${columnIndex}`} rowIndex={rowIndex} columnIndex={columnIndex} handleMouseDown={handleMouseDown} handleMouseUp={handleMouseUp} handleCellHighlight={handleCellHighlight} highlightedCell={highlightedCell} isDragging={isDragging} mouseDownPosition={mouseDownPosition} value={puzzleProgress[rowIndex][columnIndex]} />
                   </React.Fragment>
                 )
               })}

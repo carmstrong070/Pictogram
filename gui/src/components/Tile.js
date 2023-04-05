@@ -1,4 +1,4 @@
-const Tile = ({ rowIndex, columnIndex, value, handleMouseDown, handleMouseUp, handleCellHighlight, highlightedCell }) => {
+const Tile = ({ rowIndex, columnIndex, value, handleMouseDown, handleMouseUp, handleCellHighlight, highlightedCell, isDragging, mouseDownPosition }) => {
 
   const borderClasses = (rowIndex, columnIndex) => {
     let classes = "";
@@ -23,11 +23,46 @@ const Tile = ({ rowIndex, columnIndex, value, handleMouseDown, handleMouseUp, ha
 
     if (highlightedCell) {
 
-      if (columnIndex === highlightedCell.columnIndex || rowIndex === highlightedCell.rowIndex) {
-        classes += "highlighted "
+      // Drag highlight logic
+      if (isDragging) {
+        // Stop guide lines and cursor on mouse down
+        if (columnIndex === mouseDownPosition.column || rowIndex === mouseDownPosition.row) {
+          classes += "hover-highlighted "
+        }
+        if (columnIndex === mouseDownPosition.column && rowIndex === mouseDownPosition.row) {
+          classes += "hover-cursor "
+        }
+
+        // determine if the drag highlighting should follow the column or the row
+        if (Math.abs(mouseDownPosition.column - highlightedCell.columnIndex) <= Math.abs(mouseDownPosition.row - highlightedCell.rowIndex)) {
+          // column drag highlighting logic
+          if (columnIndex === mouseDownPosition.column && ((rowIndex <= mouseDownPosition.row && rowIndex >= highlightedCell.rowIndex) || (rowIndex >= mouseDownPosition.row && rowIndex <= highlightedCell.rowIndex))) {
+            classes += "stage-highlight "
+          }
+        }
+
+        else {
+          // row drag highlighting logic
+          if (rowIndex === mouseDownPosition.row && ((columnIndex <= mouseDownPosition.column && columnIndex >= highlightedCell.columnIndex) || (columnIndex >= mouseDownPosition.column && columnIndex <= highlightedCell.columnIndex))) {
+            classes += "stage-highlight "
+          }
+        }
+
+        // tracking current cursor position during drag
+        if (columnIndex === highlightedCell.columnIndex && rowIndex === highlightedCell.rowIndex) {
+          classes += "hover-highlighted "
+        }
       }
-      if (columnIndex === highlightedCell.columnIndex && rowIndex === highlightedCell.rowIndex) {
-        classes += "cursor"
+
+      // Hover highlight logic
+      if (highlightedCell && !isDragging) {
+
+        if (columnIndex === highlightedCell.columnIndex || rowIndex === highlightedCell.rowIndex) {
+          classes += "hover-highlighted "
+        }
+        if (columnIndex === highlightedCell.columnIndex && rowIndex === highlightedCell.rowIndex) {
+          classes += "hover-cursor "
+        }
       }
     }
 
