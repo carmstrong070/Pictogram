@@ -1,4 +1,4 @@
-const Tile = ({ rowIndex, columnIndex, value, handleMouseDown, handleMouseUp, handleCellHighlight, highlightedCell, isDragging, mouseDownPosition }) => {
+const Tile = ({ rowIndex, columnIndex, value, handleMouseDown, handleMouseUp, handleCellHighlight, highlightedCell, isClicking, mouseDownPosition, handlePreview }) => {
 
   const borderClasses = (rowIndex, columnIndex) => {
     let classes = "";
@@ -24,7 +24,7 @@ const Tile = ({ rowIndex, columnIndex, value, handleMouseDown, handleMouseUp, ha
     if (highlightedCell) {
 
       // Drag highlight logic
-      if (isDragging) {
+      if (isClicking >= 0) {
         // Stop guide lines and cursor on mouse down
         if (columnIndex === mouseDownPosition.column || rowIndex === mouseDownPosition.row) {
           classes += "hover-highlighted "
@@ -37,14 +37,16 @@ const Tile = ({ rowIndex, columnIndex, value, handleMouseDown, handleMouseUp, ha
         if (Math.abs(mouseDownPosition.column - highlightedCell.columnIndex) <= Math.abs(mouseDownPosition.row - highlightedCell.rowIndex)) {
           // column drag highlighting logic
           if (columnIndex === mouseDownPosition.column && ((rowIndex <= mouseDownPosition.row && rowIndex >= highlightedCell.rowIndex) || (rowIndex >= mouseDownPosition.row && rowIndex <= highlightedCell.rowIndex))) {
-            classes += "stage-highlight "
+            classes += "hover-cursor "
+            value = (handlePreview(value, columnIndex, rowIndex))
           }
         }
 
         else {
           // row drag highlighting logic
           if (rowIndex === mouseDownPosition.row && ((columnIndex <= mouseDownPosition.column && columnIndex >= highlightedCell.columnIndex) || (columnIndex >= mouseDownPosition.column && columnIndex <= highlightedCell.columnIndex))) {
-            classes += "stage-highlight "
+            classes += "hover-cursor "
+            value = (handlePreview(value, columnIndex, rowIndex))
           }
         }
 
@@ -55,7 +57,7 @@ const Tile = ({ rowIndex, columnIndex, value, handleMouseDown, handleMouseUp, ha
       }
 
       // Hover highlight logic
-      if (highlightedCell && !isDragging) {
+      if (highlightedCell && isClicking < 0) {
 
         if (columnIndex === highlightedCell.columnIndex || rowIndex === highlightedCell.rowIndex) {
           classes += "hover-highlighted "
@@ -69,7 +71,7 @@ const Tile = ({ rowIndex, columnIndex, value, handleMouseDown, handleMouseUp, ha
     return classes
   }
 
-  let tileStates = ["", "⬛", "🚩"]
+  let tileStates = ["", "⬛", "✖️"]
 
   return (
     <td onMouseOut={e => handleCellHighlight(e, -1, -1)} onMouseEnter={e => handleCellHighlight(e, columnIndex, rowIndex)} onMouseUp={(e) => handleMouseUp(e, columnIndex, rowIndex)} onMouseDown={(e) => handleMouseDown(e, value, columnIndex, rowIndex)} className={`cell ${borderClasses(rowIndex, columnIndex)} ${highlightClasses(columnIndex, rowIndex)}`} x-index={columnIndex} y-index={rowIndex} onContextMenu={e => e.preventDefault()} >{tileStates[value]}</td>

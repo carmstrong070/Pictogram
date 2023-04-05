@@ -34,15 +34,13 @@ Example:
 <br>
 
 ## MVP User Stories
-- As a user I want to be able to play picross
+- ✅ As a user I want to be able to play picross
   - ✅ I want to **_fill_** empty tiles
   - ✅ I want to **_empty_** filled or flagged tiles
   - ✅ I want to **_flag_** tiles that I believe should not be filled
   - ✅ I want visual feedback to see what tile my cursor is hovering on, regardless of whether the tile is filled or empty
   - ✅ I want to click and drag across a range of tiles in a given column or row to fill or empty
   - ✅ I want visual feedback to see the range of tiles I have selected before filling or emptying
-  - I want to restart the puzzle when I preform **_an action_** *(button?)*
-  - ✅ I want to select a different puzzle when I preform **_an action_** *(button?)*
   - ✅ I want **_guiding numbers_** that indicate how many consecutive tiles need to be filled for each respective column and row
   - ✅ I want to strikethrough guiding numbers that I believe I have been completed for a given row or column
 - As a user I want an easily viewable timer
@@ -55,6 +53,8 @@ Example:
 - I want a modal that gives me instructions about how to play the game when I click a button
 - I want to see the title of the puzzle once I have completed it
 - I want a button that will provide a hint when I am stuck on the puzzle
+- I want to restart the puzzle when I preform **_an action_** *(button?)*
+- ✅ I want to select a different puzzle when I preform **_an action_** *(button?)*
 
 <br>
 <br>
@@ -62,8 +62,17 @@ Example:
 
 # Stretch Goals
 ---
-## Stretch Goal User Stories
+## Stretch Goal Brainstorm List
 
+- Dark mode
+
+- Auto-crossout for guide numbers (toggleable?)
+  - strict matching to puzzle solution?
+  - strict matching to current puzzle progress?
+
+- Hint mechanic:
+  - complete row or column or both (user selected?)
+  - complete a cell (user selected?)
 
 - Wiring up to a database
 
@@ -75,7 +84,7 @@ Example:
 
 - Image encoder (turning image into solution array)
 
-- Gamepad support (requires a cursor)
+- Gamepad support
 
 <br>
 <br>

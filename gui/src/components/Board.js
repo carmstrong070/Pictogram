@@ -7,23 +7,25 @@ import * as clickHelpers from "../helpers/clickHelpers"
 const Board = ({ puzzleProgress, setPuzzleProgress, puzzleSolution }) => {
   const [mouseDownPosition, setMouseDownPosition] = useState()
   const [highlightedCell, setHighlightedCell] = useState()
+  const [isClicking, setIsClicking] = useState(-1)
   const [isDragging, setIsDragging] = useState(false)
 
   const handleMouseDown = (e, value, columnIndex, rowIndex) => {
     e.preventDefault()
 
-    if (!isDragging) {
+    if (isClicking < 0) {
       setMouseDownPosition({
         column: columnIndex,
         row: rowIndex,
         initialValue: value
       })
-      setIsDragging(true)
+      setIsClicking(e.button)
     }
 
     // if there is an additional mouse down, the action will be canceled
     else {
       setMouseDownPosition()
+      setIsClicking(-1)
       setIsDragging(false)
     }
   }
@@ -31,7 +33,7 @@ const Board = ({ puzzleProgress, setPuzzleProgress, puzzleSolution }) => {
   const handleMouseUp = (e, columnIndex, rowIndex) => {
     e.preventDefault()
 
-    if (isDragging) {
+    if (isClicking >= 0) {
       // handling column drag
       if (Math.abs(mouseDownPosition.column - highlightedCell.columnIndex) <= Math.abs(mouseDownPosition.row - highlightedCell.rowIndex)) {
         rowIndex = highlightedCell.rowIndex
@@ -90,6 +92,7 @@ const Board = ({ puzzleProgress, setPuzzleProgress, puzzleSolution }) => {
       }
     }
     setMouseDownPosition()
+    setIsClicking(-1)
     setIsDragging(false)
   }
 
@@ -104,15 +107,30 @@ const Board = ({ puzzleProgress, setPuzzleProgress, puzzleSolution }) => {
     else {
       setHighlightedCell()
     }
+    if (isClicking >= 0) {
+      if (mouseDownPosition.column === columnIndex && mouseDownPosition.row === rowIndex) {
+        setIsDragging(false)
+      }
+      else {
+        setIsDragging(true)
+      }
+    }
+    // handle mouse out onto guide numbers, but inside table element
     if (!highlightedCell) {
+      setIsClicking(-1)
       setIsDragging(false)
     }
   }
 
   const handleMouseOut = (e) => {
     e.preventDefault()
-    setIsDragging(false)
+    setIsClicking(-1)
     setMouseDownPosition()
+    setIsDragging(false)
+  }
+
+  const handlePreview = (value, columnIndex, rowIndex) => {
+    return clickHelpers.handleDragPreview(isClicking, mouseDownPosition.initialValue, value, isDragging)
   }
 
   return (
@@ -141,7 +159,7 @@ const Board = ({ puzzleProgress, setPuzzleProgress, puzzleSolution }) => {
                     {columnIndex ? <></> :
                       <GuideNumbers key={`guide ${rowIndex} ${columnIndex}`} columnIndex={-1} rowIndex={rowIndex} puzzleSolution={puzzleSolution} />
                     }
-                    <Tile key={`tile ${rowIndex} ${columnIndex}`} rowIndex={rowIndex} columnIndex={columnIndex} handleMouseDown={handleMouseDown} handleMouseUp={handleMouseUp} handleCellHighlight={handleCellHighlight} highlightedCell={highlightedCell} isDragging={isDragging} mouseDownPosition={mouseDownPosition} value={puzzleProgress[rowIndex][columnIndex]} />
+                    <Tile key={`tile ${rowIndex} ${columnIndex}`} rowIndex={rowIndex} columnIndex={columnIndex} handleMouseDown={handleMouseDown} handleMouseUp={handleMouseUp} handleCellHighlight={handleCellHighlight} highlightedCell={highlightedCell} isClicking={isClicking} mouseDownPosition={mouseDownPosition} handlePreview={handlePreview} value={puzzleProgress[rowIndex][columnIndex]} />
                   </React.Fragment>
                 )
               })}
