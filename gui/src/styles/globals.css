@@ -102,6 +102,16 @@ td.cell:hover {
 .timer-wrapper{
   border: 1px solid black;
   text-align: center;
+  padding: 5px 0px;
+}
+
+.timer{
+  display: inline;
+  margin-right: 5px;
+}
+
+.timer-button{
+  margin-right: 5px;
 }
 
 /* :root {
