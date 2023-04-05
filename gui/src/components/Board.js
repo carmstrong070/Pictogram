@@ -11,22 +11,33 @@ const Board = ({ puzzleProgress, setPuzzleProgress, puzzleSolution }) => {
 
   const handleMouseDown = (e, value, columnIndex, rowIndex) => {
     e.preventDefault()
-    setMouseDownPosition({
-      column: columnIndex,
-      row: rowIndex,
-      initialValue: value
-    })
-    setIsDragging(true)
+
+    if (!isDragging) {
+      setMouseDownPosition({
+        column: columnIndex,
+        row: rowIndex,
+        initialValue: value
+      })
+      setIsDragging(true)
+    }
+
+    // if there is an additional mouse down, the action will be canceled
+    else {
+      setMouseDownPosition()
+      setIsDragging(false)
+    }
   }
 
   const handleMouseUp = (e, columnIndex, rowIndex) => {
     e.preventDefault()
 
     if (isDragging) {
+      // handling column drag
       if (Math.abs(mouseDownPosition.column - highlightedCell.columnIndex) <= Math.abs(mouseDownPosition.row - highlightedCell.rowIndex)) {
         rowIndex = highlightedCell.rowIndex
         columnIndex = mouseDownPosition.column
       }
+      // handling row drag
       else {
         columnIndex = highlightedCell.columnIndex
         rowIndex = mouseDownPosition.row
