@@ -13,7 +13,7 @@ td.cell {
 }
 
 td.cell:hover {
-  cursor: pointer;
+  cursor: none;
 }
 
 .thick-border-left {
