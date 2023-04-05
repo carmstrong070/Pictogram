@@ -98,8 +98,14 @@ const Board = ({ puzzleProgress, setPuzzleProgress, puzzleSolution }) => {
     }
   }
 
+  const handleMouseOut = (e) => {
+    e.preventDefault()
+    setIsDragging(false)
+    setMouseDownPosition()
+  }
+
   return (
-    <table>
+    <table onMouseLeave={e => handleMouseOut(e)}>
       <thead>
         <tr>
           <th></th>
