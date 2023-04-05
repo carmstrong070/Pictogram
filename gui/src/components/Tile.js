@@ -1,6 +1,6 @@
-const Tile = ({ rowIndex, columnIndex, value, handleMouseDown, handleMouseUp }) => {
+const Tile = ({ rowIndex, columnIndex, value, handleMouseDown, handleMouseUp, handleCellHighlight, highlightedCell }) => {
 
-  const BorderClasses = (rowIndex, columnIndex) => {
+  const borderClasses = (rowIndex, columnIndex) => {
     let classes = "";
 
     if (columnIndex === 0)
@@ -18,10 +18,26 @@ const Tile = ({ rowIndex, columnIndex, value, handleMouseDown, handleMouseUp }) 
     return classes;
   };
 
+  const highlightClasses = (columnIndex, rowIndex) => {
+    let classes = ""
+
+    if (highlightedCell) {
+
+      if (columnIndex === highlightedCell.columnIndex || rowIndex === highlightedCell.rowIndex) {
+        classes += "highlighted "
+      }
+      if (columnIndex === highlightedCell.columnIndex && rowIndex === highlightedCell.rowIndex) {
+        classes += "cursor"
+      }
+    }
+
+    return classes
+  }
+
   let tileStates = ["", "⬛", "🚩"]
 
   return (
-    <td onMouseUp={(e) => handleMouseUp(e, value, columnIndex, rowIndex)} onMouseDown={(e) => handleMouseDown(e, value, columnIndex, rowIndex)} className={`cell ${BorderClasses(rowIndex, columnIndex)}`} x-index={columnIndex} y-index={rowIndex} onContextMenu={e => e.preventDefault()} >{tileStates[value]}</td>
+    <td onMouseOut={e => handleCellHighlight(e, -1, -1)} onMouseEnter={e => handleCellHighlight(e, columnIndex, rowIndex)} onMouseUp={(e) => handleMouseUp(e, columnIndex, rowIndex)} onMouseDown={(e) => handleMouseDown(e, value, columnIndex, rowIndex)} className={`cell ${borderClasses(rowIndex, columnIndex)} ${highlightClasses(columnIndex, rowIndex)}`} x-index={columnIndex} y-index={rowIndex} onContextMenu={e => e.preventDefault()} >{tileStates[value]}</td>
   )
 }
 

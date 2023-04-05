@@ -38,7 +38,7 @@ Example:
   - ✅ I want to **_fill_** empty tiles
   - ✅ I want to **_empty_** filled or flagged tiles
   - ✅ I want to **_flag_** tiles that I believe should not be filled
-  - I want visual feedback to see what tile my cursor is hovering on, regardless of whether the tile is filled or empty
+  - ✅ I want visual feedback to see what tile my cursor is hovering on, regardless of whether the tile is filled or empty
   - ✅ I want to click and drag across a range of tiles in a given column or row to fill or empty
   - I want visual feedback to see the range of tiles I have selected before filling or emptying
   - I want to restart the puzzle when I preform **_an action_** *(button?)*
@@ -224,7 +224,6 @@ Flagged -> Filled: Not possible
 <br />
 
 **FLAGGED to EMPTY**
-## Unsure
 ```
 [Flagged -> Flagged]
 =>
@@ -237,20 +236,18 @@ Flagged -> Filled: Not possible
 [Empty -> Filled]
 ```
 **FLAGGED to FILLED**
-## Unsure
 ```
-[Flagged -> Empty]
+[Flagged -> Flagged]
 =>
 [Empty -> Filled]
 =>
-[Filled -> Empty]
+[Filled -> Filled]
 =>
 [Flagged -> Flagged]
 =>
-[Filled -> Empty]
+[Filled -> Filled]
 ```
 **FLAGGED to FLAGGED**
-## Unsure
 ```
 [Flagged -> Flagged]
 =>
@@ -315,35 +312,35 @@ Flagged -> Filled: Not possible
 
 **FILLED to EMPTY**
 ```
-[Filled -> Empty]
+[Filled -> Filled]
 =>
-[Empty -> Empty]
+[Empty -> Flagged]
 =>
-[Filled -> Empty]
+[Filled -> Filled]
 =>
 [Flagged -> Flagged]
 =>
-[Empty -> Empty]
+[Empty -> Flagged]
 ```
 **FILLED to FILLED**
 ```
-[Filled -> Empty]
+[Filled -> Filled]
 =>
-[Empty -> Empty]
+[Empty -> Flagged]
 =>
-[Filled -> Empty]
+[Filled -> Filled]
 =>
 [Flagged -> Flagged]
 =>
-[Filled -> Empty]
+[Filled -> Filled]
 ```
 **FILLED to FLAGGED**
 ```
-[Filled -> Empty]
+[Filled -> Filled]
 =>
-[Empty -> Empty]
+[Empty -> Flagged]
 =>
-[Filled -> Empty]
+[Filled -> Filled]
 =>
 [Flagged -> Flagged]
 =>
@@ -370,15 +367,14 @@ Flagged -> Filled: Not possible
 [Empty -> Empty]
 ```
 **FLAGGED to FILLED**
-## Unsure
 ```
-[Flagged -> Flagged]
+[Flagged -> Empty]
 =>
 [Empty -> Empty]
 =>
 [Filled -> Filled]
 =>
-[Flagged -> Flagged]
+[Flagged -> Empty]
 =>
 [Filled -> Filled]
 ```

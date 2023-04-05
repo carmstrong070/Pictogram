@@ -1,4 +1,3 @@
-
 table {
   border-spacing: 0;
   border-collapse: collapse;
@@ -37,20 +36,21 @@ td.cell:hover {
   text-align: center;
 }
 
-.guide-number{
+.guide-number {
   margin-right: 5px;
 }
-.guide-number:hover{
+
+.guide-number:hover {
   cursor: pointer;
 }
 
-.horizontal-guide-numbers{
+.horizontal-guide-numbers {
   text-align: right;
   vertical-align: center;
   padding-right: 5px;
 }
 
-.vertical-guide-numbers{
+.vertical-guide-numbers {
   text-align: center;
   vertical-align: bottom;
   padding-bottom: 5px;
@@ -59,6 +59,7 @@ td.cell:hover {
 .strikethrough {
   position: relative;
 }
+
 .strikethrough:before {
   position: absolute;
   content: "";
@@ -67,25 +68,32 @@ td.cell:hover {
   right: 0;
   border-top: 1px solid;
   border-color: inherit;
-  
-  -webkit-transform:rotate(-35deg);
-  -moz-transform:rotate(-35deg);
-  -ms-transform:rotate(-35deg);
-  -o-transform:rotate(-35deg);
-  transform:rotate(-35deg);
+
+  -webkit-transform: rotate(-35deg);
+  -moz-transform: rotate(-35deg);
+  -ms-transform: rotate(-35deg);
+  -o-transform: rotate(-35deg);
+  transform: rotate(-35deg);
 }
 
-.puzzle-card{
+.puzzle-card {
   border: 1px solid black;
   display: inline-block;
   padding: 10px;
   margin-right: 15px;
 }
 
-.puzzle-card:hover{
+.puzzle-card:hover {
   cursor: pointer;
 }
 
+.highlighted {
+  background-color: gainsboro;
+}
+
+.cursor {
+  background-color: gray;
+}
 
 /* :root {
   --max-width: 1100px;
