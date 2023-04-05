@@ -1,4 +1,4 @@
-export const handleClick = (button, startValue, currentPuzzle, columnIndex, rowIndex) => {
+export const handleClick = (button, startValue, currentPuzzle, columnIndex, rowIndex, sameCell) => {
   let currentCell = currentPuzzle[rowIndex][columnIndex]
 
   // Left click logic
@@ -16,7 +16,7 @@ export const handleClick = (button, startValue, currentPuzzle, columnIndex, rowI
     if (startValue !== 2 && currentCell === 0) {
       currentPuzzle[rowIndex][columnIndex] = 2
     }
-    else if (startValue === 2 && currentCell === 2) {
+    else if (startValue === 2 && currentCell === 2 || currentCell === 1 && sameCell) {
       currentPuzzle[rowIndex][columnIndex] = 0
     }
   }

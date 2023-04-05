@@ -37,7 +37,8 @@ const Board = ({ puzzleProgress, setPuzzleProgress, puzzleSolution }) => {
       let currentPuzzle = [...puzzleProgress]
       // Clicking on the same cell
       if (mouseDownPosition.column === columnIndex && mouseDownPosition.row === rowIndex) {
-        clickHelpers.handleClick(e.button, mouseDownPosition.initialValue, currentPuzzle, columnIndex, rowIndex)
+        let sameCell = true
+        clickHelpers.handleClick(e.button, mouseDownPosition.initialValue, currentPuzzle, columnIndex, rowIndex, sameCell)
         setPuzzleProgress(currentPuzzle)
       }
 
