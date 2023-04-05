@@ -40,7 +40,7 @@ Example:
   - ✅ I want to **_flag_** tiles that I believe should not be filled
   - ✅ I want visual feedback to see what tile my cursor is hovering on, regardless of whether the tile is filled or empty
   - ✅ I want to click and drag across a range of tiles in a given column or row to fill or empty
-  - I want visual feedback to see the range of tiles I have selected before filling or emptying
+  - ✅ I want visual feedback to see the range of tiles I have selected before filling or emptying
   - I want to restart the puzzle when I preform **_an action_** *(button?)*
   - ✅ I want to select a different puzzle when I preform **_an action_** *(button?)*
   - ✅ I want **_guiding numbers_** that indicate how many consecutive tiles need to be filled for each respective column and row
