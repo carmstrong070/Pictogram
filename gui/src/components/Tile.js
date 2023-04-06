@@ -26,12 +26,12 @@ const Tile = ({ rowIndex, columnIndex, value, handleMouseUp, handleCursorMove, c
     // Handle styling if a there is a mouse down event
     if (cursorPosition && mouseDownInfo.button !== undefined) {
 
-      // Maintain guide line styling position on mouse down
+      // Maintain guide line styling on mouse down position 
       if (columnIndex === mouseDownInfo.column || rowIndex === mouseDownInfo.row) {
-        classes += mouseDownInfo.button ? "right-click-guidelines " : "left-click-guidelines "
+        classes += mouseDownInfo.button ? "right-click-guide-lines " : "left-click-guide-lines "
       }
 
-      // Maintain cursor styling position on mouse down
+      // Maintain cursor styling on mouse down position 
       if (columnIndex === mouseDownInfo.column && rowIndex === mouseDownInfo.row) {
         classes += mouseDownInfo.button ? "right-click-cursor " : "left-click-cursor "
       }
@@ -67,7 +67,7 @@ const Tile = ({ rowIndex, columnIndex, value, handleMouseUp, handleCursorMove, c
 
       // Apply styling to current cursor position during drag
       if (columnIndex === cursorPosition.columnIndex && rowIndex === cursorPosition.rowIndex) {
-        classes += mouseDownInfo.button ? "right-click-cursor " : "left-click-cursor "
+        classes += mouseDownInfo.button ? "right-click-cursor-current " : "left-click-cursor-current "
       }
     }
 
@@ -81,7 +81,7 @@ const Tile = ({ rowIndex, columnIndex, value, handleMouseUp, handleCursorMove, c
 
       // Apply styling to current cursor position's column and row (guide lines)
       else if (columnIndex === cursorPosition.columnIndex || rowIndex === cursorPosition.rowIndex) {
-        classes += "hover-guidelines "
+        classes += "hover-guide-lines "
       }
     }
 
