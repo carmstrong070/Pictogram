@@ -12,7 +12,7 @@ export const handleClick = (button, startValue, currentPuzzle, columnIndex, rowI
   }
 
   // Right click logic
-  else if (button === 2) {
+  if (button === 2) {
     if (startValue !== 2 && currentCell === 0) {
       currentPuzzle[rowIndex][columnIndex] = 2
     }
@@ -40,10 +40,10 @@ export const handleDragPreview = (button, startValue, currentValue, isDragging) 
     if (startValue !== 2 && currentValue !== 1) {
       return 2
     }
-    else if (currentValue === 1 && isDragging) {
+    if (currentValue === 1 && isDragging) {
       return 1
     }
-    else if (currentValue !== 0) {
+    if (currentValue !== 0) {
       return 0
     }
   }

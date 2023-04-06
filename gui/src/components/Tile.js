@@ -1,4 +1,6 @@
-const Tile = ({ rowIndex, columnIndex, value, handleMouseDown, handleMouseUp, handleCellHighlight, highlightedCell, isClicking, mouseDownPosition, handlePreview }) => {
+import * as clickHelpers from "../helpers/clickHelpers"
+
+const Tile = ({ rowIndex, columnIndex, value, handleMouseDown, handleMouseUp, handleCursorMove, cursorPosition, mouseDownInfo }) => {
 
   const borderClasses = (rowIndex, columnIndex) => {
     let classes = "";
@@ -21,50 +23,65 @@ const Tile = ({ rowIndex, columnIndex, value, handleMouseDown, handleMouseUp, ha
   const highlightClasses = (columnIndex, rowIndex) => {
     let classes = ""
 
-    if (highlightedCell) {
+    // Handle styling if a there is a mouse down event
+    if (cursorPosition && mouseDownInfo.button !== undefined) {
 
-      // Drag highlight logic
-      if (isClicking >= 0) {
-        // Stop guide lines and cursor on mouse down
-        if (columnIndex === mouseDownPosition.column || rowIndex === mouseDownPosition.row) {
-          classes += "hover-highlighted "
-        }
-        if (columnIndex === mouseDownPosition.column && rowIndex === mouseDownPosition.row) {
+      // Maintain guide line styling position on mouse down
+      if (columnIndex === mouseDownInfo.column || rowIndex === mouseDownInfo.row) {
+        classes += "hover-highlighted "
+      }
+
+      // Maintain cursor styling position on mouse down
+      if (columnIndex === mouseDownInfo.column && rowIndex === mouseDownInfo.row) {
+        classes += "hover-cursor "
+      }
+
+      // Determine if the drag highlighting and preview should follow the column or the row
+      if (Math.abs(mouseDownInfo.column - cursorPosition.columnIndex) <= Math.abs(mouseDownInfo.row - cursorPosition.rowIndex)) {
+
+        // Column drag preview and highlighting logic
+        if (columnIndex === mouseDownInfo.column &&
+          (
+            (rowIndex <= mouseDownInfo.row && rowIndex >= cursorPosition.rowIndex) ||
+            (rowIndex >= mouseDownInfo.row && rowIndex <= cursorPosition.rowIndex)
+          )
+        ) {
           classes += "hover-cursor "
-        }
-
-        // determine if the drag highlighting should follow the column or the row
-        if (Math.abs(mouseDownPosition.column - highlightedCell.columnIndex) <= Math.abs(mouseDownPosition.row - highlightedCell.rowIndex)) {
-          // column drag highlighting logic
-          if (columnIndex === mouseDownPosition.column && ((rowIndex <= mouseDownPosition.row && rowIndex >= highlightedCell.rowIndex) || (rowIndex >= mouseDownPosition.row && rowIndex <= highlightedCell.rowIndex))) {
-            classes += "hover-cursor "
-            value = (handlePreview(value))
-          }
-        }
-
-        else {
-          // row drag highlighting logic
-          if (rowIndex === mouseDownPosition.row && ((columnIndex <= mouseDownPosition.column && columnIndex >= highlightedCell.columnIndex) || (columnIndex >= mouseDownPosition.column && columnIndex <= highlightedCell.columnIndex))) {
-            classes += "hover-cursor "
-            value = (handlePreview(value))
-          }
-        }
-
-        // tracking current cursor position during drag
-        if (columnIndex === highlightedCell.columnIndex && rowIndex === highlightedCell.rowIndex) {
-          classes += "hover-highlighted "
+          value = (clickHelpers.handleDragPreview(mouseDownInfo.button, mouseDownInfo.initialValue, value, mouseDownInfo.isDragging))
         }
       }
 
-      // Hover highlight logic
-      if (highlightedCell && isClicking < 0) {
+      else {
 
-        if (columnIndex === highlightedCell.columnIndex || rowIndex === highlightedCell.rowIndex) {
-          classes += "hover-highlighted "
-        }
-        if (columnIndex === highlightedCell.columnIndex && rowIndex === highlightedCell.rowIndex) {
+        // Row drag preview and highlighting logic
+        if (rowIndex === mouseDownInfo.row &&
+          (
+            (columnIndex <= mouseDownInfo.column && columnIndex >= cursorPosition.columnIndex) ||
+            (columnIndex >= mouseDownInfo.column && columnIndex <= cursorPosition.columnIndex)
+          )
+        ) {
           classes += "hover-cursor "
+          value = (clickHelpers.handleDragPreview(mouseDownInfo.button, mouseDownInfo.initialValue, value, mouseDownInfo.isDragging))
         }
+      }
+
+      // Apply styling to current cursor position during drag
+      if (columnIndex === cursorPosition.columnIndex && rowIndex === cursorPosition.rowIndex) {
+        classes += "hover-highlighted "
+      }
+    }
+
+    // Hover highlight logic
+    if (cursorPosition && mouseDownInfo.button === undefined) {
+
+      // Apply styling to current cursor position
+      if (columnIndex === cursorPosition.columnIndex && rowIndex === cursorPosition.rowIndex) {
+        classes += "hover-cursor "
+      }
+
+      // Apply styling to current cursor position's column and row (guide lines)
+      else if (columnIndex === cursorPosition.columnIndex || rowIndex === cursorPosition.rowIndex) {
+        classes += "hover-highlighted "
       }
     }
 
@@ -74,7 +91,18 @@ const Tile = ({ rowIndex, columnIndex, value, handleMouseDown, handleMouseUp, ha
   let tileStates = ["", "⬛", "✖️"]
 
   return (
-    <td onMouseOut={e => handleCellHighlight(e, -1, -1)} onMouseEnter={e => handleCellHighlight(e, columnIndex, rowIndex)} onMouseUp={(e) => handleMouseUp(e, columnIndex, rowIndex)} onMouseDown={(e) => handleMouseDown(e, value, columnIndex, rowIndex)} className={`cell ${borderClasses(rowIndex, columnIndex)} ${highlightClasses(columnIndex, rowIndex)}`} x-index={columnIndex} y-index={rowIndex} onContextMenu={e => e.preventDefault()} >{tileStates[value]}</td>
+    <td
+      onMouseOut={e => handleCursorMove(e, undefined)}
+      onMouseEnter={e => handleCursorMove(e, columnIndex, rowIndex)}
+      onMouseUp={(e) => handleMouseUp(e, columnIndex, rowIndex)}
+      onMouseDown={(e) => handleMouseDown(e, value, columnIndex, rowIndex)}
+      onContextMenu={e => e.preventDefault()}
+      className={`cell ${borderClasses(rowIndex, columnIndex)} ${highlightClasses(columnIndex, rowIndex)}`}
+      x-index={columnIndex}
+      y-index={rowIndex}
+    >
+      {tileStates[value]}
+    </td>
   )
 }
 

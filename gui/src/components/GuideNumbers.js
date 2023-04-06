@@ -1,4 +1,4 @@
-const GuideNumbers = ({ columnIndex, rowIndex, puzzleSolution, handleMouseOut }) => {
+const GuideNumbers = ({ columnIndex, rowIndex, puzzleSolution, handleCursorMove }) => {
 
   const ToggleStrikethrough = (e) => {
     e.preventDefault()
@@ -10,16 +10,25 @@ const GuideNumbers = ({ columnIndex, rowIndex, puzzleSolution, handleMouseOut })
 
   // Create guide numbers for each column
   if (rowIndex < 0) {
+
+    let columnCount = puzzleSolution.reduce((acc, row) => Array.isArray(row) ? acc + 1 : acc, 0)
     let guideNumbers = []
     let counter = 0
-    for (let i = 0; i < puzzleSolution[0].length; i++) {
+
+    // Generate guide number array
+    for (let i = 0; i < columnCount; i++) {
       if (puzzleSolution[i][columnIndex] === 1) {
         counter += 1
       }
-      else if (puzzleSolution[i][columnIndex] === 0) {
+      else {
         if (counter > 0) {
           guideNumbers.push(
-            <span className="guide-number" onContextMenu={e => e.preventDefault()} onClick={(e) => ToggleStrikethrough(e)} key={`${columnIndex} ${i}`}>
+            <span
+              className="guide-number"
+              onContextMenu={e => e.preventDefault()}
+              onClick={(e) => ToggleStrikethrough(e)}
+              key={`${columnIndex} ${i}`}
+            >
               {counter} <br />
             </span>
           )
@@ -27,37 +36,51 @@ const GuideNumbers = ({ columnIndex, rowIndex, puzzleSolution, handleMouseOut })
         }
       }
     }
-    if (counter > 0) {
+
+    // Handle empty column, and push any remaining value in counter to guide number array
+    if (counter > 0 || guideNumbers.length === 0) {
       guideNumbers.push(
-        <span className="guide-number" onContextMenu={e => e.preventDefault()} onClick={(e) => ToggleStrikethrough(e)} key={`${columnIndex}`}>
+        <span
+          className="guide-number"
+          onContextMenu={e => e.preventDefault()}
+          onClick={(e) => ToggleStrikethrough(e)}
+          key={`${columnIndex}`}
+        >
           {counter}
         </span>
       )
     }
-    if (guideNumbers.length === 0) {
-      guideNumbers = [
-        <span className="guide-number" onContextMenu={e => e.preventDefault()} onClick={(e) => ToggleStrikethrough(e)} key={`${columnIndex}`}>
-          {counter}
-        </span>
-      ]
-    }
+
     return (
-      <td className="vertical-guide-numbers" key={columnIndex}>{guideNumbers.length === 0 ? 0 : guideNumbers}</td>
+      <td
+        className="vertical-guide-numbers"
+        key={columnIndex}
+      >
+        {guideNumbers}
+      </td>
     )
   }
 
   // Create guide numbers for each row
   if (columnIndex < 0) {
+
     let guideNumbers = []
     let counter = 0
+
+    // Generate guide number array
     for (let i = 0; i < puzzleSolution[0].length; i++) {
       if (puzzleSolution[rowIndex][i] === 1) {
         counter += 1
       }
-      else if (puzzleSolution[rowIndex][i] === 0) {
+      else {
         if (counter > 0) {
           guideNumbers.push(
-            <span className="guide-number" onContextMenu={e => e.preventDefault()} onClick={(e) => ToggleStrikethrough(e)} key={`${rowIndex} ${i}`}>
+            <span
+              className="guide-number"
+              onContextMenu={e => e.preventDefault()}
+              onClick={(e) => ToggleStrikethrough(e)}
+              key={`${rowIndex} ${i}`}
+            >
               {counter}
             </span>
           )
@@ -65,22 +88,29 @@ const GuideNumbers = ({ columnIndex, rowIndex, puzzleSolution, handleMouseOut })
         }
       }
     }
-    if (counter > 0) {
+
+    // Handle empty row, and push any remaining value in counter to guide number array
+    if (counter > 0 || guideNumbers.length === 0) {
       guideNumbers.push(
-        <span className="guide-number" onContextMenu={e => e.preventDefault()} onClick={(e) => ToggleStrikethrough(e)} key={`${rowIndex}`}>
+        <span
+          className="guide-number"
+          onContextMenu={e => e.preventDefault()}
+          onClick={(e) => ToggleStrikethrough(e)}
+          key={`${rowIndex}`}
+        >
           {counter}
         </span>
       )
     }
-    if (guideNumbers.length === 0) {
-      guideNumbers = [
-        <span className="guide-number" onContextMenu={e => e.preventDefault()} onClick={(e) => ToggleStrikethrough(e)} key={`${columnIndex}`}>
-          {counter}
-        </span>
-      ]
-    }
+
     return (
-      <td className="horizontal-guide-numbers" key={rowIndex} onMouseEnter={(e) => handleMouseOut(e)}>{guideNumbers.length === 0 ? 0 : guideNumbers}</td>
+      <td
+        className="horizontal-guide-numbers"
+        key={rowIndex}
+        onMouseEnter={(e) => handleCursorMove(e)}
+      >
+        {guideNumbers}
+      </td>
     )
   }
 }
