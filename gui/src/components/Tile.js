@@ -1,6 +1,6 @@
 import * as clickHelpers from "../helpers/clickHelpers"
 
-const Tile = ({ rowIndex, columnIndex, value, handleMouseDown, handleMouseUp, handleCursorMove, cursorPosition, mouseDownInfo }) => {
+const Tile = ({ rowIndex, columnIndex, value, handleMouseUp, handleCursorMove, cursorPosition, mouseDownInfo, setMouseDownInfo }) => {
 
   const borderClasses = (rowIndex, columnIndex) => {
     let classes = "";
@@ -28,12 +28,12 @@ const Tile = ({ rowIndex, columnIndex, value, handleMouseDown, handleMouseUp, ha
 
       // Maintain guide line styling position on mouse down
       if (columnIndex === mouseDownInfo.column || rowIndex === mouseDownInfo.row) {
-        classes += "hover-highlighted "
+        classes += mouseDownInfo.button ? "right-click-guidelines " : "left-click-guidelines "
       }
 
       // Maintain cursor styling position on mouse down
       if (columnIndex === mouseDownInfo.column && rowIndex === mouseDownInfo.row) {
-        classes += "hover-cursor "
+        classes += mouseDownInfo.button ? "right-click-cursor " : "left-click-cursor "
       }
 
       // Determine if the drag highlighting and preview should follow the column or the row
@@ -46,7 +46,7 @@ const Tile = ({ rowIndex, columnIndex, value, handleMouseDown, handleMouseUp, ha
             (rowIndex >= mouseDownInfo.row && rowIndex <= cursorPosition.rowIndex)
           )
         ) {
-          classes += "hover-cursor "
+          classes += mouseDownInfo.button ? "right-click-preview-line " : "left-click-preview-line "
           value = (clickHelpers.handleDragPreview(mouseDownInfo.button, mouseDownInfo.initialValue, value, mouseDownInfo.isDragging))
         }
       }
@@ -60,14 +60,14 @@ const Tile = ({ rowIndex, columnIndex, value, handleMouseDown, handleMouseUp, ha
             (columnIndex >= mouseDownInfo.column && columnIndex <= cursorPosition.columnIndex)
           )
         ) {
-          classes += "hover-cursor "
+          classes += mouseDownInfo.button ? "right-click-preview-line " : "left-click-preview-line "
           value = (clickHelpers.handleDragPreview(mouseDownInfo.button, mouseDownInfo.initialValue, value, mouseDownInfo.isDragging))
         }
       }
 
       // Apply styling to current cursor position during drag
       if (columnIndex === cursorPosition.columnIndex && rowIndex === cursorPosition.rowIndex) {
-        classes += "hover-highlighted "
+        classes += mouseDownInfo.button ? "right-click-cursor " : "left-click-cursor "
       }
     }
 
@@ -81,7 +81,7 @@ const Tile = ({ rowIndex, columnIndex, value, handleMouseDown, handleMouseUp, ha
 
       // Apply styling to current cursor position's column and row (guide lines)
       else if (columnIndex === cursorPosition.columnIndex || rowIndex === cursorPosition.rowIndex) {
-        classes += "hover-highlighted "
+        classes += "hover-guidelines "
       }
     }
 
@@ -95,7 +95,7 @@ const Tile = ({ rowIndex, columnIndex, value, handleMouseDown, handleMouseUp, ha
       onMouseOut={e => handleCursorMove(e, undefined)}
       onMouseEnter={e => handleCursorMove(e, columnIndex, rowIndex)}
       onMouseUp={(e) => handleMouseUp(e, columnIndex, rowIndex)}
-      onMouseDown={(e) => handleMouseDown(e, value, columnIndex, rowIndex)}
+      onMouseDown={(e) => setMouseDownInfo(clickHelpers.mouseDown(e, value, columnIndex, rowIndex, mouseDownInfo.initialValue))}
       onContextMenu={e => e.preventDefault()}
       className={`cell ${borderClasses(rowIndex, columnIndex)} ${highlightClasses(columnIndex, rowIndex)}`}
       x-index={columnIndex}

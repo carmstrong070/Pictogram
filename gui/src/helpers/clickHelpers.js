@@ -1,4 +1,4 @@
-export const handleClick = (button, startValue, currentPuzzle, columnIndex, rowIndex, sameCell) => {
+export const handleCellChange = (button, startValue, currentPuzzle, columnIndex, rowIndex, sameCell) => {
   let currentCell = currentPuzzle[rowIndex][columnIndex]
 
   // Left click logic
@@ -23,6 +23,8 @@ export const handleClick = (button, startValue, currentPuzzle, columnIndex, rowI
 }
 
 export const handleDragPreview = (button, startValue, currentValue, isDragging) => {
+
+  // Left click logic
   if (button === 0) {
     if (currentValue === 2) {
       return 2
@@ -49,4 +51,31 @@ export const handleDragPreview = (button, startValue, currentValue, isDragging) 
   }
 }
 
-export default { handleClick, handleDragPreview }
+export const mouseDown = (e, value, columnIndex, rowIndex, initialValue) => {
+  e.preventDefault()
+
+  // Return a mouse down object if a mouse down has not already been executed
+  if (initialValue === undefined) {
+    return {
+      column: columnIndex,
+      row: rowIndex,
+      initialValue: value,
+      button: e.button,
+      isDragging: false
+    }
+  }
+
+  // If there is an additional mouse down, the action will be canceled
+  else {
+    return {
+      column: undefined,
+      row: undefined,
+      initialValue: undefined,
+      button: undefined,
+      isDragging: false
+    }
+  }
+}
+
+
+export default { handleCellChange, handleDragPreview, mouseDown }
