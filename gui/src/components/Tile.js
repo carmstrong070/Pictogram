@@ -40,11 +40,9 @@ const Tile = ({ rowIndex, columnIndex, value, handleMouseUp, handleCursorMove, c
       if (Math.abs(mouseDownInfo.column - cursorPosition.columnIndex) <= Math.abs(mouseDownInfo.row - cursorPosition.rowIndex)) {
 
         // Column drag preview and highlighting logic
-        if (columnIndex === mouseDownInfo.column &&
-          (
-            (rowIndex <= mouseDownInfo.row && rowIndex >= cursorPosition.rowIndex) ||
-            (rowIndex >= mouseDownInfo.row && rowIndex <= cursorPosition.rowIndex)
-          )
+        if (columnIndex === mouseDownInfo.column
+          && ((rowIndex <= mouseDownInfo.row && rowIndex >= cursorPosition.rowIndex) ||
+            (rowIndex >= mouseDownInfo.row && rowIndex <= cursorPosition.rowIndex))
         ) {
           classes += mouseDownInfo.button ? "right-click-preview-line " : "left-click-preview-line "
           value = (clickHelpers.handleDragPreview(mouseDownInfo.button, mouseDownInfo.initialValue, value, mouseDownInfo.isDragging))
@@ -88,7 +86,12 @@ const Tile = ({ rowIndex, columnIndex, value, handleMouseUp, handleCursorMove, c
     return classes
   }
 
-  let tileStates = ["", "⬛", "✖️"]
+  const valueClasses = (value) => {
+    let classList = ["empty ", "filled ", "flagged "]
+    return classList[value]
+  }
+
+  let tileStates = ["", "", ""]
 
   return (
     <td
@@ -97,7 +100,7 @@ const Tile = ({ rowIndex, columnIndex, value, handleMouseUp, handleCursorMove, c
       onMouseUp={(e) => handleMouseUp(e, columnIndex, rowIndex)}
       onMouseDown={(e) => setMouseDownInfo(clickHelpers.mouseDown(e, value, columnIndex, rowIndex, mouseDownInfo.initialValue))}
       onContextMenu={e => e.preventDefault()}
-      className={`cell ${borderClasses(rowIndex, columnIndex)} ${highlightClasses(columnIndex, rowIndex)}`}
+      className={`cell ${borderClasses(rowIndex, columnIndex)}${highlightClasses(columnIndex, rowIndex)}${valueClasses(value)}`}
       x-index={columnIndex}
       y-index={rowIndex}
     >

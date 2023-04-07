@@ -66,7 +66,7 @@ td.cell:hover {
   left: 0;
   top: 50%;
   right: 0;
-  border-top: 1px solid;
+  border-top: 2px solid;
   border-color: inherit;
 
   -webkit-transform: rotate(-35deg);
@@ -95,8 +95,17 @@ td.cell:hover {
   background-color: gray;
 }
 
-.stage-highlight {
-  background-color: rgb(61, 61, 61);
+.filled {
+  background-color: black;
+}
+
+.flagged {
+  content: "\274c";
+  font-size: 10px;
+  color: black;
+  line-height: 10px;
+  text-align: center;
+  background-color: red;
 }
 
 .timer-wrapper {

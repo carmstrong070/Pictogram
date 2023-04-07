@@ -1,7 +1,6 @@
 import React, { useState } from "react"
 import Tile from "./Tile";
 import GuideNumbers from "./GuideNumbers";
-import * as clickHelpers from "../helpers/clickHelpers"
 import { puzzleChange } from "@/helpers/puzzleHelpers";
 
 

@@ -86,6 +86,8 @@ Example:
 
 - Gamepad support
 
+- Live count of how many tiles are selected that follows cursor on drag
+
 <br>
 <br>
 <br>
