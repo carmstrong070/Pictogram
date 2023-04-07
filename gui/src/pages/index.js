@@ -36,7 +36,7 @@ const index = () => {
     <>
       {puzzle && puzzleProgress ? (
         <>
-          <div className="timer-wrapper">
+          <div className="flex flex-row justify-center">
             <Timer
               className="timer"
               setTimerStatus={setTimerStatus}
@@ -45,26 +45,30 @@ const index = () => {
               setIsFinished={setIsFinished}
             />
           </div>
-          <Board
-            puzzleProgress={puzzleProgress}
-            setPuzzleProgress={setPuzzleProgress}
-            puzzleSolution={puzzle.solution}
-            isFinished={isFinished}
-            timerStatus={timerStatus}
-            setTimerStatus={setTimerStatus}
-          />
+          <div className="flex flex-row justify-center">
+            <Board
+              puzzleProgress={puzzleProgress}
+              setPuzzleProgress={setPuzzleProgress}
+              puzzleSolution={puzzle.solution}
+              isFinished={isFinished}
+              timerStatus={timerStatus}
+              setTimerStatus={setTimerStatus}
+            />
+          </div>
         </>
       ) : (
         <></>
       )}
       <br />
-      <PuzzleSelection
-        setPuzzleProgress={setPuzzleProgress}
-        setPuzzle={setPuzzle}
-        setTimerStatus={setTimerStatus}
-        setIsFinished={setIsFinished}
-        timerStatus={timerStatus}
-      />
+      <div className="flex flex-row justify-center">
+        <PuzzleSelection
+          setPuzzleProgress={setPuzzleProgress}
+          setPuzzle={setPuzzle}
+          setTimerStatus={setTimerStatus}
+          setIsFinished={setIsFinished}
+          timerStatus={timerStatus}
+        />
+      </div>
       <FinishedModal showFinishedModal={showFinishedModal} setShowFinishedModal={setShowFinishedModal} />
     </>
   );

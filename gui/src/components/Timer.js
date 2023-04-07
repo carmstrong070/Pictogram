@@ -71,8 +71,8 @@ const Timer = ({ setTimerStatus, timerStatus, isFinished, setIsFinished }) => {
   };
 
   return (
-    <div className="stopwatch">
-      <div className="numbers">
+    <div className="border rounded border-solid border-black p-2 my-3">
+      <div className="text-center">
         <span>
           {(
             "0" + Math.floor(((time + (reverseCount ? 1000 : 0)) / 60000) % 60)
@@ -88,11 +88,11 @@ const Timer = ({ setTimerStatus, timerStatus, isFinished, setIsFinished }) => {
             : "00"}
         </span>
       </div>
-      <div className="buttons">
+      <div className="flex justify-evenly">
         {timeLimit ? (
-          <button className="btn btn-blue ml-3" onClick={() => handleTimeLimitChange(0)}>Count Up</button>
+          <button className="btn btn-blue" onClick={() => handleTimeLimitChange(0)}>Count Up</button>
         ) : (
-          <button className="btn btn-blue ml-3" onClick={() => handleTimeLimitChange(10000)}>
+          <button className="btn btn-blue" onClick={() => handleTimeLimitChange(10000)}>
             00:10 Count Down
           </button>
         )}
