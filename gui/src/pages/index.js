@@ -3,6 +3,9 @@ import Timer from "@/components/Timer";
 import * as puzzleHelpers from "../helpers/puzzleHelpers";
 import PuzzleSelection from "@/components/PuzzleSelection";
 import Board from "@/components/Board";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {faPlay} from "@fortawesome/free-solid-svg-icons";
+import {faPause} from "@fortawesome/free-solid-svg-icons";
 
 const index = () => {
   const [puzzle, setPuzzle] = useState();
