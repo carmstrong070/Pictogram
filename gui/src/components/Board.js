@@ -1,32 +1,50 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react";
 import Tile from "./Tile";
 import GuideNumbers from "./GuideNumbers";
 import { puzzleChange } from "@/helpers/puzzleHelpers";
+import timerHelpers from "@/helpers/timerHelpers";
+import * as puzzleHelpers from "@/helpers/puzzleHelpers";
 
+const Board = ({
+  puzzleProgress,
+  setPuzzleProgress,
+  puzzleSolution,
+  isFinished,
+  timerStatus,
+  setTimerStatus,
+}) => {
+  useEffect(() => {
+    if (timerStatus.reset) {
+      setPuzzleProgress(puzzleHelpers.resetPuzzleProgress(puzzleSolution));
+      let currentTimerStatus = { ...timerStatus };
+      currentTimerStatus.reset = false;
+      setTimerStatus(currentTimerStatus);
+    }
+  }, [timerStatus]);
 
-const Board = ({ puzzleProgress, setPuzzleProgress, puzzleSolution }) => {
   const [mouseDownInfo, setMouseDownInfo] = useState({
     column: undefined,
     row: undefined,
     initialValue: undefined,
     button: undefined,
-    isDragging: false
-  })
-  const [cursorPosition, setCursorPosition] = useState()
-
+    isDragging: false,
+  });
+  const [cursorPosition, setCursorPosition] = useState();
 
   const handleMouseUp = (e, columnIndex, rowIndex) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    setPuzzleProgress(
-      puzzleChange(
-        puzzleProgress,
-        mouseDownInfo,
-        cursorPosition,
-        columnIndex,
-        rowIndex
-      )
-    )
+    if (!isFinished && !(timerStatus.stopped || timerStatus.expired)) {
+      setPuzzleProgress(
+        puzzleChange(
+          puzzleProgress,
+          mouseDownInfo,
+          cursorPosition,
+          columnIndex,
+          rowIndex
+        )
+      );
+    }
 
     // Clean up
     setMouseDownInfo({
@@ -34,35 +52,35 @@ const Board = ({ puzzleProgress, setPuzzleProgress, puzzleSolution }) => {
       row: undefined,
       initialValue: undefined,
       button: undefined,
-      isDragging: false
-    })
-  }
-
+      isDragging: false,
+    });
+  };
 
   const handleCursorMove = (e, columnIndex, rowIndex) => {
-    e.preventDefault()
+    e.preventDefault();
 
     // Set cursorPosition state if the cursor is on a tile
     if (columnIndex !== undefined) {
       setCursorPosition({
         columnIndex: columnIndex,
-        rowIndex: rowIndex
-      })
-    }
-    else {
-      setCursorPosition()
+        rowIndex: rowIndex,
+      });
+    } else {
+      setCursorPosition();
     }
 
     // Determine if the user is executing a click & drag
     if (mouseDownInfo.button !== undefined) {
-      let currentState = { ...mouseDownInfo }
-      if (mouseDownInfo.column === columnIndex && mouseDownInfo.row === rowIndex) {
-        currentState.isDragging = false
+      let currentState = { ...mouseDownInfo };
+      if (
+        mouseDownInfo.column === columnIndex &&
+        mouseDownInfo.row === rowIndex
+      ) {
+        currentState.isDragging = false;
+      } else {
+        currentState.isDragging = true;
       }
-      else {
-        currentState.isDragging = true
-      }
-      setMouseDownInfo(currentState)
+      setMouseDownInfo(currentState);
     }
 
     // Handle mouse out of board component
@@ -72,11 +90,10 @@ const Board = ({ puzzleProgress, setPuzzleProgress, puzzleSolution }) => {
         row: undefined,
         initialValue: undefined,
         button: undefined,
-        isDragging: false
-      })
+        isDragging: false,
+      });
     }
-  }
-
+  };
 
   return (
     <table onMouseLeave={(e) => handleCursorMove(e)}>
@@ -93,7 +110,7 @@ const Board = ({ puzzleProgress, setPuzzleProgress, puzzleSolution }) => {
                   puzzleSolution={puzzleSolution}
                 />
               </React.Fragment>
-            )
+            );
           })}
         </tr>
       </thead>
@@ -107,14 +124,16 @@ const Board = ({ puzzleProgress, setPuzzleProgress, puzzleSolution }) => {
                 return (
                   <React.Fragment key={`fragment ${rowIndex} ${columnIndex}`}>
                     {/* Insert guide numbers before adding a Tile component if the column index is 0 */}
-                    {columnIndex ? <></> :
+                    {columnIndex ? (
+                      <></>
+                    ) : (
                       <GuideNumbers
                         columnIndex={-1}
                         rowIndex={rowIndex}
                         puzzleSolution={puzzleSolution}
                         handleCursorMove={handleCursorMove}
                       />
-                    }
+                    )}
                     <Tile
                       key={`tile ${rowIndex} ${columnIndex}`}
                       rowIndex={rowIndex}
@@ -127,14 +146,14 @@ const Board = ({ puzzleProgress, setPuzzleProgress, puzzleSolution }) => {
                       setMouseDownInfo={setMouseDownInfo}
                     />
                   </React.Fragment>
-                )
+                );
               })}
             </tr>
-          )
+          );
         })}
       </tbody>
     </table>
   );
 };
 
-export default Board
+export default Board;
