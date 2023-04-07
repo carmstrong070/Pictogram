@@ -17,7 +17,7 @@ const Timer = ({ setTimerStatus, timerStatus, isFinished, setIsFinished }) => {
       } else if (!running) {
         clearInterval(interval);
       }
-      if (time < 0) {
+      if (time < 0 && timeLimit) {
         let currentTimerStatus = { ...timerStatus };
         currentTimerStatus.stopped = true;
         currentTimerStatus.expired = true;
@@ -74,11 +74,17 @@ const Timer = ({ setTimerStatus, timerStatus, isFinished, setIsFinished }) => {
     <div className="stopwatch">
       <div className="numbers">
         <span>
-          {("0" + Math.floor(((time + 1000) / 60000) % 60)).slice(-2)}:
+          {(
+            "0" + Math.floor(((time + (reverseCount ? 1000 : 0)) / 60000) % 60)
+          ).slice(-2)}
+          :
         </span>
         <span>
           {time
-            ? ("0" + Math.floor(((time + 1000) / 1000) % 60)).slice(-2)
+            ? (
+                "0" +
+                Math.floor(((time + (reverseCount ? 1000 : 0)) / 1000) % 60)
+              ).slice(-2)
             : "00"}
         </span>
       </div>
