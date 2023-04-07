@@ -95,11 +95,19 @@ const Board = ({
     }
   };
 
+  const customMargin = () => {
+    let element = document.getElementById("guideNumbersWidth")
+
+    return {
+      marginRight: element ? element.offsetWidth : '0px'
+    }
+  }
+
   return (
-    <table onMouseLeave={(e) => handleCursorMove(e)}>
+    <table style={customMargin()} onMouseLeave={(e) => handleCursorMove(e)}>
       <thead>
         <tr onMouseEnter={(e) => handleCursorMove(e)}>
-          <th></th>
+          <th id="guideNumbersWidth"></th>
           {/* Create a header row for each column that will contain the guide numbers*/}
           {puzzleProgress[0].map((_, columnIndex) => {
             return (
