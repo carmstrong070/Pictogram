@@ -16,6 +16,7 @@ const puzzleList = [
       [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     ],
     hint: "It's just a box.",
+    timeLimit: 1,
   },
   {
     id: 2,
@@ -34,6 +35,7 @@ const puzzleList = [
       [0, 0, 0, 0, 1, 1, 0, 0, 0, 0],
     ],
     hint: "It's a cross.",
+    timeLimit: 120,
   },
   {
     id: 3,

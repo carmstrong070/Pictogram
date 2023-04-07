@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from "react";
 
-const Timer = ({ setTimerStatus, timerStatus, isFinished, setIsFinished }) => {
+const Timer = ({
+  setTimerStatus,
+  timerStatus,
+  isFinished,
+  setIsFinished,
+  userDifficulty,
+  providedTimeLimit,
+}) => {
   const [running, setRunning] = useState(false);
   const [reverseCount, setReverseCount] = useState(false);
   const [time, setTime] = useState(0);
@@ -31,16 +38,20 @@ const Timer = ({ setTimerStatus, timerStatus, isFinished, setIsFinished }) => {
   }, [running, time, reverseCount]);
 
   useEffect(() => {
-    if (timerStatus.reset && !timeLimit) {
+    if (timerStatus.reset && !userDifficulty) {
       setTime(timeLimit);
       setRunning(true);
       setReverseCount(false);
-    } else if (timerStatus.reset && timeLimit) {
-      setTime(timeLimit);
+    } else if (timerStatus.reset && userDifficulty && providedTimeLimit) {
+      setTime(providedTimeLimit * 60000);
       setRunning(true);
       setReverseCount(true);
     }
   }, [timerStatus]);
+
+  useEffect(() => {
+    handleReset();
+  }, [userDifficulty]);
 
   const handleReset = () => {
     let currentTimerStatus = { ...timerStatus };
@@ -88,14 +99,7 @@ const Timer = ({ setTimerStatus, timerStatus, isFinished, setIsFinished }) => {
             : "00"}
         </span>
       </div>
-      <div className="flex justify-evenly">
-        {timeLimit ? (
-          <button className="btn btn-blue" onClick={() => handleTimeLimitChange(0)}>Count Up</button>
-        ) : (
-          <button className="btn btn-blue" onClick={() => handleTimeLimitChange(10000)}>
-            00:10 Count Down
-          </button>
-        )}
+      <div className="buttons">
         {isFinished || timerStatus.expired ? (
           <></>
         ) : (
@@ -103,7 +107,9 @@ const Timer = ({ setTimerStatus, timerStatus, isFinished, setIsFinished }) => {
             {running ? "Pause" : "Start"}
           </button>
         )}
-        <button className="btn btn-red ml-3" onClick={() => handleReset()}>Reset</button>
+        <button className="btn btn-red ml-3" onClick={() => handleReset()}>
+          Reset
+        </button>
       </div>
     </div>
   );
