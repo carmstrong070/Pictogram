@@ -1,7 +1,8 @@
 import { resetPuzzleProgress } from "@/helpers/puzzleHelpers";
 import puzzleList from "@/content/puzzles";
+import { faPause } from "@fortawesome/free-solid-svg-icons";
 
-const PuzzleSelection = ({ setPuzzleProgress, setPuzzle }) => {
+const PuzzleSelection = ({ setPuzzleProgress, setPuzzle, setTimerReset }) => {
 
   const PuzzleSelectTile = ({ puzzle }) => {
     return (<div onContextMenu={e => e.preventDefault()} onClick={e => handlePuzzleSelection(e)} id={puzzle.id} className="puzzle-card">
@@ -16,6 +17,7 @@ const PuzzleSelection = ({ setPuzzleProgress, setPuzzle }) => {
     })
     setPuzzleProgress(resetPuzzleProgress(newPuzzle.solution));
     setPuzzle(newPuzzle);
+    setTimerReset(true);
   }
 
   return (
