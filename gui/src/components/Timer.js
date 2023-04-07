@@ -43,6 +43,7 @@ const Timer = ({
       setRunning(true);
       setReverseCount(false);
     } else if (timerStatus.reset && userDifficulty && providedTimeLimit) {
+      setTimeLimit(providedTimeLimit);
       setTime(providedTimeLimit * 60000);
       setRunning(true);
       setReverseCount(true);
@@ -59,7 +60,7 @@ const Timer = ({
     currentTimerStatus.expired = false;
     currentTimerStatus.stopped = false;
     setTimerStatus(currentTimerStatus);
-    setTime(timeLimit);
+    // setTime(timeLimit);
     setRunning(true);
     setIsFinished(false);
   };
