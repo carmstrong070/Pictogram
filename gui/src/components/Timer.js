@@ -90,20 +90,20 @@ const Timer = ({ setTimerStatus, timerStatus, isFinished, setIsFinished }) => {
       </div>
       <div className="buttons">
         {timeLimit ? (
-          <button onClick={() => handleTimeLimitChange(0)}>Count Up</button>
+          <button className="btn btn-blue ml-3" onClick={() => handleTimeLimitChange(0)}>Count Up</button>
         ) : (
-          <button onClick={() => handleTimeLimitChange(10000)}>
+          <button className="btn btn-blue ml-3" onClick={() => handleTimeLimitChange(10000)}>
             00:10 Count Down
           </button>
         )}
         {isFinished || timerStatus.expired ? (
           <></>
         ) : (
-          <button onClick={() => handleStop()}>
+          <button className="btn btn-blue ml-3" onClick={() => handleStop()}>
             {running ? "Pause" : "Start"}
           </button>
         )}
-        <button onClick={() => handleReset()}>Reset</button>
+        <button className="btn btn-red ml-3" onClick={() => handleReset()}>Reset</button>
       </div>
     </div>
   );
