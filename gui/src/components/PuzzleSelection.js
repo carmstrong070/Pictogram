@@ -21,7 +21,14 @@ const PuzzleSelection = ({
         <p>
           Size: {puzzle.size}x{puzzle.size}
         </p>
-        {puzzle.timeLimit != undefined ? <p>Time Limit: {puzzle.timeLimit} minutes</p> : <></>}
+        {puzzle.timeLimit != undefined ? (
+          <p>
+            Time Limit: {puzzle.timeLimit}{" "}
+            {puzzle.timeLimit === 1 ? "minute" : "minutes"}
+          </p>
+        ) : (
+          <p>Time Limit: N/A</p>
+        )}
       </div>
     );
   };
