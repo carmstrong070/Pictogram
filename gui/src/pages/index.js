@@ -38,11 +38,6 @@ const index = () => {
     }
   }, [puzzleProgress, timerStatus]);
 
-  useEffect(() => {
-    if (puzzle.timeLimit && userDifficulty) {
-    }
-  }, [userDifficulty, puzzle]);
-
   return (
     <>
       <button
@@ -63,6 +58,7 @@ const index = () => {
               isFinished={isFinished}
               setIsFinished={setIsFinished}
               userDifficulty={userDifficulty}
+              // If there is not a timeLimit provided by the puzzle, create one based on the puzzle size
               providedTimeLimit={
                 puzzle.timeLimit ? puzzle.timeLimit : puzzle.size
               }

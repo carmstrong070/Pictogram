@@ -35,7 +35,7 @@ const puzzleList = [
       [0, 0, 0, 0, 1, 1, 0, 0, 0, 0],
     ],
     hint: "It's a cross.",
-    timeLimit: 120,
+    timeLimit: 2880,
   },
   {
     id: 3,

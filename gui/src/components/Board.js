@@ -14,6 +14,7 @@ const Board = ({
   setTimerStatus,
 }) => {
   useEffect(() => {
+    // If the timer is reset, reset the puzzle progress
     if (timerStatus.reset) {
       setPuzzleProgress(puzzleHelpers.resetPuzzleProgress(puzzleSolution));
       let currentTimerStatus = { ...timerStatus };
@@ -34,6 +35,7 @@ const Board = ({
   const handleMouseUp = (e, columnIndex, rowIndex) => {
     e.preventDefault();
 
+    // Do not allow changes to the board if the timer is stopped, expired, or the puzzle has been completed
     if (!isFinished && !(timerStatus.stopped || timerStatus.expired)) {
       setPuzzleProgress(
         puzzleChange(
@@ -96,12 +98,12 @@ const Board = ({
   };
 
   const customMargin = () => {
-    let element = document.getElementById("guideNumbersWidth")
+    let element = document.getElementById("guideNumbersWidth");
 
     return {
-      marginRight: element ? element.offsetWidth : '0px'
-    }
-  }
+      marginRight: element ? element.offsetWidth : "0px",
+    };
+  };
 
   return (
     <table style={customMargin()} onMouseLeave={(e) => handleCursorMove(e)}>

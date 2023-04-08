@@ -1,13 +1,13 @@
 import { resetPuzzleProgress } from "@/helpers/puzzleHelpers";
 import puzzleList from "@/content/puzzles";
 import { faPause } from "@fortawesome/free-solid-svg-icons";
+import * as timerHelpers from "../helpers/timerHelpers";
 
 const PuzzleSelection = ({
   setPuzzleProgress,
   setPuzzle,
   setTimerStatus,
   setIsFinished,
-  timerStatus,
 }) => {
   const PuzzleSelectTile = ({ puzzle }) => {
     return (
@@ -40,11 +40,7 @@ const PuzzleSelection = ({
     setPuzzleProgress(resetPuzzleProgress(newPuzzle.solution));
     setIsFinished(false);
     setPuzzle(newPuzzle);
-    let currentTimerStatus = { ...timerStatus };
-    currentTimerStatus.reset = true;
-    currentTimerStatus.stopped = false;
-    currentTimerStatus.expired = false;
-    setTimerStatus(currentTimerStatus);
+    setTimerStatus(timerHelpers.reset);
   };
 
   return (

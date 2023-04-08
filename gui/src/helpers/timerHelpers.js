@@ -11,4 +11,20 @@ export const togglePlayPause = (timerIcon, setTimerIcon, setTimerIsActive) => {
   }
 };
 
-export default { togglePlayPause };
+export const reset = () => {
+  let newTimerStatus = {};
+  newTimerStatus.reset = true;
+  newTimerStatus.stopped = false;
+  newTimerStatus.expired = false;
+  return newTimerStatus;
+};
+
+export const expired = () => {
+  let newTimerStatus = {};
+  newTimerStatus.reset = false;
+  newTimerStatus.stopped = true;
+  newTimerStatus.expired = true;
+  return newTimerStatus;
+};
+
+export default { togglePlayPause, reset };
