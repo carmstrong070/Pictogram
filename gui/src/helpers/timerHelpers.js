@@ -20,6 +20,14 @@ export const stop = () => {
   newTimerStatus.stopped = true;
   newTimerStatus.expired = false;
   return newTimerStatus;
-}
+};
+
+export const start = () => {
+  let newTimerStatus = {};
+  newTimerStatus.reset = false;
+  newTimerStatus.stopped = false;
+  newTimerStatus.expired = false;
+  return newTimerStatus;
+};
 
 export default { reset, expired, stop };

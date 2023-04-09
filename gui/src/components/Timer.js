@@ -50,6 +50,12 @@ const Timer = ({
         setReverseCount(true);
       }
     }
+
+    if (timerStatus.stopped) {
+      setRunning(false);
+    } else if (!timerStatus.stopped) {
+      setRunning(true);
+    }
   }, [timerStatus]);
 
   // When user difficulty changes, reset the puzzle
@@ -104,7 +110,7 @@ const Timer = ({
       </div>
       <div className="buttons">
         {/* Remove the Start/Pause button if the puzzle is completed or the timer runs out*/}
-        { isFinished || timerStatus.expired ? (
+        {isFinished || timerStatus.expired ? (
           <></>
         ) : (
           <button
