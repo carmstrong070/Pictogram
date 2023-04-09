@@ -3,8 +3,9 @@ import Timer from "@/components/Timer";
 import * as puzzleHelpers from "../helpers/puzzleHelpers";
 import PuzzleSelection from "@/components/PuzzleSelection";
 import Board from "@/components/Board";
-import FinishedModal from "@/components/FinishedModal";
+import FinishedModal from "@/components/modals/FinishedModal";
 import timerHelpers from "@/helpers/timerHelpers";
+import HintModal from "@/components/modals/HintModal";
 
 const index = () => {
   const [puzzle, setPuzzle] = useState({});
@@ -47,6 +48,7 @@ const index = () => {
       </button>
       {puzzle.solution && puzzleProgress ? (
         <>
+        <HintModal setTimerStatus={setTimerStatus} puzzleHint={puzzle.hint} />
           <div className="flex flex-row justify-center">
             <Timer
               className="timer"
