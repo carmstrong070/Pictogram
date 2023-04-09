@@ -43,17 +43,17 @@ Example:
   - ✅ I want visual feedback to see the range of tiles I have selected before filling or emptying
   - ✅ I want **_guiding numbers_** that indicate how many consecutive tiles need to be filled for each respective column and row
   - ✅ I want to strikethrough guiding numbers that I believe I have been completed for a given row or column
-- As a user I want an easily viewable timer
-  - I want the timer to count up in seconds
-  - I want the timer to begin counting when I start the puzzle
-  - I want the timer to stop when I have completed the puzzle
-  - I want the timer to reset when I select a different puzzle
-  - I want to pause the timer
-  - I want to resume the timer after it has been paused
+- ✅ As a user I want an easily viewable timer
+  - ✅ I want the timer to count up in seconds
+  - ✅ I want the timer to begin counting when I start the puzzle
+  - ✅ I want the timer to stop when I have completed the puzzle
+  - ✅ I want the timer to reset when I select a different puzzle
+  - ✅ I want to pause the timer
+  - ✅ I want to resume the timer after it has been paused
 - I want a modal that gives me instructions about how to play the game when I click a button
-- I want to see the title of the puzzle once I have completed it
+- ✅ I want to see the title of the puzzle once I have completed it
 - I want a button that will provide a hint when I am stuck on the puzzle
-- I want to restart the puzzle when I preform **_an action_** *(button?)*
+- ✅ I want to restart the puzzle when I preform **_an action_** *(button?)*
 - ✅ I want to select a different puzzle when I preform **_an action_** *(button?)*
 
 <br>

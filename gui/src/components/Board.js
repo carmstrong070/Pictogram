@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Tile from "./Tile";
 import GuideNumbers from "./GuideNumbers";
 import { puzzleChange } from "@/helpers/puzzleHelpers";
-import timerHelpers from "@/helpers/timerHelpers";
 import * as puzzleHelpers from "@/helpers/puzzleHelpers";
 
 const Board = ({

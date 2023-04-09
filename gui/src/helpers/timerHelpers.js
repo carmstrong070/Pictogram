@@ -1,16 +1,3 @@
-import { faPlay } from "@fortawesome/free-solid-svg-icons";
-import { faPause } from "@fortawesome/free-solid-svg-icons";
-
-export const togglePlayPause = (timerIcon, setTimerIcon, setTimerIsActive) => {
-  if (timerIcon == faPlay) {
-    setTimerIcon(faPause);
-    setTimerIsActive(true);
-  } else {
-    setTimerIcon(faPlay);
-    setTimerIsActive(false);
-  }
-};
-
 export const reset = () => {
   let newTimerStatus = {};
   newTimerStatus.reset = true;
@@ -27,4 +14,12 @@ export const expired = () => {
   return newTimerStatus;
 };
 
-export default { togglePlayPause, reset };
+export const stop = () => {
+  let newTimerStatus = {};
+  newTimerStatus.reset = false;
+  newTimerStatus.stopped = true;
+  newTimerStatus.expired = false;
+  return newTimerStatus;
+}
+
+export default { reset, expired, stop };

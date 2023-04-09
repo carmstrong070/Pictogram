@@ -4,9 +4,7 @@ import * as puzzleHelpers from "../helpers/puzzleHelpers";
 import PuzzleSelection from "@/components/PuzzleSelection";
 import Board from "@/components/Board";
 import FinishedModal from "@/components/FinishedModal";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay } from "@fortawesome/free-solid-svg-icons";
-import { faPause } from "@fortawesome/free-solid-svg-icons";
+import timerHelpers from "@/helpers/timerHelpers";
 
 const index = () => {
   const [puzzle, setPuzzle] = useState({});
@@ -17,7 +15,6 @@ const index = () => {
     expired: false,
   });
   const [isFinished, setIsFinished] = useState(false);
-  const [showFinishedModal, setShowFinishedModal] = useState(false);
   const [userDifficulty, setUserDifficulty] = useState(0);
 
   useEffect(() => {
@@ -29,7 +26,7 @@ const index = () => {
     ) {
       if (puzzleHelpers.checkFinished(puzzle.solution, puzzleProgress)) {
         setIsFinished(true);
-        setShowFinishedModal(true);
+        setTimerStatus(timerHelpers.stop)
       }
       if (timerStatus.expired && !timerStatus.reset) {
         console.log("Time ran out!");
@@ -89,8 +86,7 @@ const index = () => {
         />
       </div>
       <FinishedModal
-        showFinishedModal={showFinishedModal}
-        setShowFinishedModal={setShowFinishedModal}
+        isFinished={isFinished}
       />
     </>
   );

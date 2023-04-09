@@ -34,8 +34,8 @@ const Timer = ({
     return () => clearInterval(interval);
   }, [running, time]);
 
+  // When the timer resets, initiate the timer
   useEffect(() => {
-    // When the timer resets, initiate the timer
     if (timerStatus.reset) {
       // Initialization settings when the difficulty is set to EASY
       if (!userDifficulty) {
@@ -104,7 +104,7 @@ const Timer = ({
       </div>
       <div className="buttons">
         {/* Remove the Start/Pause button if the puzzle is completed or the timer runs out*/}
-        {isFinished || timerStatus.expired ? (
+        { isFinished || timerStatus.expired ? (
           <></>
         ) : (
           <button
