@@ -5,7 +5,7 @@ import PuzzleSelection from "@/components/PuzzleSelection";
 import Board from "@/components/Board";
 import FinishedModal from "@/components/modals/FinishedModal";
 import timerHelpers from "@/helpers/timerHelpers";
-import HintModal from "@/components/modals/HintModal";
+import InstructionsModal from "@/components/modals/InstructionsModal";
 
 const index = () => {
   const [puzzle, setPuzzle] = useState({});
@@ -16,6 +16,7 @@ const index = () => {
     expired: false,
   });
   const [isFinished, setIsFinished] = useState(false);
+  const [openInstructions, setopenInstructions] = useState(false);
   const [userDifficulty, setUserDifficulty] = useState(0);
 
   useEffect(() => {
@@ -38,58 +39,61 @@ const index = () => {
 
   return (
     <>
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-          userDifficulty ? setUserDifficulty(0) : setUserDifficulty(1);
-        }}
-      >
-        Difficulty: {userDifficulty ? "Hard" : "Easy"}
-      </button>
-      {puzzle.solution && puzzleProgress ? (
-        <>
-        <HintModal setTimerStatus={setTimerStatus} puzzleHint={puzzle.hint} />
-          <div className="flex flex-row justify-center">
-            <Timer
-              className="timer"
-              setTimerStatus={setTimerStatus}
-              timerStatus={timerStatus}
-              isFinished={isFinished}
-              setIsFinished={setIsFinished}
-              userDifficulty={userDifficulty}
-              // If there is not a timeLimit provided by the puzzle, create one based on the puzzle size
-              providedTimeLimit={
-                puzzle.timeLimit ? puzzle.timeLimit : puzzle.size
-              }
-            />
-          </div>
-          <div className="flex flex-row justify-center">
-            <Board
-              puzzleProgress={puzzleProgress}
-              setPuzzleProgress={setPuzzleProgress}
-              puzzleSolution={puzzle.solution}
-              isFinished={isFinished}
-              timerStatus={timerStatus}
-              setTimerStatus={setTimerStatus}
-            />
-          </div>
-        </>
-      ) : (
-        <></>
-      )}
-      <br />
-      <div className="flex flex-row justify-center">
-        <PuzzleSelection
-          setPuzzleProgress={setPuzzleProgress}
-          setPuzzle={setPuzzle}
-          setTimerStatus={setTimerStatus}
-          setIsFinished={setIsFinished}
-          timerStatus={timerStatus}
-        />
+      <div className="container flex justify-evenly p-3">
+        <button className="btn btn-blue mr-2"
+          onClick={(e) => {
+            e.preventDefault();
+            userDifficulty ? setUserDifficulty(0) : setUserDifficulty(1);
+          }}
+        >
+          Difficulty: {userDifficulty ? "Hard" : "Easy"}
+        </button>
+        <InstructionsModal setTimerStatus={setTimerStatus} />
       </div>
-      <FinishedModal
-        isFinished={isFinished}
-      />
+      <div className="container p-3">
+        {puzzle.solution && puzzleProgress ? (
+          <>
+            <div className="flex flex-row justify-center">
+              <Timer
+                className="timer"
+                setTimerStatus={setTimerStatus}
+                timerStatus={timerStatus}
+                isFinished={isFinished}
+                setIsFinished={setIsFinished}
+                userDifficulty={userDifficulty}
+                puzzleHint={puzzle.hint}
+                // If there is not a timeLimit provided by the puzzle, create one based on the puzzle size
+                providedTimeLimit={
+                  puzzle.timeLimit ? puzzle.timeLimit : puzzle.size
+                }
+              />
+            </div>
+            <div className="flex flex-row justify-center">
+              <Board
+                puzzleProgress={puzzleProgress}
+                setPuzzleProgress={setPuzzleProgress}
+                puzzleSolution={puzzle.solution}
+                isFinished={isFinished}
+                timerStatus={timerStatus}
+                setTimerStatus={setTimerStatus}
+              />
+            </div>
+          </>
+        ) : (
+          <></>
+        )}
+        <br />
+        <div className="flex flex-row justify-center mt-3">
+          <PuzzleSelection
+            setPuzzleProgress={setPuzzleProgress}
+            setPuzzle={setPuzzle}
+            setTimerStatus={setTimerStatus}
+            setIsFinished={setIsFinished}
+            timerStatus={timerStatus}
+          />
+        </div>
+        <FinishedModal isFinished={isFinished} />
+      </div>
     </>
   );
 };

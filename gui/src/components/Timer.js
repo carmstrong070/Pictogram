@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import * as timerHelpers from "../helpers/timerHelpers";
+import HintModal from "./modals/HintModal";
 
 const Timer = ({
   setTimerStatus,
@@ -8,6 +9,7 @@ const Timer = ({
   setIsFinished,
   userDifficulty,
   providedTimeLimit,
+  puzzleHint,
 }) => {
   const [running, setRunning] = useState(true);
   const [reverseCount, setReverseCount] = useState(false);
@@ -77,7 +79,7 @@ const Timer = ({
   };
 
   return (
-    <div className="border rounded border-solid border-black p-2 my-3">
+    <div className="timer border rounded border-solid border-black p-2 my-3">
       <div className="text-center">
         <span>
           {/* Generate hours (if needed) */}
@@ -108,19 +110,22 @@ const Timer = ({
             : "00"}
         </span>
       </div>
-      <div className="buttons">
+      <div className="flex justify-around">
         {/* Remove the Start/Pause button if the puzzle is completed or the timer runs out*/}
         {isFinished || timerStatus.expired ? (
           <></>
         ) : (
-          <button
-            className="btn btn-blue ml-3"
-            onClick={() => handleStartStopToggle()}
-          >
-            {running ? "Pause" : "Start"}
-          </button>
+          <>
+            <button
+              className="btn btn-blue"
+              onClick={() => handleStartStopToggle()}
+            >
+              {running ? "Pause" : "Start"}
+            </button>
+            <HintModal setTimerStatus={setTimerStatus} puzzleHint={puzzleHint} />
+          </>
         )}
-        <button className="btn btn-red ml-3" onClick={() => handleReset()}>
+        <button className="btn btn-red" onClick={() => handleReset()}>
           Reset
         </button>
       </div>

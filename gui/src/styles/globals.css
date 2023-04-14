@@ -19,6 +19,10 @@
   @apply bg-red-700;
 }
 
+.container {
+  max-width: 1000px;
+}
+
 table {
   border-spacing: 0;
   border-collapse: collapse;
@@ -121,7 +125,7 @@ td.cell:hover {
 }
 
 .flagged {
-  content: "\274c";
+  content: "&#x274C";
   font-size: 10px;
   color: black;
   line-height: 10px;
@@ -136,12 +140,15 @@ td.cell:hover {
 }
 
 .timer {
-  display: inline;
-  margin-right: 5px;
+  width: 200px;
 }
 
 .timer-button {
   margin-right: 5px;
+}
+
+.hint-modal {
+  min-width: 250px;
 }
 
 /* :root {
