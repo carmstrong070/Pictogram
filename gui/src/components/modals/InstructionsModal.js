@@ -1,8 +1,8 @@
 import * as timerHelpers from "@/helpers/timerHelpers";
 import { useState } from "react";
 
-const InstructionsModal = ({setTimerStatus}) => {
-  const [showInstructionsModal, setShowInstructionsModal] = useState(false)
+const InstructionsModal = ({ setTimerStatus }) => {
+  const [showInstructionsModal, setShowInstructionsModal] = useState(false);
 
   const handleShowInstructionsModal = (e) => {
     e.preventDefault();
@@ -58,10 +58,17 @@ const InstructionsModal = ({setTimerStatus}) => {
           <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </>
       ) : (
-        <button className="btn btn-blue" onClick={(e) => handleShowInstructionsModal(e)}>Instructions</button>
+        <></>
       )}
+
+      <button
+        className="btn btn-blue"
+        onClick={(e) => handleShowInstructionsModal(e)}
+      >
+        Instructions
+      </button>
     </>
   );
-}
+};
 
 export default InstructionsModal;

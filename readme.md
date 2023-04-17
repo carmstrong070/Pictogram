@@ -1,32 +1,37 @@
 # MVP
+
 ---
+
 Puzzle object shape:
+
 ```json
 {
   "title": "string",
   "size": 0,
-  "solution": [[],[],[]],
+  "solution": [[], [], []],
   "hint": "string"
 }
 ```
+
 Example:
+
 ```json
 {
-    "title": "Box",
-    "size": 10,
-    "solution": [
-            [1,1,1,1,1,1,1,1,1,1],
-            [1,0,0,0,0,0,0,0,0,1],
-            [1,0,0,0,0,0,0,0,0,1],
-            [1,0,0,0,0,0,0,0,0,1],
-            [1,0,0,0,0,0,0,0,0,1],
-            [1,0,0,0,0,0,0,0,0,1],
-            [1,0,0,0,0,0,0,0,0,1],
-            [1,0,0,0,0,0,0,0,0,1],
-            [1,0,0,0,0,0,0,0,0,1],
-            [1,1,1,1,1,1,1,1,1,1]
-        ],
-    "hint": "It's just a box"
+  "title": "Box",
+  "size": 10,
+  "solution": [
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+  ],
+  "hint": "It's just a box"
 }
 ```
 
@@ -34,6 +39,7 @@ Example:
 <br>
 
 ## MVP User Stories
+
 - ✅ As a user I want to be able to play picross
   - ✅ I want to **_fill_** empty tiles
   - ✅ I want to **_empty_** filled or flagged tiles
@@ -52,25 +58,29 @@ Example:
   - ✅ I want to resume the timer after it has been paused
 - I want a modal that gives me instructions about how to play the game when I click a button
 - ✅ I want to see the title of the puzzle once I have completed it
-- I want a button that will provide a hint when I am stuck on the puzzle
-- ✅ I want to restart the puzzle when I preform **_an action_** *(button?)*
-- ✅ I want to select a different puzzle when I preform **_an action_** *(button?)*
+- ✅ I want a button that will provide a hint when I am stuck on the puzzle
+- ✅ I want to restart the puzzle when I preform **_an action_** _(button?)_
+- ✅ I want to select a different puzzle when I preform **_an action_** _(button?)_
 
 <br>
 <br>
 <br>
 
 # Stretch Goals
+
 ---
+
 ## Stretch Goal Brainstorm List
 
 - Dark mode
 
 - Auto-crossout for guide numbers (toggleable?)
+
   - strict matching to puzzle solution?
   - strict matching to current puzzle progress?
 
 - Hint mechanic:
+
   - complete row or column or both (user selected?)
   - complete a cell (user selected?)
 
@@ -93,7 +103,9 @@ Example:
 <br>
 
 # Unanimous Language
+
 ---
+
 **_Tile_** - A single square unit which comprises the puzzle board that can be broken, filled, or flagged.
 
 **_Fill_** - A mechanic that allows the player to indicate that a tile(s) is part of the image.
@@ -109,8 +121,11 @@ Example:
 <br>
 
 # Controls
+
 ---
+
 ## Tile state controls on click:
+
 ```
 Empty -> Filled : Left-click
 Empty -> Flagged: Right-click
@@ -126,7 +141,9 @@ Flagged -> Filled: Not possible
 ## Tile state controls on drag:
 
 ### Notation format:
+
 **mouseDownTileState to mouseUpTileStartingState**
+
 ```
 [mouseDownTileState -> mouseDownTileEndState]
 =>(drag)
@@ -142,11 +159,13 @@ Flagged -> Filled: Not possible
 <br />
 
 ## Left Click
+
 <details>
 <summary> Empty Start </summary>
 <br />
 
 **EMPTY to EMPTY**
+
 ```
 [Empty -> Filled]
 =>
@@ -158,7 +177,9 @@ Flagged -> Filled: Not possible
 =>
 [Empty -> Filled]
 ```
+
 **EMPTY to FILLED**
+
 ```
 [Empty -> Filled]
 =>
@@ -170,7 +191,9 @@ Flagged -> Filled: Not possible
 =>
 [Filled -> Filled]
 ```
+
 **EMPTY to FLAGGED**
+
 ```
 [Empty -> Filled]
 =>
@@ -182,6 +205,7 @@ Flagged -> Filled: Not possible
 =>
 [Flagged -> Flagged]
 ```
+
 </details>
 
 <br />
@@ -191,6 +215,7 @@ Flagged -> Filled: Not possible
 <br />
 
 **FILLED to EMPTY**
+
 ```
 [Filled -> Empty]
 =>
@@ -202,7 +227,9 @@ Flagged -> Filled: Not possible
 =>
 [Empty -> Empty]
 ```
+
 **FILLED to FILLED**
+
 ```
 [Filled -> Empty]
 =>
@@ -214,7 +241,9 @@ Flagged -> Filled: Not possible
 =>
 [Filled -> Empty]
 ```
+
 **FILLED to FLAGGED**
+
 ```
 [Filled -> Empty]
 =>
@@ -226,6 +255,7 @@ Flagged -> Filled: Not possible
 =>
 [Flagged -> Flagged]
 ```
+
 </details>
 
 <br />
@@ -235,6 +265,7 @@ Flagged -> Filled: Not possible
 <br />
 
 **FLAGGED to EMPTY**
+
 ```
 [Flagged -> Flagged]
 =>
@@ -246,7 +277,9 @@ Flagged -> Filled: Not possible
 =>
 [Empty -> Filled]
 ```
+
 **FLAGGED to FILLED**
+
 ```
 [Flagged -> Flagged]
 =>
@@ -258,7 +291,9 @@ Flagged -> Filled: Not possible
 =>
 [Filled -> Filled]
 ```
+
 **FLAGGED to FLAGGED**
+
 ```
 [Flagged -> Flagged]
 =>
@@ -270,14 +305,17 @@ Flagged -> Filled: Not possible
 =>
 [Flagged -> Flagged]
 ```
+
 </details>
 
 ## Right Click
+
 <details>
 <summary> Empty Start </summary>
 <br />
 
 **EMPTY to EMPTY**
+
 ```
 [Empty -> Flagged]
 =>
@@ -289,7 +327,9 @@ Flagged -> Filled: Not possible
 =>
 [Empty -> Flagged]
 ```
+
 **EMPTY to FILLED**
+
 ```
 [Empty -> Flagged]
 =>
@@ -301,7 +341,9 @@ Flagged -> Filled: Not possible
 =>
 [Filled -> Filled]
 ```
+
 **EMPTY to FLAGGED**
+
 ```
 [Empty -> Flagged]
 =>
@@ -313,6 +355,7 @@ Flagged -> Filled: Not possible
 =>
 [Flagged -> Flagged]
 ```
+
 </details>
 
 <br />
@@ -322,6 +365,7 @@ Flagged -> Filled: Not possible
 <br />
 
 **FILLED to EMPTY**
+
 ```
 [Filled -> Filled]
 =>
@@ -333,7 +377,9 @@ Flagged -> Filled: Not possible
 =>
 [Empty -> Flagged]
 ```
+
 **FILLED to FILLED**
+
 ```
 [Filled -> Filled]
 =>
@@ -345,7 +391,9 @@ Flagged -> Filled: Not possible
 =>
 [Filled -> Filled]
 ```
+
 **FILLED to FLAGGED**
+
 ```
 [Filled -> Filled]
 =>
@@ -357,6 +405,7 @@ Flagged -> Filled: Not possible
 =>
 [Flagged -> Flagged]
 ```
+
 </details>
 
 <br />
@@ -366,6 +415,7 @@ Flagged -> Filled: Not possible
 <br />
 
 **FLAGGED to EMPTY**
+
 ```
 [Flagged -> Empty]
 =>
@@ -377,7 +427,9 @@ Flagged -> Filled: Not possible
 =>
 [Empty -> Empty]
 ```
+
 **FLAGGED to FILLED**
+
 ```
 [Flagged -> Empty]
 =>
@@ -389,7 +441,9 @@ Flagged -> Filled: Not possible
 =>
 [Filled -> Filled]
 ```
+
 **FLAGGED to FLAGGED**
+
 ```
 [Flagged -> Empty]
 =>
@@ -401,4 +455,5 @@ Flagged -> Filled: Not possible
 =>
 [Flagged -> Empty]
 ```
+
 </details>

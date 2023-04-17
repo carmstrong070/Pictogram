@@ -98,9 +98,7 @@ const Tile = ({
         columnIndex === cursorPosition.columnIndex &&
         rowIndex === cursorPosition.rowIndex
       ) {
-        classes += mouseDownInfo.button
-          ? "right-click-cursor-current "
-          : "left-click-cursor-current ";
+        classes += mouseDownInfo.button ? "hover-cursor " : "hover-cursor ";
       }
     }
 
