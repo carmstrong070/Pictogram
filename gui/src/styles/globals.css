@@ -2,24 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base{
+  body {
+      @apply bg-gray-800
+  }
+}
+
 .btn {
   @apply font-bold py-1 px-2 rounded;
 }
 .btn-blue {
-  @apply bg-blue-500 text-white;
+  @apply bg-blue-800 text-white;
 }
 .btn-blue:hover {
-  @apply bg-blue-700;
+  @apply bg-blue-950;
 }
 .btn-red {
-  @apply bg-red-500 text-white;
+  @apply bg-red-800 text-white;
 }
 .btn-red:hover {
-  @apply bg-red-700;
+  @apply bg-red-950;
 }
 
 .container {
-  max-width: 1000px;
+  max-width: 1200px;
 }
 
 table {
@@ -28,7 +34,7 @@ table {
 }
 
 td.cell {
-  border: 1px solid black;
+  border: 1px solid rgb(209, 213, 219);
   margin: 0;
   padding: 0;
   width: 25px;
@@ -41,19 +47,19 @@ td.cell:hover {
 }
 
 .thick-border-left {
-  border-left: 2px solid black !important;
+  border-left: 2px solid rgb(209, 213, 219) !important;
 }
 
 .thick-border-right {
-  border-right: 2px solid black !important;
+  border-right: 2px solid rgb(209, 213, 219) !important;
 }
 
 .thick-border-top {
-  border-top: 2px solid black !important;
+  border-top: 2px solid rgb(209, 213, 219) !important;
 }
 
 .thick-border-bottom {
-  border-bottom: 2px solid black !important;
+  border-bottom: 2px solid rgb(209, 213, 219) !important;
 }
 
 .text-center {
@@ -62,7 +68,7 @@ td.cell:hover {
 
 .guide-number {
   margin-right: 5px;
-
+  color: rgb(209, 213, 219);
 }
 
 .guide-number:hover {
@@ -83,7 +89,7 @@ td.cell:hover {
 
 .strikethrough {
   position: relative;
-  color: rgba(0, 0, 0, 0.6);
+  color: rgb(209, 213, 219, .5);
 }
 
 .strikethrough:before {
@@ -93,7 +99,7 @@ td.cell:hover {
   top: 50%;
   right: 0;
   border-top: 1px solid;
-  border-color: rgba(0, 0, 0, .6);
+  border-color: white;
 
   -webkit-transform: rotate(-30deg);
   -moz-transform: rotate(-30deg);
@@ -103,8 +109,7 @@ td.cell:hover {
 }
 
 .puzzle-card {
-  border: 1px solid black;
-  display: inline-block;
+  border: 1px solid #757575;
   padding: 10px;
   margin-right: 15px;
 }
@@ -114,14 +119,14 @@ td.cell:hover {
 }
 
 .hover-guide-lines {
-  background-color: gainsboro;
+  background-color: #757575;
 }
 
 .hover-cursor {
   outline-style: solid;
-  outline-width: 3px;
-  outline-color: black;
-  background-color: gainsboro;
+  outline-width: 2px;
+  outline-color: rgb(31 41 55);;
+  background-color: #757575;
 }
 
 .right-click-cursor {
@@ -137,11 +142,11 @@ td.cell:hover {
 }
 
 .right-click-preview-line {
-  background-color: gray;
+  background-color: #757575;
 }
 
 .left-click-preview-line {
-  background-color: gray;
+  background-color: #757575;
 }
 
 .filled {
@@ -159,7 +164,7 @@ td.cell:hover {
 }
 
 .timer-wrapper {
-  border: 1px solid black;
+  border: 1px solid rgb(209, 213, 219);
   text-align: center;
   padding: 5px 0px;
 }

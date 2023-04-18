@@ -79,8 +79,8 @@ const Timer = ({
   };
 
   return (
-    <div className="timer border rounded border-solid border-black p-2 my-3">
-      <div className="text-center">
+    <div className="timer border rounded border-solid border-gray-300 p-2 my-3">
+      <div className="text-center text-gray-300 mb-2">
         <span>
           {/* Generate hours (if needed) */}
           {time >= 3599000

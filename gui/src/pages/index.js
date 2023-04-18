@@ -39,7 +39,8 @@ const index = () => {
 
   return (
     <>
-      <div className="container flex justify-evenly p-3">
+    <div className="bg-gray-800">
+      <div className="dark:bg-gray-700 container flex justify-evenly p-3">
         <button
           className="btn btn-blue mr-2"
           onClick={(e) => {
@@ -90,7 +91,7 @@ const index = () => {
           <></>
         )}
         <br />
-        <div className="flex flex-row justify-center mt-3">
+        <div className="flex flex-row gap-2 flex-wrap grow justify-center mt-3">
           <PuzzleSelection
             setPuzzleProgress={setPuzzleProgress}
             setPuzzle={setPuzzle}
@@ -101,6 +102,7 @@ const index = () => {
         </div>
         <FinishedModal isFinished={isFinished} />
       </div>
+    </div>
     </>
   );
 };

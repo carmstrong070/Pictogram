@@ -15,7 +15,7 @@ const PuzzleSelection = ({
         onContextMenu={(e) => e.preventDefault()}
         onClick={(e) => handlePuzzleSelection(e)}
         id={puzzle.id}
-        className="inline-block max-w-sm p-4 mx-2 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 cursor-pointer"
+        className="basis-1/5 inline-block text-gray-200 max-w-sm p-4 mx-2 bg-gray-700 border border-gray-500 rounded-lg shadow hover:bg-gray-500 cursor-pointer"
       >
         <p>Title: {puzzle.title}</p>
         <p>
