@@ -119,34 +119,27 @@ td.cell:hover {
 }
 
 .hover-guide-lines {
-  background-color: #757575;
+  @apply bg-gray-500
 }
 
 .hover-cursor {
-  outline-style: solid;
-  outline-width: 2px;
-  outline-color: rgb(31 41 55);;
-  background-color: #757575;
+  @apply bg-gray-600
 }
 
 .right-click-cursor {
-  outline-style: solid;
-  outline-width: 3px;
-  outline-color: black;
+  @apply border-gray-800
 }
 
 .left-click-cursor {
-  outline-style: solid;
-  outline-width: 3px;
-  outline-color: black;
+  @apply border-gray-800
 }
 
 .right-click-preview-line {
-  background-color: #757575;
+  @apply bg-gray-500
 }
 
 .left-click-preview-line {
-  background-color: #757575;
+  @apply bg-gray-500
 }
 
 .filled {
