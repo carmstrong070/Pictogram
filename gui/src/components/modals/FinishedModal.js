@@ -49,7 +49,7 @@ const FinishedModal = ({
                 </div>
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
-                  <p className="my-4 text-slate-600 text-lg leading-relaxed">
+                  <p className="my-4 text-gray-300 text-lg leading-relaxed">
                     You finished the puzzle in{" "}
                     {elapsedTime(userDifficulty, time, providedTimeLimit)}!
                   </p>
