@@ -116,7 +116,22 @@ td.cell:hover {
 }
 
 .hover-cursor {
-  background-color: gray;
+  outline-style: solid;
+  outline-width: 3px;
+  outline-color: black;
+  background-color: gainsboro;
+}
+
+.right-click-cursor {
+  outline-style: solid;
+  outline-width: 3px;
+  outline-color: black;
+}
+
+.left-click-cursor {
+  outline-style: solid;
+  outline-width: 3px;
+  outline-color: black;
 }
 
 .right-click-preview-line {
