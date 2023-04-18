@@ -173,3 +173,7 @@ td.cell:hover {
 .hint-modal {
   min-width: 250px;
 }
+
+.table-container {
+  padding-bottom: 50px;
+}

@@ -51,7 +51,11 @@ const index = () => {
         </button>
         <InstructionsModal setTimerStatus={setTimerStatus} />
       </div>
-      <div className="container p-3" onContextMenu={(e) => e.preventDefault()}>
+      <div
+        className="container p-3"
+        onMouseDown={(e) => e.preventDefault()}
+        onContextMenu={(e) => e.preventDefault()}
+      >
         {puzzle.solution && puzzleProgress ? (
           <>
             <div className="flex flex-row justify-center">

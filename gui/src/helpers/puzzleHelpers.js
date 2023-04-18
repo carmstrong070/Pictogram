@@ -25,24 +25,21 @@ export const checkFinished = (puzzleSolution, puzzleProgress) => {
   return true;
 };
 
-export const puzzleChange = (
-  puzzleProgress,
-  mouseDownInfo,
-  cursorPosition,
-  columnIndex,
-  rowIndex
-) => {
+export const puzzleChange = (puzzleProgress, mouseDownInfo, cursorPosition) => {
   let currentPuzzle = [...puzzleProgress];
 
   // Clicking on the same cell
-  if (mouseDownInfo.column === columnIndex && mouseDownInfo.row === rowIndex) {
+  if (
+    mouseDownInfo.column === cursorPosition.columnIndex &&
+    mouseDownInfo.row === cursorPosition.rowIndex
+  ) {
     let sameCell = true;
     clickHelpers.handleCellChange(
       mouseDownInfo.button,
       mouseDownInfo.initialValue,
       currentPuzzle,
-      columnIndex,
-      rowIndex,
+      cursorPosition.columnIndex,
+      cursorPosition.rowIndex,
       sameCell
     );
   }
@@ -54,18 +51,14 @@ export const puzzleChange = (
       Math.abs(mouseDownInfo.column - cursorPosition.columnIndex) <=
       Math.abs(mouseDownInfo.row - cursorPosition.rowIndex)
     ) {
-      // Reassign columnIndex and rowIndex for snap logic
-      rowIndex = cursorPosition.rowIndex;
-      columnIndex = mouseDownInfo.column;
-
       // Dragging Up
-      if (rowIndex < mouseDownInfo.row) {
-        for (let i = rowIndex; i < mouseDownInfo.row + 1; i++) {
+      if (cursorPosition.rowIndex < mouseDownInfo.row) {
+        for (let i = cursorPosition.rowIndex; i < mouseDownInfo.row + 1; i++) {
           clickHelpers.handleCellChange(
             mouseDownInfo.button,
             mouseDownInfo.initialValue,
             currentPuzzle,
-            columnIndex,
+            mouseDownInfo.column,
             i,
             false
           );
@@ -73,12 +66,12 @@ export const puzzleChange = (
       }
       // Dragging Down
       else {
-        for (let i = mouseDownInfo.row; i < rowIndex + 1; i++) {
+        for (let i = mouseDownInfo.row; i < cursorPosition.rowIndex + 1; i++) {
           clickHelpers.handleCellChange(
             mouseDownInfo.button,
             mouseDownInfo.initialValue,
             currentPuzzle,
-            columnIndex,
+            mouseDownInfo.column,
             i,
             false
           );
@@ -88,32 +81,36 @@ export const puzzleChange = (
 
     // Dragging over a cell in the same row
     else {
-      // Reassign columnIndex and rowIndex for snap logic
-      columnIndex = cursorPosition.columnIndex;
-      rowIndex = mouseDownInfo.row;
-
       // Dragging to the left
-      if (columnIndex < mouseDownInfo.column) {
-        for (let i = columnIndex; i < mouseDownInfo.column + 1; i++) {
+      if (cursorPosition.columnIndex < mouseDownInfo.column) {
+        for (
+          let i = cursorPosition.columnIndex;
+          i < mouseDownInfo.column + 1;
+          i++
+        ) {
           clickHelpers.handleCellChange(
             mouseDownInfo.button,
             mouseDownInfo.initialValue,
             currentPuzzle,
             i,
-            rowIndex,
+            mouseDownInfo.row,
             false
           );
         }
       }
       // Dragging to the right
       else {
-        for (let i = mouseDownInfo.column; i < columnIndex + 1; i++) {
+        for (
+          let i = mouseDownInfo.column;
+          i < cursorPosition.columnIndex + 1;
+          i++
+        ) {
           clickHelpers.handleCellChange(
             mouseDownInfo.button,
             mouseDownInfo.initialValue,
             currentPuzzle,
             i,
-            rowIndex,
+            mouseDownInfo.row,
             false
           );
         }

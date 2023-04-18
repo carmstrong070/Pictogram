@@ -134,7 +134,7 @@ const Tile = ({
   return (
     <td
       onMouseEnter={(e) => handleCursorMove(e, columnIndex, rowIndex)}
-      onMouseUp={(e) => handleMouseUp(e, columnIndex, rowIndex)}
+      onMouseUp={(e) => handleMouseUp(e)}
       onMouseDown={(e) =>
         setMouseDownInfo(
           clickHelpers.mouseDown(

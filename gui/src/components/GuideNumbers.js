@@ -1,9 +1,4 @@
-const GuideNumbers = ({
-  columnIndex,
-  rowIndex,
-  puzzleSolution,
-  handleCursorMove,
-}) => {
+const GuideNumbers = ({ columnIndex, rowIndex, puzzleSolution }) => {
   const ToggleStrikethrough = (e) => {
     e.preventDefault();
     if (e.target.classList.contains("strikethrough"))
@@ -103,11 +98,7 @@ const GuideNumbers = ({
     }
 
     return (
-      <td
-        className="horizontal-guide-numbers"
-        key={rowIndex}
-        onMouseEnter={(e) => handleCursorMove(e)}
-      >
+      <td className="horizontal-guide-numbers" key={rowIndex}>
         {guideNumbers}
       </td>
     );
