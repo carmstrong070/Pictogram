@@ -100,7 +100,6 @@ const index = () => {
             timerStatus={timerStatus}
           />
         </div>
-        <FinishedModal isFinished={isFinished} />
       </div>
     </div>
     </>

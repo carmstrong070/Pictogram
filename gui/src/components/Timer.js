@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import * as timerHelpers from "../helpers/timerHelpers";
 import HintModal from "./modals/HintModal";
+import FinishedModal from "./modals/FinishedModal";
 
 const Timer = ({
   setTimerStatus,
@@ -80,6 +81,12 @@ const Timer = ({
 
   return (
     <div className="timer border rounded border-solid border-gray-300 p-2 my-3">
+      <FinishedModal
+        userDifficulty={userDifficulty}
+        isFinished={isFinished}
+        time={time}
+        providedTimeLimit={providedTimeLimit}
+      />
       <div className="text-center text-gray-300 mb-2">
         <span>
           {/* Generate hours (if needed) */}
@@ -122,7 +129,10 @@ const Timer = ({
             >
               {running ? "Pause" : "Start"}
             </button>
-            <HintModal setTimerStatus={setTimerStatus} puzzleHint={puzzleHint} />
+            <HintModal
+              setTimerStatus={setTimerStatus}
+              puzzleHint={puzzleHint}
+            />
           </>
         )}
         <button className="btn btn-red" onClick={() => handleReset()}>
