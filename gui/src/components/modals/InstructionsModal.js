@@ -21,7 +21,7 @@ const InstructionsModal = ({ setTimerStatus }) => {
       {showInstructionsModal ? (
         <>
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-            <div className="relative w-auto my-6 mx-auto max-w-3xl">
+            <div className="relative w-auto py-6 my-auto mx-auto max-w-3xl">
               {/*content*/}
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 {/*header*/}
@@ -42,13 +42,13 @@ const InstructionsModal = ({ setTimerStatus }) => {
                     <div>
                       <h1>Welcome to Pictogram!</h1>
                       <br />
-                      <h2>Objective:</h2>
+                      <h2 className="font-bold">Objective:</h2>
                       <p>
                         Fill the tiles on the puzzle grid according to the guide
                         numbers to reveal a hidden picture!
                       </p>
                       <br />
-                      <h2>Nanogram Rules:</h2>
+                      <h2 className="font-bold">Nonogram Rules:</h2>
                       <ul>
                         <li>
                           Rows and columns have guide numbers that indicate the
@@ -71,7 +71,7 @@ const InstructionsModal = ({ setTimerStatus }) => {
                         </li>
                       </ul>
                       <br />
-                      <h2>Gameplay Features & Tips:</h2>
+                      <h2 className="font-bold">Gameplay Features & Tips:</h2>
                       <ul>
                         <li>
                           Select Difficulty: Choose between Easy and Hard
