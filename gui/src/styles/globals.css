@@ -62,6 +62,7 @@ td.cell:hover {
 
 .guide-number {
   margin-right: 5px;
+
 }
 
 .guide-number:hover {
@@ -82,6 +83,7 @@ td.cell:hover {
 
 .strikethrough {
   position: relative;
+  color: rgba(0, 0, 0, 0.6);
 }
 
 .strikethrough:before {
@@ -91,13 +93,13 @@ td.cell:hover {
   top: 50%;
   right: 0;
   border-top: 1px solid;
-  border-color: black;
+  border-color: rgba(0, 0, 0, .6);
 
-  -webkit-transform: rotate(-35deg);
-  -moz-transform: rotate(-35deg);
-  -ms-transform: rotate(-35deg);
-  -o-transform: rotate(-35deg);
-  transform: rotate(-35deg);
+  -webkit-transform: rotate(-30deg);
+  -moz-transform: rotate(-30deg);
+  -ms-transform: rotate(-30deg);
+  -o-transform: rotate(-30deg);
+  transform: rotate(-30deg);
 }
 
 .puzzle-card {

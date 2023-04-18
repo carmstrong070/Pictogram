@@ -51,7 +51,7 @@ const GuideNumbers = ({ columnIndex, rowIndex, puzzleSolution }) => {
     }
 
     return (
-      <td className="vertical-guide-numbers" key={columnIndex}>
+      <td className="vertical-guide-numbers font-medium" key={columnIndex}>
         {guideNumbers}
       </td>
     );
@@ -98,7 +98,7 @@ const GuideNumbers = ({ columnIndex, rowIndex, puzzleSolution }) => {
     }
 
     return (
-      <td className="horizontal-guide-numbers" key={rowIndex}>
+      <td className="horizontal-guide-numbers font-medium" key={rowIndex}>
         {guideNumbers}
       </td>
     );
