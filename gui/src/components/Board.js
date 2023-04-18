@@ -159,6 +159,7 @@ const Board = ({
                         mouseDownInfo={mouseDownInfo}
                         value={puzzleProgress[rowIndex][columnIndex]}
                         setMouseDownInfo={setMouseDownInfo}
+                        isFinished={isFinished}
                       />
                     </React.Fragment>
                   );

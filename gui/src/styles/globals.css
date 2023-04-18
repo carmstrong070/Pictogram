@@ -2,9 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base{
+@layer base {
   body {
-      @apply bg-gray-800
+    @apply bg-gray-800;
   }
 }
 
@@ -89,7 +89,7 @@ td.cell:hover {
 
 .strikethrough {
   position: relative;
-  color: rgb(209, 213, 219, .5);
+  color: rgb(209, 213, 219, 0.5);
 }
 
 .strikethrough:before {
@@ -119,27 +119,27 @@ td.cell:hover {
 }
 
 .hover-guide-lines {
-  @apply bg-gray-500
+  @apply bg-gray-500;
 }
 
 .hover-cursor {
-  @apply bg-gray-600
+  @apply bg-gray-600;
 }
 
 .right-click-cursor {
-  @apply border-gray-800
+  @apply border-gray-800;
 }
 
 .left-click-cursor {
-  @apply border-gray-800
+  @apply border-gray-800;
 }
 
 .right-click-preview-line {
-  @apply bg-gray-500
+  @apply bg-gray-500;
 }
 
 .left-click-preview-line {
-  @apply bg-gray-500
+  @apply bg-gray-500;
 }
 
 .filled {
@@ -154,6 +154,10 @@ td.cell:hover {
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
+}
+
+.filled-finished {
+  background-color: white;
 }
 
 .timer-wrapper {
