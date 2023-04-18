@@ -4,6 +4,11 @@ export const resetPuzzleProgress = (puzzleSolution) => {
   let newPuzzle = puzzleSolution.map((row) => {
     return row.map(() => 0);
   });
+
+  document.querySelectorAll(".strikethrough").forEach(el => {
+    el.classList.remove("strikethrough");
+  })
+
   return newPuzzle;
 };
 
