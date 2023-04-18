@@ -1,19 +1,19 @@
 import * as timerHelpers from "@/helpers/timerHelpers";
 import { useState } from "react";
 
-const HintModal = (props) => {
+const HintModal = ({ setTimerStatus, puzzleHint }) => {
   const [showHintModal, setShowHintModal] = useState(false);
 
   const handleShowHintModal = (e) => {
     e.preventDefault();
     setShowHintModal(true);
-    props.setTimerStatus(timerHelpers.stop);
+    setTimerStatus(timerHelpers.stop);
   };
 
   const handleCloseHintModal = (e) => {
     e.preventDefault();
     setShowHintModal(false);
-    props.setTimerStatus(timerHelpers.start);
+    setTimerStatus(timerHelpers.start);
   };
 
   return (
@@ -39,7 +39,7 @@ const HintModal = (props) => {
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
                   <div className="my-4 text-slate-600 text-lg leading-relaxed">
-                    {props.puzzleHint}
+                    {puzzleHint}
                   </div>
                 </div>
                 {/*footer*/}
@@ -57,11 +57,13 @@ const HintModal = (props) => {
           </div>
           <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </>
-      ) : 
-      <></>
-      }
-      
-        <button className="btn btn-blue" onClick={(e) => handleShowHintModal(e)}>Hint</button>
+      ) : (
+        <></>
+      )}
+
+      <button className="btn btn-blue" onClick={(e) => handleShowHintModal(e)}>
+        Hint
+      </button>
     </>
   );
 };

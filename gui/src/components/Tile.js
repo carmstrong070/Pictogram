@@ -98,7 +98,9 @@ const Tile = ({
         columnIndex === cursorPosition.columnIndex &&
         rowIndex === cursorPosition.rowIndex
       ) {
-        classes += mouseDownInfo.button ? "hover-cursor " : "hover-cursor ";
+        classes += mouseDownInfo.button
+          ? "hover-cursor-left "
+          : "hover-cursor-right ";
       }
     }
 
@@ -131,7 +133,6 @@ const Tile = ({
 
   return (
     <td
-      onMouseOut={(e) => handleCursorMove(e, undefined)}
       onMouseEnter={(e) => handleCursorMove(e, columnIndex, rowIndex)}
       onMouseUp={(e) => handleMouseUp(e, columnIndex, rowIndex)}
       onMouseDown={(e) =>

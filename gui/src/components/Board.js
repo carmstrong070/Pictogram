@@ -11,7 +11,17 @@ const Board = ({
   isFinished,
   timerStatus,
   setTimerStatus,
+  cursorPosition,
+  setCursorPosition,
 }) => {
+  const [mouseDownInfo, setMouseDownInfo] = useState({
+    column: undefined,
+    row: undefined,
+    initialValue: undefined,
+    button: undefined,
+    isDragging: false,
+  });
+
   useEffect(() => {
     // If the timer is reset, reset the puzzle progress
     if (timerStatus.reset) {
@@ -21,15 +31,6 @@ const Board = ({
       setTimerStatus(currentTimerStatus);
     }
   }, [timerStatus]);
-
-  const [mouseDownInfo, setMouseDownInfo] = useState({
-    column: undefined,
-    row: undefined,
-    initialValue: undefined,
-    button: undefined,
-    isDragging: false,
-  });
-  const [cursorPosition, setCursorPosition] = useState();
 
   const handleMouseUp = (e, columnIndex, rowIndex) => {
     e.preventDefault();

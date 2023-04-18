@@ -16,8 +16,8 @@ const index = () => {
     expired: false,
   });
   const [isFinished, setIsFinished] = useState(false);
-  const [openInstructions, setopenInstructions] = useState(false);
   const [userDifficulty, setUserDifficulty] = useState(0);
+  const [cursorPosition, setCursorPosition] = useState();
 
   useEffect(() => {
     if (
@@ -28,7 +28,7 @@ const index = () => {
     ) {
       if (puzzleHelpers.checkFinished(puzzle.solution, puzzleProgress)) {
         setIsFinished(true);
-        setTimerStatus(timerHelpers.stop)
+        setTimerStatus(timerHelpers.stop);
       }
       if (timerStatus.expired && !timerStatus.reset) {
         console.log("Time ran out!");
@@ -40,7 +40,8 @@ const index = () => {
   return (
     <>
       <div className="container flex justify-evenly p-3">
-        <button className="btn btn-blue mr-2"
+        <button
+          className="btn btn-blue mr-2"
           onClick={(e) => {
             e.preventDefault();
             userDifficulty ? setUserDifficulty(0) : setUserDifficulty(1);
@@ -50,7 +51,7 @@ const index = () => {
         </button>
         <InstructionsModal setTimerStatus={setTimerStatus} />
       </div>
-      <div className="container p-3">
+      <div className="container p-3" onContextMenu={(e) => e.preventDefault()}>
         {puzzle.solution && puzzleProgress ? (
           <>
             <div className="flex flex-row justify-center">
@@ -76,6 +77,8 @@ const index = () => {
                 isFinished={isFinished}
                 timerStatus={timerStatus}
                 setTimerStatus={setTimerStatus}
+                cursorPosition={cursorPosition}
+                setCursorPosition={setCursorPosition}
               />
             </div>
           </>
