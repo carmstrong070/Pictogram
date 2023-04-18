@@ -19,7 +19,7 @@ const PuzzleSelection = ({
       >
         <p>Title: {puzzle.title}</p>
         <p>
-          Size: {puzzle.size}x{puzzle.size}
+          Size: {puzzle.solution[0].length}x{puzzle.solution.length}
         </p>
         {puzzle.timeLimit != undefined ? (
           <p>
