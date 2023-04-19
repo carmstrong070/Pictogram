@@ -98,6 +98,8 @@ Example:
 
 - Live count of how many tiles are selected that follows cursor on drag
 
+- Add state management
+
 <br>
 <br>
 <br>
