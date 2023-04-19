@@ -21,6 +21,7 @@ export const handleCellChange = (
   if (button === 2) {
     if (startValue !== 2 && currentCell === 0) {
       currentPuzzle[rowIndex][columnIndex] = 2;
+      console.log(currentPuzzle);
     } else if (
       (startValue === 2 && currentCell === 2) ||
       (currentCell === 1 && sameCell)
