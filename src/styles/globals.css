@@ -75,7 +75,7 @@ td.cell-borders:hover {
 }
 
 .guide-number {
-  margin-right: 10px;
+  margin-right: 5px;
   color: rgb(209, 213, 219);
 }
 
@@ -86,7 +86,7 @@ td.cell-borders:hover {
 .horizontal-guide-numbers {
   text-align: right;
   vertical-align: center;
-  padding-right: 5px;
+  padding-right: 10px;
 }
 
 .vertical-guide-numbers {
