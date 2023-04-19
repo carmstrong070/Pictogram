@@ -113,7 +113,7 @@ const Board = ({
         handleMouseUp(e);
       }}
     >
-      <h1 className="text-center font-medium text-2xl mt-6 mb-2 text-gray-300 ">{puzzleTitle}</h1>
+      <h1 className="text-center font-medium text-3xl my-6 text-gray-300 ">{puzzleTitle}</h1>
 
       <table style={customMargin()}>
         <thead>
