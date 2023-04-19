@@ -1,6 +1,9 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  reactStrictMode: true,
-}
+/** @type {import('next').NextConfig} */// next.config.js
+const isProd = process.env.NODE_ENV === 'production'
 
-module.exports = nextConfig
+module.exports = {
+  assetPrefix: isProd ? '/your-github-repo-name/' : '',
+  images: {
+    unoptimized: true,
+  },
+}
