@@ -85,6 +85,7 @@ jobs:
               cd ./gui/
               ${{ steps.detect-package-manager.outputs.runner }} next export
       - name: Upload artifact
+        run: cd ./gui/
         uses: actions/upload-pages-artifact@v1
         with:
           path: ./out
