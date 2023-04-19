@@ -7,15 +7,17 @@ import gameStore from "@/states/store";
 const Timer = ({
   setTimerStatus,
   timerStatus,
-  isFinished,
-  setIsFinished,
   providedTimeLimit,
   puzzleHint,
 }) => {
-  const [running, setRunning] = useState(true);
   const [reverseCount, setReverseCount] = useState(false);
-  const [time, setTime] = useState(0);
   const userDifficulty = gameStore((state) => state.userDifficulty);
+  const isFinished = gameStore((state) => state.isFinished);
+  const setIsFinished = gameStore((state) => state.setIsFinished);
+  const time = gameStore((state) => state.time);
+  const setTime = gameStore((state) => state.setTime);
+  const running = gameStore((state) => state.running);
+  const setRunning = gameStore((state) => state.setRunning);
 
   useEffect(() => {
     let interval;
@@ -24,7 +26,9 @@ const Timer = ({
       // Timer incrementing logic
       if (running) {
         interval = setInterval(() => {
-          setTime((prevTime) => (reverseCount ? prevTime - 10 : prevTime + 10));
+          let newTime = (prevTime) =>
+            reverseCount ? prevTime - 10 : prevTime + 10;
+          setTime(newTime(time));
         }, 10);
 
         // Timer expiration logic
@@ -82,11 +86,7 @@ const Timer = ({
 
   return (
     <div className="timer border rounded border-solid border-gray-300 p-2 my-3">
-      <FinishedModal
-        isFinished={isFinished}
-        time={time}
-        providedTimeLimit={providedTimeLimit}
-      />
+      <FinishedModal time={time} providedTimeLimit={providedTimeLimit} />
       <div className="text-center text-gray-300 mb-2">
         <span>
           {/* Generate hours (if needed) */}

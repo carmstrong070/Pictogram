@@ -3,18 +3,9 @@ import Tile from "./Tile";
 import GuideNumbers from "./GuideNumbers";
 import { puzzleChange } from "@/helpers/puzzleHelpers";
 import * as puzzleHelpers from "@/helpers/puzzleHelpers";
+import gameStore from "@/states/store";
 
-const Board = ({
-  puzzleProgress,
-  setPuzzleProgress,
-  puzzleSolution,
-  puzzleTitle,
-  isFinished,
-  timerStatus,
-  setTimerStatus,
-  cursorPosition,
-  setCursorPosition,
-}) => {
+const Board = ({ puzzleTitle, timerStatus, setTimerStatus }) => {
   const [mouseDownInfo, setMouseDownInfo] = useState({
     column: undefined,
     row: undefined,
@@ -22,11 +13,17 @@ const Board = ({
     button: undefined,
     isDragging: false,
   });
+  const isFinished = gameStore((state) => state.isFinished);
+  const cursorPosition = gameStore((state) => state.cursorPosition);
+  const setCursorPosition = gameStore((state) => state.setCursorPosition);
+  const puzzleProgress = gameStore((state) => state.puzzleProgress);
+  const setPuzzleProgress = gameStore((state) => state.setPuzzleProgress);
+  const puzzle = gameStore((state) => state.puzzle);
 
   useEffect(() => {
     // If the timer is reset, reset the puzzle progress
     if (timerStatus.reset) {
-      setPuzzleProgress(puzzleHelpers.resetPuzzleProgress(puzzleSolution));
+      setPuzzleProgress(puzzleHelpers.resetPuzzleProgress(puzzle.solution));
       let currentTimerStatus = { ...timerStatus };
       currentTimerStatus.reset = false;
       setTimerStatus(currentTimerStatus);
@@ -67,7 +64,7 @@ const Board = ({
         rowIndex: rowIndex,
       });
     } else {
-      setCursorPosition();
+      setCursorPosition(undefined);
     }
 
     // Determine if the user is executing a click & drag
@@ -133,11 +130,7 @@ const Board = ({
               puzzleProgress[0].map((_, columnIndex) => {
                 return (
                   <React.Fragment key={columnIndex}>
-                    <GuideNumbers
-                      columnIndex={columnIndex}
-                      rowIndex={-1}
-                      puzzleSolution={puzzleSolution}
-                    />
+                    <GuideNumbers columnIndex={columnIndex} rowIndex={-1} />
                   </React.Fragment>
                 );
               })
@@ -160,9 +153,7 @@ const Board = ({
                         <GuideNumbers
                           columnIndex={-1}
                           rowIndex={rowIndex}
-                          puzzleSolution={puzzleSolution}
                           handleCursorMove={handleCursorMove}
-                          cursorPosition={cursorPosition}
                         />
                       )}
                       <Tile
@@ -170,11 +161,9 @@ const Board = ({
                         rowIndex={rowIndex}
                         columnIndex={columnIndex}
                         handleCursorMove={handleCursorMove}
-                        cursorPosition={cursorPosition}
                         mouseDownInfo={mouseDownInfo}
                         value={puzzleProgress[rowIndex][columnIndex]}
                         setMouseDownInfo={setMouseDownInfo}
-                        isFinished={isFinished}
                       />
                     </React.Fragment>
                   );

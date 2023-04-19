@@ -8,17 +8,18 @@ import InstructionsModal from "@/components/modals/InstructionsModal";
 import gameStore from "@/states/store";
 
 const index = () => {
-  const [puzzle, setPuzzle] = useState({});
-  const [puzzleProgress, setPuzzleProgress] = useState([]);
   const [timerStatus, setTimerStatus] = useState({
     reset: false,
     stopped: false,
     expired: false,
   });
-  const [isFinished, setIsFinished] = useState(false);
-  const [cursorPosition, setCursorPosition] = useState();
   const userDifficulty = gameStore((state) => state.userDifficulty);
   const setUserDifficulty = gameStore((state) => state.setDifficulty);
+  const isFinished = gameStore((state) => state.isFinished);
+  const setIsFinished = gameStore((state) => state.setIsFinished);
+  const puzzleProgress = gameStore((state) => state.puzzleProgress);
+  const puzzle = gameStore((state) => state.puzzle);
+  const running = gameStore((state) => state.running);
 
   useEffect(() => {
     if (
@@ -74,8 +75,6 @@ const index = () => {
                   className="timer"
                   setTimerStatus={setTimerStatus}
                   timerStatus={timerStatus}
-                  isFinished={isFinished}
-                  setIsFinished={setIsFinished}
                   puzzleHint={puzzle.hint}
                   // If there is not a timeLimit provided by the puzzle, create one based on the puzzle size
                   providedTimeLimit={
@@ -85,15 +84,10 @@ const index = () => {
               </div>
               <div className="flex flex-row justify-center">
                 <Board
-                  puzzleProgress={puzzleProgress}
-                  setPuzzleProgress={setPuzzleProgress}
                   puzzleSolution={puzzle.solution}
                   puzzleTitle={puzzle.title}
-                  isFinished={isFinished}
                   timerStatus={timerStatus}
                   setTimerStatus={setTimerStatus}
-                  cursorPosition={cursorPosition}
-                  setCursorPosition={setCursorPosition}
                 />
               </div>
             </>
@@ -102,13 +96,7 @@ const index = () => {
           )}
           <br />
           <div className="flex flex-row gap-2 flex-wrap grow justify-center mt-3">
-            <PuzzleSelection
-              setPuzzleProgress={setPuzzleProgress}
-              setPuzzle={setPuzzle}
-              setTimerStatus={setTimerStatus}
-              setIsFinished={setIsFinished}
-              timerStatus={timerStatus}
-            />
+            <PuzzleSelection setTimerStatus={setTimerStatus} />
           </div>
         </div>
       </div>

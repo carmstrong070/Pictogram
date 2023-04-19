@@ -1,11 +1,10 @@
+import gameStore from "@/states/store";
 import { useEffect } from "react";
 
-const GuideNumbers = ({
-  columnIndex,
-  rowIndex,
-  puzzleSolution,
-  cursorPosition,
-}) => {
+const GuideNumbers = ({ columnIndex, rowIndex }) => {
+  const cursorPosition = gameStore((state) => state.cursorPosition);
+  const puzzle = gameStore((state) => state.puzzle);
+
   useEffect(() => {
     document.querySelectorAll(".vertical-guide-numbers").forEach((el) => {
       el.classList.remove("hover-guide-lines");
@@ -40,7 +39,7 @@ const GuideNumbers = ({
 
   // Create guide numbers for each column
   if (rowIndex < 0) {
-    let columnCount = puzzleSolution.reduce(
+    let columnCount = puzzle.solution.reduce(
       (acc, row) => (Array.isArray(row) ? acc + 1 : acc),
       0
     );
@@ -49,7 +48,7 @@ const GuideNumbers = ({
 
     // Generate guide number array
     for (let i = 0; i < columnCount; i++) {
-      if (puzzleSolution[i][columnIndex] === 1) {
+      if (puzzle.solution[i][columnIndex] === 1) {
         counter += 1;
       } else {
         if (counter > 0) {
@@ -99,8 +98,8 @@ const GuideNumbers = ({
     let counter = 0;
 
     // Generate guide number array
-    for (let i = 0; i < puzzleSolution[0].length; i++) {
-      if (puzzleSolution[rowIndex][i] === 1) {
+    for (let i = 0; i < puzzle.solution[0].length; i++) {
+      if (puzzle.solution[rowIndex][i] === 1) {
         counter += 1;
       } else {
         if (counter > 0) {
