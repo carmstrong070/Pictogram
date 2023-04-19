@@ -88,7 +88,7 @@ jobs:
         run: cd ./gui/
         uses: actions/upload-pages-artifact@v1
         with:
-          path: ./out
+          path: ./gui
 
   # Deployment job
   deploy:
