@@ -113,8 +113,13 @@ const Board = ({
         handleMouseUp(e);
       }}
     >
-      {isFinished ? (<h1 className="text-center font-medium text-3xl my-6 text-gray-300 ">{puzzleTitle}</h1>) : <></>
-      }
+      {isFinished ? (
+        <h1 className="text-center font-medium text-3xl my-6 text-gray-300 ">
+          {puzzleTitle}
+        </h1>
+      ) : (
+        <></>
+      )}
 
       <table style={customMargin()}>
         <thead>
@@ -157,6 +162,7 @@ const Board = ({
                           rowIndex={rowIndex}
                           puzzleSolution={puzzleSolution}
                           handleCursorMove={handleCursorMove}
+                          cursorPosition={cursorPosition}
                         />
                       )}
                       <Tile

@@ -1,9 +1,41 @@
-const GuideNumbers = ({ columnIndex, rowIndex, puzzleSolution }) => {
+import { useEffect } from "react";
+
+const GuideNumbers = ({
+  columnIndex,
+  rowIndex,
+  puzzleSolution,
+  cursorPosition,
+}) => {
+  useEffect(() => {
+    document.querySelectorAll(".vertical-guide-numbers").forEach((el) => {
+      el.classList.remove("hover-guide-lines");
+    });
+    document.querySelectorAll(".horizontal-guide-numbers").forEach((el) => {
+      el.classList.remove("hover-guide-lines");
+    });
+    handleHighlight(cursorPosition);
+  }, [cursorPosition]);
+
   const ToggleStrikethrough = (e) => {
     e.preventDefault();
     if (e.target.classList.contains("strikethrough"))
       e.target.classList.remove("strikethrough");
     else e.target.classList.add("strikethrough");
+  };
+
+  const handleHighlight = (cursorPosition) => {
+    if (cursorPosition !== undefined) {
+      // Guide number row highlighting
+      let horizontalGuideNumbers = document.getElementById(
+        `rowIndex-${cursorPosition.rowIndex}`
+      );
+      horizontalGuideNumbers.classList.add("hover-guide-lines");
+      // Guide number column highlighting
+      let verticalGuideNumbers = document.getElementById(
+        `columnIndex-${cursorPosition.columnIndex}`
+      );
+      verticalGuideNumbers.classList.add("hover-guide-lines");
+    }
   };
 
   // Create guide numbers for each column
@@ -51,7 +83,11 @@ const GuideNumbers = ({ columnIndex, rowIndex, puzzleSolution }) => {
     }
 
     return (
-      <td className="vertical-guide-numbers font-medium" key={columnIndex}>
+      <td
+        className="vertical-guide-numbers font-medium"
+        key={columnIndex}
+        id={`columnIndex-${columnIndex}`}
+      >
         {guideNumbers}
       </td>
     );
@@ -98,7 +134,11 @@ const GuideNumbers = ({ columnIndex, rowIndex, puzzleSolution }) => {
     }
 
     return (
-      <td className="horizontal-guide-numbers font-medium" key={rowIndex}>
+      <td
+        className="horizontal-guide-numbers font-medium"
+        key={rowIndex}
+        id={`rowIndex-${rowIndex}`}
+      >
         {guideNumbers}
       </td>
     );
