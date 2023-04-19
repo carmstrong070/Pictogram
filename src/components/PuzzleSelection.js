@@ -17,7 +17,9 @@ const PuzzleSelection = ({
         id={puzzle.id}
         className="basis-1/5 inline-block text-gray-200 max-w-sm p-4 mx-2 bg-gray-700 border border-gray-500 rounded-lg shadow hover:bg-gray-500 cursor-pointer"
       >
-        <p>Title: {puzzle.title}</p>
+        <p>
+            Difficulty: {puzzle.difficulty}
+        </p>
         <p>
           Size: {puzzle.solution[0].length}x{puzzle.solution.length}
         </p>
