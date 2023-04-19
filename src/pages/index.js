@@ -40,7 +40,6 @@ const index = () => {
         });
       }
       if (timerStatus.expired && !timerStatus.reset) {
-        console.log("Time ran out!");
         alert("Time ran out!");
       }
     }

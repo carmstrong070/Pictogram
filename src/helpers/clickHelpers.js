@@ -19,8 +19,6 @@ export const handleCellChange = (
 
   // Right click logic
   if (button === 2) {
-    console.log("current cell", currentCell);
-    console.log("start value", startValue);
     if (startValue !== 2 && currentCell === 0) {
       currentPuzzle[rowIndex][columnIndex] = 2;
     } else if (
