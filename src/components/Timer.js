@@ -2,19 +2,20 @@ import React, { useState, useEffect } from "react";
 import * as timerHelpers from "../helpers/timerHelpers";
 import HintModal from "./modals/HintModal";
 import FinishedModal from "./modals/FinishedModal";
+import gameStore from "@/states/store";
 
 const Timer = ({
   setTimerStatus,
   timerStatus,
   isFinished,
   setIsFinished,
-  userDifficulty,
   providedTimeLimit,
   puzzleHint,
 }) => {
   const [running, setRunning] = useState(true);
   const [reverseCount, setReverseCount] = useState(false);
   const [time, setTime] = useState(0);
+  const userDifficulty = gameStore((state) => state.userDifficulty);
 
   useEffect(() => {
     let interval;
@@ -82,7 +83,6 @@ const Timer = ({
   return (
     <div className="timer border rounded border-solid border-gray-300 p-2 my-3">
       <FinishedModal
-        userDifficulty={userDifficulty}
         isFinished={isFinished}
         time={time}
         providedTimeLimit={providedTimeLimit}
@@ -94,7 +94,7 @@ const Timer = ({
             ? (
                 "0" +
                 Math.floor(
-                  ((time + (reverseCount ? 1000 : 0)) / 1000 / 60 / 60) % 100
+                  ((time + (reverseCount ? 999 : 0)) / 1000 / 60 / 60) % 100
                 )
               ).slice(-2) + ":"
             : ""}
@@ -103,7 +103,7 @@ const Timer = ({
           {/* Generate minutes */}
           {(
             "0" +
-            Math.floor(((time + (reverseCount ? 1000 : 0)) / 1000 / 60) % 60)
+            Math.floor(((time + (reverseCount ? 999 : 0)) / 1000 / 60) % 60)
           ).slice(-2)}
           :
         </span>
@@ -112,7 +112,7 @@ const Timer = ({
           {time
             ? (
                 "0" +
-                Math.floor(((time + (reverseCount ? 1000 : 0)) / 1000) % 60)
+                Math.floor(((time + (reverseCount ? 999 : 0)) / 1000) % 60)
               ).slice(-2)
             : "00"}
         </span>

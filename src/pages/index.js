@@ -5,6 +5,7 @@ import PuzzleSelection from "@/components/PuzzleSelection";
 import Board from "@/components/Board";
 import timerHelpers from "@/helpers/timerHelpers";
 import InstructionsModal from "@/components/modals/InstructionsModal";
+import gameStore from "@/states/store";
 
 const index = () => {
   const [puzzle, setPuzzle] = useState({});
@@ -15,8 +16,9 @@ const index = () => {
     expired: false,
   });
   const [isFinished, setIsFinished] = useState(false);
-  const [userDifficulty, setUserDifficulty] = useState(0);
   const [cursorPosition, setCursorPosition] = useState();
+  const userDifficulty = gameStore((state) => state.userDifficulty);
+  const setUserDifficulty = gameStore((state) => state.setDifficulty);
 
   useEffect(() => {
     if (
@@ -74,7 +76,6 @@ const index = () => {
                   timerStatus={timerStatus}
                   isFinished={isFinished}
                   setIsFinished={setIsFinished}
-                  userDifficulty={userDifficulty}
                   puzzleHint={puzzle.hint}
                   // If there is not a timeLimit provided by the puzzle, create one based on the puzzle size
                   providedTimeLimit={
