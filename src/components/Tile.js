@@ -11,13 +11,13 @@ const Tile = ({
   setMouseDownInfo,
   isFinished,
   lastColIndex,
-  lastRowIndex
+  lastRowIndex,
 }) => {
   const borderClasses = (rowIndex, columnIndex, isFinished) => {
     let classes = "cell-borders ";
 
-    if(isFinished){
-      return "cell ";;
+    if (isFinished) {
+      return "cell ";
     }
 
     if (columnIndex === 0) classes += "thick-border-left ";
@@ -147,7 +147,6 @@ const Tile = ({
   return (
     <td
       onMouseEnter={(e) => handleCursorMove(e, columnIndex, rowIndex)}
-      onMouseUp={(e) => handleMouseUp(e)}
       onMouseDown={(e) =>
         setMouseDownInfo(
           clickHelpers.mouseDown(

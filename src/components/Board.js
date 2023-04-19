@@ -113,30 +113,31 @@ const Board = ({
         handleMouseUp(e);
       }}
     >
-      <h1 className="text-center font-medium text-3xl my-6 text-gray-300 ">{puzzleTitle}</h1>
+      <h1 className="text-center font-medium text-3xl my-6 text-gray-300 ">
+        {puzzleTitle}
+      </h1>
 
       <table style={customMargin()}>
         <thead>
           <tr>
             <th id="guideNumbersWidth"></th>
 
-              
-              {/* Create a header row for each column that will contain the guide numbers*/}
-              {isFinished ? (
-                  <></>
-                ) : (
-                puzzleProgress[0].map((_, columnIndex) => {
-                  return (
-                    <React.Fragment key={columnIndex}>
-                      <GuideNumbers
-                        columnIndex={columnIndex}
-                        rowIndex={-1}
-                        puzzleSolution={puzzleSolution}
-                      />
-                    </React.Fragment>
-                  );
-                }))}
-            
+            {/* Create a header row for each column that will contain the guide numbers*/}
+            {isFinished ? (
+              <></>
+            ) : (
+              puzzleProgress[0].map((_, columnIndex) => {
+                return (
+                  <React.Fragment key={columnIndex}>
+                    <GuideNumbers
+                      columnIndex={columnIndex}
+                      rowIndex={-1}
+                      puzzleSolution={puzzleSolution}
+                    />
+                  </React.Fragment>
+                );
+              })
+            )}
           </tr>
         </thead>
         <tbody>
@@ -149,7 +150,7 @@ const Board = ({
                   return (
                     <React.Fragment key={`fragment ${rowIndex} ${columnIndex}`}>
                       {/* Insert guide numbers before adding a Tile component if the column index is 0 */}
-                      {(columnIndex || isFinished) ? (
+                      {columnIndex || isFinished ? (
                         <></>
                       ) : (
                         <GuideNumbers
