@@ -163,15 +163,12 @@ const Board = ({
                         key={`tile ${rowIndex} ${columnIndex}`}
                         rowIndex={rowIndex}
                         columnIndex={columnIndex}
-                        handleMouseUp={handleMouseUp}
                         handleCursorMove={handleCursorMove}
                         cursorPosition={cursorPosition}
                         mouseDownInfo={mouseDownInfo}
                         value={puzzleProgress[rowIndex][columnIndex]}
                         setMouseDownInfo={setMouseDownInfo}
                         isFinished={isFinished}
-                        lastColIndex={puzzleSolution[0].length - 1}
-                        lastRowIndex={puzzleSolution.length - 1}
                       />
                     </React.Fragment>
                   );

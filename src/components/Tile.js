@@ -4,14 +4,11 @@ const Tile = ({
   rowIndex,
   columnIndex,
   value,
-  handleMouseUp,
   handleCursorMove,
   cursorPosition,
   mouseDownInfo,
   setMouseDownInfo,
   isFinished,
-  lastColIndex,
-  lastRowIndex,
 }) => {
   const borderClasses = (rowIndex, columnIndex, isFinished) => {
     let classes = "cell-borders ";
