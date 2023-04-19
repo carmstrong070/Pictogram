@@ -8,6 +8,7 @@ const Board = ({
   puzzleProgress,
   setPuzzleProgress,
   puzzleSolution,
+  puzzleTitle,
   isFinished,
   timerStatus,
   setTimerStatus,
@@ -96,6 +97,7 @@ const Board = ({
   };
 
   const customMargin = () => {
+    if (isFinished) return;
     let element = document.getElementById("guideNumbersWidth");
 
     return {
@@ -111,22 +113,30 @@ const Board = ({
         handleMouseUp(e);
       }}
     >
+      <h1 className="text-center font-medium text-2xl mt-6 mb-2 text-gray-300 ">{puzzleTitle}</h1>
+
       <table style={customMargin()}>
         <thead>
           <tr>
             <th id="guideNumbersWidth"></th>
-            {/* Create a header row for each column that will contain the guide numbers*/}
-            {puzzleProgress[0].map((_, columnIndex) => {
-              return (
-                <React.Fragment key={columnIndex}>
-                  <GuideNumbers
-                    columnIndex={columnIndex}
-                    rowIndex={-1}
-                    puzzleSolution={puzzleSolution}
-                  />
-                </React.Fragment>
-              );
-            })}
+
+              
+              {/* Create a header row for each column that will contain the guide numbers*/}
+              {isFinished ? (
+                  <></>
+                ) : (
+                puzzleProgress[0].map((_, columnIndex) => {
+                  return (
+                    <React.Fragment key={columnIndex}>
+                      <GuideNumbers
+                        columnIndex={columnIndex}
+                        rowIndex={-1}
+                        puzzleSolution={puzzleSolution}
+                      />
+                    </React.Fragment>
+                  );
+                }))}
+            
           </tr>
         </thead>
         <tbody>
@@ -139,7 +149,7 @@ const Board = ({
                   return (
                     <React.Fragment key={`fragment ${rowIndex} ${columnIndex}`}>
                       {/* Insert guide numbers before adding a Tile component if the column index is 0 */}
-                      {columnIndex ? (
+                      {(columnIndex || isFinished) ? (
                         <></>
                       ) : (
                         <GuideNumbers
@@ -160,6 +170,8 @@ const Board = ({
                         value={puzzleProgress[rowIndex][columnIndex]}
                         setMouseDownInfo={setMouseDownInfo}
                         isFinished={isFinished}
+                        lastColIndex={puzzleSolution[0].length - 1}
+                        lastRowIndex={puzzleSolution.length - 1}
                       />
                     </React.Fragment>
                   );

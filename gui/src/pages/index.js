@@ -88,6 +88,7 @@ const index = () => {
                   puzzleProgress={puzzleProgress}
                   setPuzzleProgress={setPuzzleProgress}
                   puzzleSolution={puzzle.solution}
+                  puzzleTitle={puzzle.title}
                   isFinished={isFinished}
                   timerStatus={timerStatus}
                   setTimerStatus={setTimerStatus}

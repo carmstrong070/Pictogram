@@ -10,9 +10,15 @@ const Tile = ({
   mouseDownInfo,
   setMouseDownInfo,
   isFinished,
+  lastColIndex,
+  lastRowIndex
 }) => {
-  const borderClasses = (rowIndex, columnIndex) => {
-    let classes = "";
+  const borderClasses = (rowIndex, columnIndex, isFinished) => {
+    let classes = "cell-borders ";
+
+    if(isFinished){
+      return "cell ";;
+    }
 
     if (columnIndex === 0) classes += "thick-border-left ";
 
@@ -154,9 +160,10 @@ const Tile = ({
         )
       }
       onContextMenu={(e) => e.preventDefault()}
-      className={`cell ${borderClasses(
+      className={`${borderClasses(
         rowIndex,
-        columnIndex
+        columnIndex,
+        isFinished
       )}${highlightClasses(columnIndex, rowIndex)}${valueClasses(value)}`}
       x-index={columnIndex}
       y-index={rowIndex}

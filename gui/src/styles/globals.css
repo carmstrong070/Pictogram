@@ -34,6 +34,14 @@ table {
 }
 
 td.cell {
+  margin: 0;
+  padding: 0;
+  width: 25px;
+  height: 25px;
+  text-align: center;
+}
+
+td.cell-borders {
   border: 1px solid rgb(209, 213, 219);
   margin: 0;
   padding: 0;
@@ -42,7 +50,7 @@ td.cell {
   text-align: center;
 }
 
-td.cell:hover {
+td.cell-borders:hover {
   cursor: pointer;
 }
 
