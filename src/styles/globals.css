@@ -30,7 +30,6 @@
 
 table {
   border-spacing: 0;
-  border-collapse: collapse;
 }
 
 td.cell {
@@ -86,13 +85,16 @@ td.cell-borders:hover {
 .horizontal-guide-numbers {
   text-align: right;
   vertical-align: center;
+}
+
+.horizontal-guide-numbers > span {
   padding-right: 10px;
 }
 
 .vertical-guide-numbers {
   text-align: center;
   vertical-align: bottom;
-  padding-bottom: 5px;
+  padding-bottom: 10px;
 }
 
 .strikethrough {
