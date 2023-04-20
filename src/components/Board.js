@@ -139,11 +139,7 @@ const Board = () => {
                       {/* Insert guide numbers before adding a Tile component if the column index is 0 */}
                       {columnIndex !== 0 ||
                         (!isFinished && (
-                          <GuideNumbers
-                            columnIndex={-1}
-                            rowIndex={rowIndex}
-                            handleCursorMove={handleCursorMove}
-                          />
+                          <GuideNumbers columnIndex={-1} rowIndex={rowIndex} />
                         ))}
                       <Tile
                         key={`tile ${rowIndex} ${columnIndex}`}

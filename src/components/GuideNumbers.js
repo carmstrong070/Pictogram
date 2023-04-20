@@ -6,12 +6,11 @@ const GuideNumbers = ({ columnIndex, rowIndex }) => {
   const puzzle = gameStore((state) => state.puzzle);
 
   useEffect(() => {
-    document.querySelectorAll(".vertical-guide-numbers").forEach((el) => {
-      el.classList.remove("hover-guide-lines");
-    });
-    document.querySelectorAll(".horizontal-guide-numbers").forEach((el) => {
-      el.classList.remove("hover-guide-lines");
-    });
+    document
+      .querySelectorAll(".vertical-guide-numbers, .horizontal-guide-numbers")
+      .forEach((el) => {
+        el.classList.remove("hover-guide-lines");
+      });
     handleHighlight(cursorPosition);
   }, [cursorPosition]);
 
@@ -37,111 +36,85 @@ const GuideNumbers = ({ columnIndex, rowIndex }) => {
     }
   };
 
+  const generateGuideNumbers = (
+    iterationCount,
+    rowIndex,
+    columnIndex,
+    solution
+  ) => {
+    let isVertical = rowIndex < 0;
+
+    let guideNumbers = [];
+    let counter = 0;
+    let index = isVertical ? columnIndex : rowIndex;
+
+    // Generate guide number array
+    for (let i = 0; i < iterationCount; i++) {
+      let value = isVertical ? solution[i][index] : solution[index][i];
+
+      if (value === 1) {
+        counter += 1;
+      } else {
+        if (counter > 0) {
+          guideNumbers.push(
+            <span
+              className="guide-number"
+              onContextMenu={(e) => e.preventDefault()}
+              onClick={(e) => ToggleStrikethrough(e)}
+              key={`${index} ${i}`}
+            >
+              {counter} {isVertical ? <br /> : null}
+            </span>
+          );
+          counter = 0;
+        }
+      }
+    }
+
+    // Handle empty row or column, and push any remaining value in counter to guide number array
+    if (counter > 0 || guideNumbers.length === 0) {
+      guideNumbers.push(
+        <span
+          className="guide-number"
+          onContextMenu={(e) => e.preventDefault()}
+          onClick={(e) => ToggleStrikethrough(e)}
+          key={`${index}`}
+        >
+          {counter}
+        </span>
+      );
+    }
+
+    let className = isVertical
+      ? "vertical-guide-numbers"
+      : "horizontal-guide-numbers";
+    let id = isVertical ? `columnIndex-${index}` : `rowIndex-${index}`;
+
+    return (
+      <td className={`${className} font-medium`} key={index} id={id}>
+        {guideNumbers}
+      </td>
+    );
+  };
+
   // Create guide numbers for each column
   if (rowIndex < 0) {
     let columnCount = puzzle.solution.reduce(
       (acc, row) => (Array.isArray(row) ? acc + 1 : acc),
       0
     );
-    let guideNumbers = [];
-    let counter = 0;
 
-    // Generate guide number array
-    for (let i = 0; i < columnCount; i++) {
-      if (puzzle.solution[i][columnIndex] === 1) {
-        counter += 1;
-      } else {
-        if (counter > 0) {
-          guideNumbers.push(
-            <span
-              className="guide-number"
-              onContextMenu={(e) => e.preventDefault()}
-              onClick={(e) => ToggleStrikethrough(e)}
-              key={`${columnIndex} ${i}`}
-            >
-              {counter} <br />
-            </span>
-          );
-          counter = 0;
-        }
-      }
-    }
-
-    // Handle empty column, and push any remaining value in counter to guide number array
-    if (counter > 0 || guideNumbers.length === 0) {
-      guideNumbers.push(
-        <span
-          className="guide-number"
-          onContextMenu={(e) => e.preventDefault()}
-          onClick={(e) => ToggleStrikethrough(e)}
-          key={`${columnIndex}`}
-        >
-          {counter}
-        </span>
-      );
-    }
-
-    return (
-      <td
-        className="vertical-guide-numbers font-medium"
-        key={columnIndex}
-        id={`columnIndex-${columnIndex}`}
-      >
-        {guideNumbers}
-      </td>
+    return generateGuideNumbers(
+      columnCount,
+      rowIndex,
+      columnIndex,
+      puzzle.solution
     );
   }
 
   // Create guide numbers for each row
-  if (columnIndex < 0) {
-    let guideNumbers = [];
-    let counter = 0;
-
-    // Generate guide number array
-    for (let i = 0; i < puzzle.solution[0].length; i++) {
-      if (puzzle.solution[rowIndex][i] === 1) {
-        counter += 1;
-      } else {
-        if (counter > 0) {
-          guideNumbers.push(
-            <span
-              className="guide-number"
-              onContextMenu={(e) => e.preventDefault()}
-              onClick={(e) => ToggleStrikethrough(e)}
-              key={`${rowIndex} ${i}`}
-            >
-              {counter}
-            </span>
-          );
-          counter = 0;
-        }
-      }
-    }
-
-    // Handle empty row, and push any remaining value in counter to guide number array
-    if (counter > 0 || guideNumbers.length === 0) {
-      guideNumbers.push(
-        <span
-          className="guide-number"
-          onContextMenu={(e) => e.preventDefault()}
-          onClick={(e) => ToggleStrikethrough(e)}
-          key={`${rowIndex}`}
-        >
-          {counter}
-        </span>
-      );
-    }
-
-    return (
-      <td
-        className="horizontal-guide-numbers font-medium"
-        key={rowIndex}
-        id={`rowIndex-${rowIndex}`}
-      >
-        {guideNumbers}
-      </td>
-    );
-  }
+  let rowCount = puzzle.solution[0].length;
+  return generateGuideNumbers(rowCount, rowIndex, columnIndex, puzzle.solution);
 };
 
 export default GuideNumbers;
