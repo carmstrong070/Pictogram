@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import gameStore from "@/states/store";
 
-const FinishedModal = ({ time, providedTimeLimit }) => {
+const FinishedModal = ({ providedTimeLimit }) => {
   const [showFinishedModal, setShowFinishedModal] = useState(false);
   const userDifficulty = gameStore((state) => state.userDifficulty);
   const isFinished = gameStore((state) => state.isFinished);
+  const time = gameStore((state) => state.time);
 
   useEffect(() => {
     setShowFinishedModal(isFinished);

@@ -4,12 +4,7 @@ import HintModal from "./modals/HintModal";
 import FinishedModal from "./modals/FinishedModal";
 import gameStore from "@/states/store";
 
-const Timer = ({
-  setTimerStatus,
-  timerStatus,
-  providedTimeLimit,
-  puzzleHint,
-}) => {
+const Timer = ({ providedTimeLimit, puzzleHint }) => {
   const [reverseCount, setReverseCount] = useState(false);
   const userDifficulty = gameStore((state) => state.userDifficulty);
   const isFinished = gameStore((state) => state.isFinished);
@@ -18,6 +13,8 @@ const Timer = ({
   const setTime = gameStore((state) => state.setTime);
   const running = gameStore((state) => state.running);
   const setRunning = gameStore((state) => state.setRunning);
+  const timerStatus = gameStore((state) => state.timerStatus);
+  const setTimerStatus = gameStore((state) => state.setTimerStatus);
 
   useEffect(() => {
     let interval;
@@ -33,7 +30,7 @@ const Timer = ({
 
         // Timer expiration logic
         if (time < 0 && reverseCount) {
-          setTimerStatus(timerHelpers.expired);
+          setTimerStatus(timerHelpers.expired());
           setTime(0);
           setRunning(false);
         }
@@ -72,7 +69,7 @@ const Timer = ({
   }, [userDifficulty]);
 
   const handleReset = () => {
-    setTimerStatus(timerHelpers.reset);
+    setTimerStatus(timerHelpers.reset());
     setRunning(true);
     setIsFinished(false);
   };
@@ -86,7 +83,7 @@ const Timer = ({
 
   return (
     <div className="timer border rounded border-solid border-gray-300 p-2 my-3">
-      <FinishedModal time={time} providedTimeLimit={providedTimeLimit} />
+      <FinishedModal providedTimeLimit={providedTimeLimit} />
       <div className="text-center text-gray-300 mb-2">
         <span>
           {/* Generate hours (if needed) */}
@@ -129,10 +126,7 @@ const Timer = ({
             >
               {running ? "Pause" : "Start"}
             </button>
-            <HintModal
-              setTimerStatus={setTimerStatus}
-              puzzleHint={puzzleHint}
-            />
+            <HintModal puzzleHint={puzzleHint} />
           </>
         )}
         <button className="btn btn-red" onClick={() => handleReset()}>

@@ -1,25 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Tile from "./Tile";
 import GuideNumbers from "./GuideNumbers";
 import { puzzleChange } from "@/helpers/puzzleHelpers";
 import * as puzzleHelpers from "@/helpers/puzzleHelpers";
 import gameStore from "@/states/store";
 
-const Board = ({ puzzleTitle, timerStatus, setTimerStatus }) => {
-  const [mouseDownInfo, setMouseDownInfo] = useState({
-    column: undefined,
-    row: undefined,
-    initialValue: undefined,
-    button: undefined,
-    isDragging: false,
-  });
+const Board = () => {
   const isFinished = gameStore((state) => state.isFinished);
   const cursorPosition = gameStore((state) => state.cursorPosition);
   const setCursorPosition = gameStore((state) => state.setCursorPosition);
   const puzzleProgress = gameStore((state) => state.puzzleProgress);
   const setPuzzleProgress = gameStore((state) => state.setPuzzleProgress);
   const puzzle = gameStore((state) => state.puzzle);
-
+  const mouseDownInfo = gameStore((state) => state.mouseDownInfo);
+  const setMouseDownInfo = gameStore((state) => state.setMouseDownInfo);
+  const timerStatus = gameStore((state) => state.timerStatus);
+  const setTimerStatus = gameStore((state) => state.setTimerStatus);
   useEffect(() => {
     // If the timer is reset, reset the puzzle progress
     if (timerStatus.reset) {
@@ -112,7 +108,7 @@ const Board = ({ puzzleTitle, timerStatus, setTimerStatus }) => {
     >
       {isFinished ? (
         <h1 className="text-center font-medium text-3xl my-6 text-gray-300 ">
-          {puzzleTitle}
+          {puzzle.title}
         </h1>
       ) : (
         <></>
@@ -161,9 +157,7 @@ const Board = ({ puzzleTitle, timerStatus, setTimerStatus }) => {
                         rowIndex={rowIndex}
                         columnIndex={columnIndex}
                         handleCursorMove={handleCursorMove}
-                        mouseDownInfo={mouseDownInfo}
                         value={puzzleProgress[rowIndex][columnIndex]}
-                        setMouseDownInfo={setMouseDownInfo}
                       />
                     </React.Fragment>
                   );

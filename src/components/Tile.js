@@ -1,16 +1,11 @@
 import gameStore from "@/states/store";
 import * as clickHelpers from "../helpers/clickHelpers";
 
-const Tile = ({
-  rowIndex,
-  columnIndex,
-  value,
-  handleCursorMove,
-  mouseDownInfo,
-  setMouseDownInfo,
-}) => {
+const Tile = ({ rowIndex, columnIndex, value, handleCursorMove }) => {
   const isFinished = gameStore((state) => state.isFinished);
   const cursorPosition = gameStore((state) => state.cursorPosition);
+  const mouseDownInfo = gameStore((state) => state.mouseDownInfo);
+  const setMouseDownInfo = gameStore((state) => state.setMouseDownInfo);
 
   const borderClasses = (rowIndex, columnIndex, isFinished) => {
     let classes = "cell-borders ";

@@ -12,10 +12,24 @@ const gameStore = create((set) => ({
   setPuzzleProgress: (arr) => set(() => ({ puzzleProgress: arr })),
   puzzle: {},
   setPuzzle: (obj) => set(() => ({ puzzle: obj })),
-  time: 8000,
+  time: 0,
   setTime: (int) => set(() => ({ time: int })),
   running: true,
   setRunning: (bool) => set(() => ({ running: bool })),
+  mouseDownInfo: {
+    column: undefined,
+    row: undefined,
+    initialValue: undefined,
+    button: undefined,
+    isDragging: false,
+  },
+  setMouseDownInfo: (obj) => set(() => ({ mouseDownInfo: obj })),
+  timerStatus: {
+    reset: false,
+    stopped: false,
+    expired: false,
+  },
+  setTimerStatus: (obj) => set(() => ({ timerStatus: obj })),
 }));
 
 if (process.env.NODE_ENV === "development") {

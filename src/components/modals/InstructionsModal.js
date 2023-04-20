@@ -1,8 +1,10 @@
 import * as timerHelpers from "@/helpers/timerHelpers";
+import gameStore from "@/states/store";
 import { useState } from "react";
 
-const InstructionsModal = ({ setTimerStatus }) => {
+const InstructionsModal = () => {
   const [showInstructionsModal, setShowInstructionsModal] = useState(false);
+  const setTimerStatus = gameStore((state) => state.setTimerStatus);
 
   const handleShowInstructionsModal = (e) => {
     e.preventDefault();

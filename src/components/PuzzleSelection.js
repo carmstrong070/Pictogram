@@ -3,10 +3,11 @@ import puzzleList from "@/content/puzzles";
 import * as timerHelpers from "../helpers/timerHelpers";
 import gameStore from "@/states/store";
 
-const PuzzleSelection = ({ setTimerStatus }) => {
+const PuzzleSelection = () => {
   const setIsFinished = gameStore((state) => state.setIsFinished);
   const setPuzzleProgress = gameStore((state) => state.setPuzzleProgress);
   const setPuzzle = gameStore((state) => state.setPuzzle);
+  const setTimerStatus = gameStore((state) => state.setTimerStatus);
   const PuzzleSelectTile = ({ puzzle }) => {
     return (
       <div
@@ -38,7 +39,7 @@ const PuzzleSelection = ({ setTimerStatus }) => {
     setPuzzleProgress(resetPuzzleProgress(newPuzzle.solution));
     setIsFinished(false);
     setPuzzle(newPuzzle);
-    setTimerStatus(timerHelpers.reset);
+    setTimerStatus(timerHelpers.reset());
   };
 
   return (

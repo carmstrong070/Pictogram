@@ -1,19 +1,21 @@
 import * as timerHelpers from "@/helpers/timerHelpers";
+import gameStore from "@/states/store";
 import { useState } from "react";
 
-const HintModal = ({ setTimerStatus, puzzleHint }) => {
+const HintModal = ({ puzzleHint }) => {
   const [showHintModal, setShowHintModal] = useState(false);
+  const setTimerStatus = gameStore((state) => state.setTimerStatus);
 
   const handleShowHintModal = (e) => {
     e.preventDefault();
     setShowHintModal(true);
-    setTimerStatus(timerHelpers.stop);
+    setTimerStatus(timerHelpers.stop());
   };
 
   const handleCloseHintModal = (e) => {
     e.preventDefault();
     setShowHintModal(false);
-    setTimerStatus(timerHelpers.start);
+    setTimerStatus(timerHelpers.start());
   };
 
   return (
