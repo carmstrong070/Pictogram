@@ -1,4 +1,4 @@
-import * as timerHelpers from "@/helpers/timerHelpers";
+import { start, stop } from "@/helpers/timerHelpers";
 import gameStore from "@/states/store";
 import { useState } from "react";
 
@@ -9,18 +9,18 @@ const InstructionsModal = () => {
   const handleShowInstructionsModal = (e) => {
     e.preventDefault();
     setShowInstructionsModal(true);
-    setTimerStatus(timerHelpers.stop);
+    setTimerStatus(stop());
   };
 
   const handleCloseInstructionsModal = (e) => {
     e.preventDefault();
     setShowInstructionsModal(false);
-    setTimerStatus(timerHelpers.start);
+    setTimerStatus(start());
   };
 
   return (
     <>
-      {showInstructionsModal ? (
+      {showInstructionsModal && (
         <>
           <div className="justify-center bg-gray-500/25 items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
             <div className="relative w-auto py-6 my-auto mx-auto max-w-3xl">
@@ -127,10 +127,7 @@ const InstructionsModal = () => {
           </div>
           <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </>
-      ) : (
-        <></>
       )}
-
       <button
         className="btn btn-blue"
         onClick={(e) => handleShowInstructionsModal(e)}

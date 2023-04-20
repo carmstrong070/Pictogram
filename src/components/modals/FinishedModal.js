@@ -28,7 +28,7 @@ const FinishedModal = ({ providedTimeLimit }) => {
 
   return (
     <>
-      {isFinished && showFinishedModal ? (
+      {isFinished && showFinishedModal && (
         <>
           <div className="justify-center bg-gray-500/25 items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
             <div className="relative w-auto my-6 mx-auto max-w-3xl">
@@ -68,7 +68,7 @@ const FinishedModal = ({ providedTimeLimit }) => {
           </div>
           <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </>
-      ) : null}
+      )}
     </>
   );
 };

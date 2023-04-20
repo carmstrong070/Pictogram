@@ -29,5 +29,3 @@ export const start = () => {
   newTimerStatus.expired = false;
   return newTimerStatus;
 };
-
-export default { reset, expired, stop };

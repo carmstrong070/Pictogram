@@ -88,5 +88,3 @@ export const mouseDown = (e, value, columnIndex, rowIndex, initialValue) => {
     };
   }
 };
-
-export default { handleCellChange, handleDragPreview, mouseDown };

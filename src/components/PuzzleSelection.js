@@ -1,7 +1,7 @@
 import { resetPuzzleProgress } from "@/helpers/puzzleHelpers";
 import puzzleList from "@/content/puzzles";
-import * as timerHelpers from "../helpers/timerHelpers";
 import gameStore from "@/states/store";
+import { reset } from "@/helpers/timerHelpers";
 
 const PuzzleSelection = () => {
   const setIsFinished = gameStore((state) => state.setIsFinished);
@@ -39,7 +39,7 @@ const PuzzleSelection = () => {
     setPuzzleProgress(resetPuzzleProgress(newPuzzle.solution));
     setIsFinished(false);
     setPuzzle(newPuzzle);
-    setTimerStatus(timerHelpers.reset());
+    setTimerStatus(reset());
   };
 
   return (

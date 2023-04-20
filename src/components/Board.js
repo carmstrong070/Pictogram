@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import Tile from "./Tile";
 import GuideNumbers from "./GuideNumbers";
-import { puzzleChange } from "@/helpers/puzzleHelpers";
-import * as puzzleHelpers from "@/helpers/puzzleHelpers";
+import { puzzleChange, resetPuzzleProgress } from "@/helpers/puzzleHelpers";
 import gameStore from "@/states/store";
 
 const Board = () => {
@@ -19,7 +18,7 @@ const Board = () => {
   useEffect(() => {
     // If the timer is reset, reset the puzzle progress
     if (timerStatus.reset) {
-      setPuzzleProgress(puzzleHelpers.resetPuzzleProgress(puzzle.solution));
+      setPuzzleProgress(resetPuzzleProgress(puzzle.solution));
       let currentTimerStatus = { ...timerStatus };
       currentTimerStatus.reset = false;
       setTimerStatus(currentTimerStatus);
@@ -106,12 +105,10 @@ const Board = () => {
         handleMouseUp(e);
       }}
     >
-      {isFinished ? (
+      {isFinished && (
         <h1 className="text-center font-medium text-3xl my-6 text-gray-300 ">
           {puzzle.title}
         </h1>
-      ) : (
-        <></>
       )}
 
       <table style={customMargin()}>
@@ -120,17 +117,14 @@ const Board = () => {
             <th id="guideNumbersWidth"></th>
 
             {/* Create a header row for each column that will contain the guide numbers*/}
-            {isFinished ? (
-              <></>
-            ) : (
+            {!isFinished &&
               puzzleProgress[0].map((_, columnIndex) => {
                 return (
                   <React.Fragment key={columnIndex}>
                     <GuideNumbers columnIndex={columnIndex} rowIndex={-1} />
                   </React.Fragment>
                 );
-              })
-            )}
+              })}
           </tr>
         </thead>
         <tbody>
@@ -143,15 +137,14 @@ const Board = () => {
                   return (
                     <React.Fragment key={`fragment ${rowIndex} ${columnIndex}`}>
                       {/* Insert guide numbers before adding a Tile component if the column index is 0 */}
-                      {columnIndex || isFinished ? (
-                        <></>
-                      ) : (
-                        <GuideNumbers
-                          columnIndex={-1}
-                          rowIndex={rowIndex}
-                          handleCursorMove={handleCursorMove}
-                        />
-                      )}
+                      {columnIndex !== 0 ||
+                        (!isFinished && (
+                          <GuideNumbers
+                            columnIndex={-1}
+                            rowIndex={rowIndex}
+                            handleCursorMove={handleCursorMove}
+                          />
+                        ))}
                       <Tile
                         key={`tile ${rowIndex} ${columnIndex}`}
                         rowIndex={rowIndex}

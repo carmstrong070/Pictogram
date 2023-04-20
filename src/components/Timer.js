@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import * as timerHelpers from "../helpers/timerHelpers";
 import HintModal from "./modals/HintModal";
 import FinishedModal from "./modals/FinishedModal";
 import gameStore from "@/states/store";
+import { expired, reset } from "@/helpers/timerHelpers";
 
 const Timer = ({ providedTimeLimit, puzzleHint }) => {
   const [reverseCount, setReverseCount] = useState(false);
@@ -30,7 +30,7 @@ const Timer = ({ providedTimeLimit, puzzleHint }) => {
 
         // Timer expiration logic
         if (time < 0 && reverseCount) {
-          setTimerStatus(timerHelpers.expired());
+          setTimerStatus(expired());
           setTime(0);
           setRunning(false);
         }
@@ -69,7 +69,7 @@ const Timer = ({ providedTimeLimit, puzzleHint }) => {
   }, [userDifficulty]);
 
   const handleReset = () => {
-    setTimerStatus(timerHelpers.reset());
+    setTimerStatus(reset());
     setRunning(true);
     setIsFinished(false);
   };

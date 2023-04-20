@@ -1,4 +1,4 @@
-import * as timerHelpers from "@/helpers/timerHelpers";
+import { start, stop } from "@/helpers/timerHelpers";
 import gameStore from "@/states/store";
 import { useState } from "react";
 
@@ -9,18 +9,18 @@ const HintModal = ({ puzzleHint }) => {
   const handleShowHintModal = (e) => {
     e.preventDefault();
     setShowHintModal(true);
-    setTimerStatus(timerHelpers.stop());
+    setTimerStatus(stop());
   };
 
   const handleCloseHintModal = (e) => {
     e.preventDefault();
     setShowHintModal(false);
-    setTimerStatus(timerHelpers.start());
+    setTimerStatus(start());
   };
 
   return (
     <>
-      {showHintModal ? (
+      {showHintModal && (
         <>
           <div className="justify-center bg-gray-500/25 items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
             <div className="relative w-auto my-6 mx-auto max-w-3xl">
@@ -59,10 +59,7 @@ const HintModal = ({ puzzleHint }) => {
           </div>
           <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </>
-      ) : (
-        <></>
       )}
-
       <button className="btn btn-blue" onClick={(e) => handleShowHintModal(e)}>
         Hint
       </button>

@@ -1,13 +1,13 @@
-import * as clickHelpers from "./clickHelpers";
+import { handleCellChange } from "./clickHelpers";
 
 export const resetPuzzleProgress = (puzzleSolution) => {
   let newPuzzle = puzzleSolution.map((row) => {
     return row.map(() => 0);
   });
 
-  document.querySelectorAll(".strikethrough").forEach(el => {
+  document.querySelectorAll(".strikethrough").forEach((el) => {
     el.classList.remove("strikethrough");
-  })
+  });
 
   return newPuzzle;
 };
@@ -39,7 +39,7 @@ export const puzzleChange = (puzzleProgress, mouseDownInfo, cursorPosition) => {
     mouseDownInfo.row === cursorPosition.rowIndex
   ) {
     let sameCell = true;
-    clickHelpers.handleCellChange(
+    handleCellChange(
       mouseDownInfo.button,
       mouseDownInfo.initialValue,
       currentPuzzle,
@@ -59,7 +59,7 @@ export const puzzleChange = (puzzleProgress, mouseDownInfo, cursorPosition) => {
       // Dragging Up
       if (cursorPosition.rowIndex < mouseDownInfo.row) {
         for (let i = cursorPosition.rowIndex; i < mouseDownInfo.row + 1; i++) {
-          clickHelpers.handleCellChange(
+          handleCellChange(
             mouseDownInfo.button,
             mouseDownInfo.initialValue,
             currentPuzzle,
@@ -72,7 +72,7 @@ export const puzzleChange = (puzzleProgress, mouseDownInfo, cursorPosition) => {
       // Dragging Down
       else {
         for (let i = mouseDownInfo.row; i < cursorPosition.rowIndex + 1; i++) {
-          clickHelpers.handleCellChange(
+          handleCellChange(
             mouseDownInfo.button,
             mouseDownInfo.initialValue,
             currentPuzzle,
@@ -93,7 +93,7 @@ export const puzzleChange = (puzzleProgress, mouseDownInfo, cursorPosition) => {
           i < mouseDownInfo.column + 1;
           i++
         ) {
-          clickHelpers.handleCellChange(
+          handleCellChange(
             mouseDownInfo.button,
             mouseDownInfo.initialValue,
             currentPuzzle,
@@ -110,7 +110,7 @@ export const puzzleChange = (puzzleProgress, mouseDownInfo, cursorPosition) => {
           i < cursorPosition.columnIndex + 1;
           i++
         ) {
-          clickHelpers.handleCellChange(
+          handleCellChange(
             mouseDownInfo.button,
             mouseDownInfo.initialValue,
             currentPuzzle,
@@ -126,4 +126,6 @@ export const puzzleChange = (puzzleProgress, mouseDownInfo, cursorPosition) => {
   return currentPuzzle;
 };
 
-export default { resetPuzzleProgress, checkFinished, puzzleChange };
+export const isBetween = (val, start, end) => {
+  return (val <= start && val >= end) || (val >= start && val <= end);
+};
