@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import Timer from "@/components/Timer";
-import * as puzzleHelpers from "../helpers/puzzleHelpers";
 import PuzzleSelection from "@/components/PuzzleSelection";
 import Board from "@/components/Board";
-import timerHelpers from "@/helpers/timerHelpers";
 import InstructionsModal from "@/components/modals/InstructionsModal";
 import gameStore from "@/states/store";
+import { stop } from "@/helpers/timerHelpers";
+import { checkFinished } from "@/helpers/puzzleHelpers";
 
 const index = () => {
   const userDifficulty = gameStore((state) => state.userDifficulty);
@@ -24,9 +24,9 @@ const index = () => {
       !isFinished &&
       !timerStatus.reset
     ) {
-      if (puzzleHelpers.checkFinished(puzzle.solution, puzzleProgress)) {
+      if (checkFinished(puzzle.solution, puzzleProgress)) {
         setIsFinished(true);
-        setTimerStatus(timerHelpers.stop());
+        setTimerStatus(stop());
         // Remove flagged tiles upon completion
         document.querySelectorAll(".flagged").forEach((el) => {
           el.classList.remove("flagged");

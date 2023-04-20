@@ -15,7 +15,6 @@ export const resetPuzzleProgress = (puzzleSolution) => {
 export const checkFinished = (puzzleSolution, puzzleProgress) => {
   for (let i = 0; i < puzzleSolution.length; i++) {
     for (let j = 0; j < puzzleSolution[0].length; j++) {
-      // refactor else out
       if (
         (!puzzleSolution[i][j] && !puzzleProgress[i][j]) ||
         (!puzzleSolution[i][j] && puzzleProgress[i][j] === 2) ||
