@@ -23,16 +23,11 @@ const GuideNumbers = ({ columnIndex, rowIndex }) => {
 
   const handleHighlight = (cursorPosition) => {
     if (cursorPosition !== undefined) {
-      // Guide number row highlighting
-      let horizontalGuideNumbers = document.getElementById(
-        `rowIndex-${cursorPosition.rowIndex}`
-      );
-      horizontalGuideNumbers.classList.add("hover-guide-lines");
-      // Guide number column highlighting
-      let verticalGuideNumbers = document.getElementById(
-        `columnIndex-${cursorPosition.columnIndex}`
-      );
-      verticalGuideNumbers.classList.add("hover-guide-lines");
+      // Guide number row/column highlighting
+      const { rowIndex, columnIndex } = cursorPosition;
+      document
+        .querySelectorAll(`#rowIndex-${rowIndex}, #columnIndex-${columnIndex}`)
+        .forEach((el) => el.classList.add("hover-guide-lines"));
     }
   };
 

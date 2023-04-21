@@ -39,7 +39,7 @@ const Board = () => {
       );
     }
 
-    // Clean up
+    // Reset mouseDownInfo after mouse up event
     setMouseDownInfo({
       column: undefined,
       row: undefined,

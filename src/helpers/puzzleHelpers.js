@@ -16,11 +16,12 @@ export const checkFinished = (puzzleSolution, puzzleProgress) => {
   for (let i = 0; i < puzzleSolution.length; i++) {
     for (let j = 0; j < puzzleSolution[0].length; j++) {
       if (
-        (!puzzleSolution[i][j] && !puzzleProgress[i][j]) ||
-        (!puzzleSolution[i][j] && puzzleProgress[i][j] === 2) ||
+        // Check that empty and flagged tiles are empty in the solution array
+        (puzzleSolution[i][j] === 0 && puzzleProgress[i][j] === 0) ||
+        (puzzleSolution[i][j] === 0 && puzzleProgress[i][j] === 2) ||
+        // Check that all filled tiles are filled in the solution array
         (puzzleSolution[i][j] === 1 && puzzleProgress[i][j] === 1)
       ) {
-        continue;
       } else {
         return false;
       }
