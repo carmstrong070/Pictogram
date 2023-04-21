@@ -32,7 +32,7 @@ const Board = () => {
     if (
       !isFinished &&
       !(timerStatus.stopped || timerStatus.expired) &&
-      cursorPosition !== undefined
+      cursorPosition
     ) {
       setPuzzleProgress(
         puzzleChange(puzzleProgress, mouseDownInfo, cursorPosition)
@@ -53,7 +53,7 @@ const Board = () => {
     e.preventDefault();
 
     // Set cursorPosition state if the cursor is on a tile
-    if (rowIndex !== undefined) {
+    if (rowIndex) {
       setCursorPosition({
         columnIndex: columnIndex,
         rowIndex: rowIndex,

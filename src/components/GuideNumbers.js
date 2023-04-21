@@ -16,13 +16,13 @@ const GuideNumbers = ({ columnIndex, rowIndex }) => {
 
   const ToggleStrikethrough = (e) => {
     e.preventDefault();
-    if (e.target.classList.contains("strikethrough"))
-      e.target.classList.remove("strikethrough");
-    else e.target.classList.add("strikethrough");
+    e.target.classList.contains("strikethrough")
+      ? e.target.classList.remove("strikethrough")
+      : e.target.classList.add("strikethrough");
   };
 
   const handleHighlight = (cursorPosition) => {
-    if (cursorPosition !== undefined) {
+    if (cursorPosition) {
       // Guide number row/column highlighting
       const { rowIndex, columnIndex } = cursorPosition;
       document
@@ -58,7 +58,7 @@ const GuideNumbers = ({ columnIndex, rowIndex }) => {
               onClick={(e) => ToggleStrikethrough(e)}
               key={`${index} ${i}`}
             >
-              {counter} {isVertical ? <br /> : null}
+              {counter} {isVertical && <br />}
             </span>
           );
           counter = 0;
@@ -67,7 +67,7 @@ const GuideNumbers = ({ columnIndex, rowIndex }) => {
     }
 
     // Handle empty row or column, and push any remaining value in counter to guide number array
-    if (counter > 0 || guideNumbers.length === 0) {
+    if (counter > 0 || !guideNumbers.length) {
       guideNumbers.push(
         <span
           className="guide-number"
@@ -94,10 +94,7 @@ const GuideNumbers = ({ columnIndex, rowIndex }) => {
 
   // Create guide numbers for each column
   if (rowIndex < 0) {
-    let columnCount = puzzle.solution.reduce(
-      (acc, row) => (Array.isArray(row) ? acc + 1 : acc),
-      0
-    );
+    let columnCount = puzzle.solution.length;
 
     return generateGuideNumbers(
       columnCount,
