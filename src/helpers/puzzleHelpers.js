@@ -38,14 +38,13 @@ export const puzzleChange = (puzzleProgress, mouseDownInfo, cursorPosition) => {
     mouseDownInfo.column === cursorPosition.columnIndex &&
     mouseDownInfo.row === cursorPosition.rowIndex
   ) {
-    let sameCell = true;
     handleCellChange(
       mouseDownInfo.button,
       mouseDownInfo.initialValue,
       currentPuzzle,
       cursorPosition.columnIndex,
       cursorPosition.rowIndex,
-      sameCell
+      true
     );
   }
 
