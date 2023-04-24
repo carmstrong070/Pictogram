@@ -53,7 +53,7 @@ const Board = () => {
     e.preventDefault();
 
     // Set cursorPosition state if the cursor is on a tile
-    if (rowIndex) {
+    if (rowIndex > -1) {
       setCursorPosition({
         columnIndex: columnIndex,
         rowIndex: rowIndex,
