@@ -17,7 +17,7 @@ const puzzleList = [
       [1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
     ],
     hint: "Think outside the box.",
-    timeLimit: 5,
+    timeLimit: 0.05,
   },
   {
     id: 2,

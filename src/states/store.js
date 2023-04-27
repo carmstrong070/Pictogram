@@ -31,6 +31,9 @@ const gameStore = create((set) => ({
     isDragging: false,
   },
   setMouseDownInfo: (obj) => set({ mouseDownInfo: obj }),
+
+  isExpired: false,
+  setIsExpired: (bool) => set({ isExpired: bool }),
 }));
 
 if (process.env.NODE_ENV === "development") {

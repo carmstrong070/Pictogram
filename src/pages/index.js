@@ -4,7 +4,6 @@ import PuzzleSelection from "@/components/PuzzleSelection";
 import Board from "@/components/Board";
 import InstructionsModal from "@/components/modals/InstructionsModal";
 import gameStore from "@/states/store";
-import { stop } from "@/helpers/timerHelpers";
 import { checkFinished } from "@/helpers/puzzleHelpers";
 
 const index = () => {
@@ -17,11 +16,7 @@ const index = () => {
   const setRunning = gameStore((state) => state.setRunning);
 
   useEffect(() => {
-    if (
-      puzzle.solution &&
-      puzzleProgress &&
-      !isFinished
-    ) {
+    if (puzzle.solution && puzzleProgress && !isFinished) {
       if (checkFinished(puzzle.solution, puzzleProgress)) {
         setIsFinished(true);
         setRunning(false);

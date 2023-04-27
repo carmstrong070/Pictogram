@@ -3,9 +3,10 @@ import gameStore from "@/states/store";
 
 const ExpiredModal = () => {
   const [showExpiredModal, setShowExpiredModal] = useState(false);
+  const isExpired = gameStore((state) => state.isExpired);
 
   useEffect(() => {
-    setShowExpiredModal(isExpired);
+    if (isExpired) setShowExpiredModal(true);
   }, [isExpired]);
 
   return (
