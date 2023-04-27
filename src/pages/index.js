@@ -15,6 +15,7 @@ const index = () => {
   const puzzleProgress = gameStore((state) => state.puzzleProgress);
   const puzzle = gameStore((state) => state.puzzle);
   const timerStatus = gameStore((state) => state.timerStatus);
+  const time = gameStore((state) => state.time);
   const setTimerStatus = gameStore((state) => state.setTimerStatus);
   const setRunning = gameStore((state) => state.setRunning);
 
@@ -40,7 +41,8 @@ const index = () => {
           el.classList.add("filled-finished");
         });
       }
-      if (timerStatus.expired && !timerStatus.reset) {
+      //-- 
+      if (userDifficulty > 0 && time <= 0) {
         alert("Time ran out!");
       }
     }

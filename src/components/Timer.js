@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import HintModal from "./modals/HintModal";
 import FinishedModal from "./modals/FinishedModal";
 import gameStore from "@/states/store";
-import { expired, reset } from "@/helpers/timerHelpers";
+import { reset } from "@/helpers/timerHelpers";
 
 const Timer = ({ providedTimeLimit, puzzleHint }) => {
   const [reverseCount, setReverseCount] = useState(false);
@@ -29,10 +29,9 @@ const Timer = ({ providedTimeLimit, puzzleHint }) => {
         }, 10);
 
         // Timer expiration logic
-        if (time < 0 && reverseCount) {
-          setTimerStatus(expired());
-          setTime(0);
+        if (time <= 0 && reverseCount) {
           setRunning(false);
+          setTime(0);
         }
       }
     }
@@ -113,7 +112,7 @@ const Timer = ({ providedTimeLimit, puzzleHint }) => {
       </div>
       <div className="flex justify-around">
         {/* Remove the Start/Pause button if the puzzle is completed or the timer runs out*/}
-        {isFinished || timerStatus.expired ? (
+        {(isFinished || (time >= 0 && userDifficulty > 0)) ? (
           <></>
         ) : (
           <>

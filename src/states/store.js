@@ -34,7 +34,6 @@ const gameStore = create((set) => ({
 
   timerStatus: {
     reset: false,
-    expired: false,
   },
   setTimerStatus: (obj) => set({ timerStatus: obj }),
 }));
