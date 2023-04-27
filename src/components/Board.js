@@ -15,6 +15,8 @@ const Board = () => {
   const setMouseDownInfo = gameStore((state) => state.setMouseDownInfo);
   const timerStatus = gameStore((state) => state.timerStatus);
   const setTimerStatus = gameStore((state) => state.setTimerStatus);
+  const running = gameStore((state) => state.running);
+
   useEffect(() => {
     // If the timer is reset, reset the puzzle progress
     if (timerStatus.reset) {
@@ -29,11 +31,7 @@ const Board = () => {
     e.preventDefault();
 
     // Do not allow changes to the board if the timer is stopped, expired, or the puzzle has been completed
-    if (
-      !isFinished &&
-      !(timerStatus.stopped || timerStatus.expired) &&
-      cursorPosition
-    ) {
+    if (!isFinished && running && cursorPosition) {
       setPuzzleProgress(
         puzzleChange(puzzleProgress, mouseDownInfo, cursorPosition)
       );

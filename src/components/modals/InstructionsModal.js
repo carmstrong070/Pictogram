@@ -5,17 +5,20 @@ import { useState } from "react";
 const InstructionsModal = () => {
   const [showInstructionsModal, setShowInstructionsModal] = useState(false);
   const setTimerStatus = gameStore((state) => state.setTimerStatus);
+  const setRunning = gameStore((state) => state.setRunning);
 
   const handleShowInstructionsModal = (e) => {
     e.preventDefault();
     setShowInstructionsModal(true);
     setTimerStatus(stop());
+    setRunning(false);
   };
 
   const handleCloseInstructionsModal = (e) => {
     e.preventDefault();
     setShowInstructionsModal(false);
     setTimerStatus(start());
+    setRunning(true);
   };
 
   return (

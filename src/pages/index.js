@@ -16,6 +16,7 @@ const index = () => {
   const puzzle = gameStore((state) => state.puzzle);
   const timerStatus = gameStore((state) => state.timerStatus);
   const setTimerStatus = gameStore((state) => state.setTimerStatus);
+  const setRunning = gameStore((state) => state.setRunning);
 
   useEffect(() => {
     if (
@@ -27,6 +28,7 @@ const index = () => {
       if (checkFinished(puzzle.solution, puzzleProgress)) {
         setIsFinished(true);
         setTimerStatus(stop());
+        setRunning(false);
         // Remove flagged tiles upon completion
         document.querySelectorAll(".flagged").forEach((el) => {
           el.classList.remove("flagged");

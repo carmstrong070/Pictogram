@@ -5,17 +5,20 @@ import { useState } from "react";
 const HintModal = ({ puzzleHint }) => {
   const [showHintModal, setShowHintModal] = useState(false);
   const setTimerStatus = gameStore((state) => state.setTimerStatus);
+  const setRunning = gameStore((state) => state.setRunning);
 
   const handleShowHintModal = (e) => {
     e.preventDefault();
     setShowHintModal(true);
     setTimerStatus(stop());
+    setRunning(false);
   };
 
   const handleCloseHintModal = (e) => {
     e.preventDefault();
     setShowHintModal(false);
     setTimerStatus(start());
+    setRunning(true);
   };
 
   return (

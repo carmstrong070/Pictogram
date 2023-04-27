@@ -56,9 +56,9 @@ const Timer = ({ providedTimeLimit, puzzleHint }) => {
       }
     }
 
-    if (timerStatus.stopped) {
+    if (!running) {
       setRunning(false);
-    } else if (!timerStatus.stopped) {
+    } else {
       setRunning(true);
     }
   }, [timerStatus]);
@@ -75,9 +75,6 @@ const Timer = ({ providedTimeLimit, puzzleHint }) => {
   };
 
   const handleStartStopToggle = () => {
-    let currentTimerStatus = { ...timerStatus };
-    currentTimerStatus.stopped = running;
-    setTimerStatus(currentTimerStatus);
     setRunning(!running);
   };
 
