@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import HintModal from "./modals/HintModal";
 import FinishedModal from "./modals/FinishedModal";
 import gameStore from "@/states/store";
@@ -7,7 +7,6 @@ import { resetPuzzleProgress } from "@/helpers/puzzleHelpers";
 import ExpiredModal from "./modals/ExpiredModal";
 
 const Timer = ({ providedTimeLimit, puzzleHint }) => {
-  const [reverseCount, setReverseCount] = useState(false);
   const userDifficulty = gameStore((state) => state.userDifficulty);
   const isFinished = gameStore((state) => state.isFinished);
   const setIsFinished = gameStore((state) => state.setIsFinished);
@@ -19,6 +18,8 @@ const Timer = ({ providedTimeLimit, puzzleHint }) => {
   const puzzle = gameStore((state) => state.puzzle);
   const isExpired = gameStore((state) => state.isExpired);
   const setIsExpired = gameStore((state) => state.setIsExpired);
+  const reverseCount = gameStore((state) => state.reverseCount);
+  const setReverseCount = gameStore((state) => state.setReverseCount);
 
   useEffect(() => {
     let interval;
@@ -50,9 +51,10 @@ const Timer = ({ providedTimeLimit, puzzleHint }) => {
   }, [userDifficulty]);
 
   const handleReset = () => {
+    let isReversed = userDifficulty > 0;
     setRunning(true);
     setIsFinished(false);
-    setTime(calculateStartTime(userDifficulty, providedTimeLimit));
+    setTime(calculateStartTime(isReversed, providedTimeLimit));
     setIsExpired(false);
 
     setPuzzleProgress(resetPuzzleProgress(puzzle.solution));
@@ -98,7 +100,7 @@ const Timer = ({ providedTimeLimit, puzzleHint }) => {
       </div>
       <div className="flex justify-around">
         {/* Remove the Start/Pause button if the puzzle is completed or the timer runs out*/}
-        {isFinished || (time >= 0 && userDifficulty > 0) ? (
+        {isFinished || (time <= 0 && reverseCount) ? (
           <></>
         ) : (
           <>
@@ -108,7 +110,7 @@ const Timer = ({ providedTimeLimit, puzzleHint }) => {
             >
               {running ? "Pause" : "Start"}
             </button>
-            <HintModal puzzleHint={puzzleHint} />
+            {!reverseCount && <HintModal puzzleHint={puzzleHint} />}
           </>
         )}
         <button className="btn btn-red" onClick={() => handleReset()}>

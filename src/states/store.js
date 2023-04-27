@@ -34,6 +34,9 @@ const gameStore = create((set) => ({
 
   isExpired: false,
   setIsExpired: (bool) => set({ isExpired: bool }),
+
+  reverseCount: false,
+  setReverseCount: (bool) => set({ reverseCount: bool }),
 }));
 
 if (process.env.NODE_ENV === "development") {

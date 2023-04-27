@@ -3,7 +3,7 @@ import gameStore from "@/states/store";
 
 const FinishedModal = ({ providedTimeLimit }) => {
   const [showFinishedModal, setShowFinishedModal] = useState(false);
-  const userDifficulty = gameStore((state) => state.userDifficulty);
+  const reverseCount = gameStore((state) => state.reverseCount);
   const isFinished = gameStore((state) => state.isFinished);
   const time = gameStore((state) => state.time);
 
@@ -11,8 +11,8 @@ const FinishedModal = ({ providedTimeLimit }) => {
     setShowFinishedModal(isFinished);
   }, [isFinished]);
 
-  const elapsedTime = (userDifficulty, time, providedTimeLimit) => {
-    let timeElapsed = userDifficulty ? providedTimeLimit * 60000 - time : time;
+  const elapsedTime = (reverseCount, time, providedTimeLimit) => {
+    let timeElapsed = reverseCount ? providedTimeLimit * 60000 - time : time;
     let hours =
       timeElapsed >= 3599000
         ? ("0" + Math.floor((timeElapsed / 1000 / 60 / 60) % 100)).slice(-2) +
@@ -50,7 +50,7 @@ const FinishedModal = ({ providedTimeLimit }) => {
                 <div className="relative p-6 flex-auto">
                   <p className="my-4 text-gray-300 text-lg leading-relaxed">
                     You finished the puzzle in{" "}
-                    {elapsedTime(userDifficulty, time, providedTimeLimit)}!
+                    {elapsedTime(reverseCount, time, providedTimeLimit)}!
                   </p>
                 </div>
                 {/*footer*/}

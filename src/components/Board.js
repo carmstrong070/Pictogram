@@ -1,10 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Tile from "./Tile";
 import GuideNumbers from "./GuideNumbers";
 import { puzzleChange, resetPuzzleProgress } from "@/helpers/puzzleHelpers";
 import gameStore from "@/states/store";
 
 const Board = () => {
+  const [guideNumberOffset, setGuideNumberOffset] = useState({
+    marginRight: "0px",
+  });
   const isFinished = gameStore((state) => state.isFinished);
   const cursorPosition = gameStore((state) => state.cursorPosition);
   const setCursorPosition = gameStore((state) => state.setCursorPosition);
@@ -14,6 +17,10 @@ const Board = () => {
   const mouseDownInfo = gameStore((state) => state.mouseDownInfo);
   const setMouseDownInfo = gameStore((state) => state.setMouseDownInfo);
   const running = gameStore((state) => state.running);
+
+  useEffect(() => {
+    customMargin();
+  }, [puzzle]);
 
   const handleMouseUp = (e) => {
     e.preventDefault();
@@ -78,9 +85,9 @@ const Board = () => {
     if (isFinished) return;
     let element = document.getElementById("guideNumbersWidth");
 
-    return {
+    setGuideNumberOffset({
       marginRight: element ? element.offsetWidth : "0px",
-    };
+    });
   };
 
   return (
@@ -97,7 +104,7 @@ const Board = () => {
         </h1>
       )}
 
-      <table style={customMargin()}>
+      <table style={guideNumberOffset}>
         <thead>
           <tr>
             <th id="guideNumbersWidth"></th>

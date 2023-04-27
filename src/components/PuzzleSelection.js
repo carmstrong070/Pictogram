@@ -7,7 +7,7 @@ const PuzzleSelection = () => {
   const setIsFinished = gameStore((state) => state.setIsFinished);
   const setPuzzleProgress = gameStore((state) => state.setPuzzleProgress);
   const setPuzzle = gameStore((state) => state.setPuzzle);
-  const userDifficulty = gameStore((state) => state.userDifficulty);
+  const reverseCount = gameStore((state) => state.reverseCount);
   const setRunning = gameStore((state) => state.setRunning);
   const setTime = gameStore((state) => state.setTime);
   const setIsExpired = gameStore((state) => state.setIsExpired);
@@ -46,7 +46,7 @@ const PuzzleSelection = () => {
     setRunning(true);
     setIsExpired(false);
     setTime(
-      calculateStartTime(userDifficulty, newPuzzle.timeLimit || newPuzzle.size)
+      calculateStartTime(reverseCount, newPuzzle.timeLimit || newPuzzle.size)
     );
   };
 
