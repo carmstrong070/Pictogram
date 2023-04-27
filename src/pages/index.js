@@ -14,7 +14,6 @@ const index = () => {
   const setIsFinished = gameStore((state) => state.setIsFinished);
   const puzzleProgress = gameStore((state) => state.puzzleProgress);
   const puzzle = gameStore((state) => state.puzzle);
-  const time = gameStore((state) => state.time);
   const setRunning = gameStore((state) => state.setRunning);
 
   useEffect(() => {
@@ -36,10 +35,6 @@ const index = () => {
           el.classList.remove("filled");
           el.classList.add("filled-finished");
         });
-      }
-      //-- If difficulty is not easy and the timer has reached 0
-      if (userDifficulty > 0 && time <= 0) {
-        alert("Time ran out!");
       }
     }
   }, [puzzleProgress]);
