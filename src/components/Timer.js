@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import HintModal from "./modals/HintModal";
 import FinishedModal from "./modals/FinishedModal";
 import gameStore from "@/states/store";
-import { reset } from "@/helpers/timerHelpers";
+import { calculateStartTime } from "@/helpers/timerHelpers";
+import { resetPuzzleProgress } from "@/helpers/puzzleHelpers";
 
 const Timer = ({ providedTimeLimit, puzzleHint }) => {
   const [reverseCount, setReverseCount] = useState(false);
@@ -13,8 +14,8 @@ const Timer = ({ providedTimeLimit, puzzleHint }) => {
   const setTime = gameStore((state) => state.setTime);
   const running = gameStore((state) => state.running);
   const setRunning = gameStore((state) => state.setRunning);
-  const timerStatus = gameStore((state) => state.timerStatus);
-  const setTimerStatus = gameStore((state) => state.setTimerStatus);
+  const setPuzzleProgress = gameStore((state) => state.setPuzzleProgress);
+  const puzzle = gameStore((state) => state.puzzle);
 
   useEffect(() => {
     let interval;
@@ -38,39 +39,18 @@ const Timer = ({ providedTimeLimit, puzzleHint }) => {
     return () => clearInterval(interval);
   }, [running, time]);
 
-  // When the timer resets, initiate the timer
-  useEffect(() => {
-    if (timerStatus.reset) {
-      // Initialization settings when the difficulty is set to EASY
-      if (!userDifficulty) {
-        setTime(0);
-        setRunning(true);
-        setReverseCount(false);
-
-        // Initialization settings when the difficulty is set to HARD
-      } else if (userDifficulty) {
-        setTime(providedTimeLimit * 60000);
-        setRunning(true);
-        setReverseCount(true);
-      }
-    }
-
-    if (!running) {
-      setRunning(false);
-    } else {
-      setRunning(true);
-    }
-  }, [timerStatus]);
-
   // When user difficulty changes, reset the puzzle
   useEffect(() => {
     handleReset();
+    setReverseCount(userDifficulty > 0);
   }, [userDifficulty]);
 
   const handleReset = () => {
-    setTimerStatus(reset());
     setRunning(true);
     setIsFinished(false);
+    setTime(calculateStartTime(userDifficulty, providedTimeLimit))
+
+    setPuzzleProgress(resetPuzzleProgress(puzzle.solution));
   };
 
   const handleStartStopToggle = () => {

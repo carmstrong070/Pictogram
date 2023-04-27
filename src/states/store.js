@@ -31,11 +31,6 @@ const gameStore = create((set) => ({
     isDragging: false,
   },
   setMouseDownInfo: (obj) => set({ mouseDownInfo: obj }),
-
-  timerStatus: {
-    reset: false,
-  },
-  setTimerStatus: (obj) => set({ timerStatus: obj }),
 }));
 
 if (process.env.NODE_ENV === "development") {

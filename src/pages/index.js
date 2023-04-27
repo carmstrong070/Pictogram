@@ -14,21 +14,17 @@ const index = () => {
   const setIsFinished = gameStore((state) => state.setIsFinished);
   const puzzleProgress = gameStore((state) => state.puzzleProgress);
   const puzzle = gameStore((state) => state.puzzle);
-  const timerStatus = gameStore((state) => state.timerStatus);
   const time = gameStore((state) => state.time);
-  const setTimerStatus = gameStore((state) => state.setTimerStatus);
   const setRunning = gameStore((state) => state.setRunning);
 
   useEffect(() => {
     if (
       puzzle.solution &&
       puzzleProgress &&
-      !isFinished &&
-      !timerStatus.reset
+      !isFinished
     ) {
       if (checkFinished(puzzle.solution, puzzleProgress)) {
         setIsFinished(true);
-        setTimerStatus(stop());
         setRunning(false);
         // Remove flagged tiles upon completion
         document.querySelectorAll(".flagged").forEach((el) => {
@@ -41,12 +37,12 @@ const index = () => {
           el.classList.add("filled-finished");
         });
       }
-      //-- 
+      //-- If difficulty is not easy and the timer has reached 0
       if (userDifficulty > 0 && time <= 0) {
         alert("Time ran out!");
       }
     }
-  }, [puzzleProgress, timerStatus]);
+  }, [puzzleProgress]);
 
   return (
     <>

@@ -13,19 +13,7 @@ const Board = () => {
   const puzzle = gameStore((state) => state.puzzle);
   const mouseDownInfo = gameStore((state) => state.mouseDownInfo);
   const setMouseDownInfo = gameStore((state) => state.setMouseDownInfo);
-  const timerStatus = gameStore((state) => state.timerStatus);
-  const setTimerStatus = gameStore((state) => state.setTimerStatus);
   const running = gameStore((state) => state.running);
-
-  useEffect(() => {
-    // If the timer is reset, reset the puzzle progress
-    if (timerStatus.reset) {
-      setPuzzleProgress(resetPuzzleProgress(puzzle.solution));
-      let currentTimerStatus = { ...timerStatus };
-      currentTimerStatus.reset = false;
-      setTimerStatus(currentTimerStatus);
-    }
-  }, [timerStatus]);
 
   const handleMouseUp = (e) => {
     e.preventDefault();

@@ -1,17 +1,6 @@
-export const reset = () => {
-  let newTimerStatus = {};
-  newTimerStatus.reset = true;
-  return newTimerStatus;
-};
-
-export const stop = () => {
-  let newTimerStatus = {};
-  newTimerStatus.reset = false;
-  return newTimerStatus;
-};
-
-export const start = () => {
-  let newTimerStatus = {};
-  newTimerStatus.reset = false;
-  return newTimerStatus;
-};
+export const calculateStartTime = (userDifficulty, providedTimeLimit) => {
+    if(userDifficulty > 0){
+        return providedTimeLimit * 60000
+    }
+    return 0;
+}
