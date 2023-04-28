@@ -20,7 +20,7 @@ const Board = () => {
 
   useEffect(() => {
     customMargin();
-  }, [puzzle]);
+  }, [puzzle, isFinished]);
 
   const handleMouseUp = (e) => {
     e.preventDefault();
@@ -82,12 +82,15 @@ const Board = () => {
   };
 
   const customMargin = () => {
-    if (isFinished) return;
-    let element = document.getElementById("guideNumbersWidth");
-
-    setGuideNumberOffset({
-      marginRight: element ? element.offsetWidth : "0px",
-    });
+    if (isFinished) {
+      setGuideNumberOffset({marginRight: "0px",});
+    }
+    else{
+      let element = document.getElementById("guideNumbersWidth");
+      setGuideNumberOffset({
+        marginRight: element ? element.offsetWidth : "0px",
+      });
+    }
   };
 
   return (
