@@ -5,15 +5,18 @@ import Board from "@/components/Board";
 import InstructionsModal from "@/components/modals/InstructionsModal";
 import gameStore from "@/states/store";
 import { checkFinished } from "@/helpers/puzzleHelpers";
+import DifficultyChangeModal from "@/components/modals/DifficultyChangeModal";
 
 const index = () => {
   const userDifficulty = gameStore((state) => state.userDifficulty);
-  const setUserDifficulty = gameStore((state) => state.setDifficulty);
   const isFinished = gameStore((state) => state.isFinished);
   const setIsFinished = gameStore((state) => state.setIsFinished);
   const puzzleProgress = gameStore((state) => state.puzzleProgress);
   const puzzle = gameStore((state) => state.puzzle);
   const setRunning = gameStore((state) => state.setRunning);
+  const setShowDifficultyChangeModal = gameStore(
+    (state) => state.setShowDifficultyChangeModal
+  );
 
   useEffect(() => {
     if (puzzle.solution && puzzleProgress && !isFinished) {
@@ -34,20 +37,25 @@ const index = () => {
     }
   }, [puzzleProgress]);
 
+  const confirmDifficultyChange = () => {
+    setRunning(false);
+    setShowDifficultyChangeModal(true);
+  };
+
   return (
     <>
       <div className="bg-gray-800">
         <div className="dark:bg-gray-700 container flex justify-evenly p-3">
           <button
             className="btn btn-blue mr-2"
-            onClick={(e) => {
-              e.preventDefault();
-              userDifficulty ? setUserDifficulty(0) : setUserDifficulty(1);
+            onClick={() => {
+              confirmDifficultyChange();
             }}
           >
             Difficulty: {userDifficulty ? "Hard" : "Easy"}
           </button>
           <InstructionsModal />
+          <DifficultyChangeModal />
         </div>
         <div
           className="container p-3"

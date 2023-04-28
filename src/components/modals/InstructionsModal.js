@@ -1,4 +1,3 @@
-import { start, stop } from "@/helpers/timerHelpers";
 import gameStore from "@/states/store";
 import { useState } from "react";
 

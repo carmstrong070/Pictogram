@@ -1,16 +1,8 @@
-import { resetPuzzleProgress } from "@/helpers/puzzleHelpers";
 import puzzleList from "@/content/puzzles";
 import gameStore from "@/states/store";
-import { calculateStartTime } from "@/helpers/timerHelpers";
 
 const PuzzleSelection = () => {
-  const setIsFinished = gameStore((state) => state.setIsFinished);
-  const setPuzzleProgress = gameStore((state) => state.setPuzzleProgress);
-  const setPuzzle = gameStore((state) => state.setPuzzle);
-  const reverseCount = gameStore((state) => state.reverseCount);
-  const setRunning = gameStore((state) => state.setRunning);
-  const setTime = gameStore((state) => state.setTime);
-  const setIsExpired = gameStore((state) => state.setIsExpired);
+  const handleReset = gameStore((state) => state.handleReset);
 
   const PuzzleSelectTile = ({ puzzle }) => {
     return (
@@ -40,14 +32,7 @@ const PuzzleSelection = () => {
     let newPuzzle = puzzleList.find((puzz) => {
       return puzz.id == e.currentTarget.getAttribute("id");
     });
-    setPuzzleProgress(resetPuzzleProgress(newPuzzle.solution));
-    setIsFinished(false);
-    setPuzzle(newPuzzle);
-    setRunning(true);
-    setIsExpired(false);
-    setTime(
-      calculateStartTime(reverseCount, newPuzzle.timeLimit || newPuzzle.size)
-    );
+    handleReset(newPuzzle);
   };
 
   return (

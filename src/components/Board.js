@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Tile from "./Tile";
 import GuideNumbers from "./GuideNumbers";
-import { puzzleChange, resetPuzzleProgress } from "@/helpers/puzzleHelpers";
+import { puzzleChange } from "@/helpers/puzzleHelpers";
 import gameStore from "@/states/store";
 
 const Board = () => {
