@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import HintModal from "./modals/HintModal";
 import FinishedModal from "./modals/FinishedModal";
 import gameStore from "@/states/store";
 import { calculateStartTime } from "@/helpers/timerHelpers";
 import { resetPuzzleProgress } from "@/helpers/puzzleHelpers";
 import ExpiredModal from "./modals/ExpiredModal";
+import RestartModal from "./modals/RestartModal";
 
 const Timer = ({ providedTimeLimit, puzzleHint }) => {
   const userDifficulty = gameStore((state) => state.userDifficulty);
@@ -20,6 +21,8 @@ const Timer = ({ providedTimeLimit, puzzleHint }) => {
   const setIsExpired = gameStore((state) => state.setIsExpired);
   const reverseCount = gameStore((state) => state.reverseCount);
   const setReverseCount = gameStore((state) => state.setReverseCount);
+  const showRestartModal = gameStore((state) => state.showRestartModal);
+  const setShowRestartModal = gameStore((state) => state.setShowRestartModal);
 
   useEffect(() => {
     let interval;
@@ -47,17 +50,23 @@ const Timer = ({ providedTimeLimit, puzzleHint }) => {
   // When user difficulty changes, reset the puzzle
   useEffect(() => {
     handleReset();
-    setReverseCount(userDifficulty > 0);
   }, [userDifficulty]);
 
   const handleReset = () => {
     let isReversed = userDifficulty > 0;
+    setReverseCount(userDifficulty > 0);
     setRunning(true);
     setIsFinished(false);
     setTime(calculateStartTime(isReversed, providedTimeLimit));
     setIsExpired(false);
+    setShowRestartModal(false);
 
     setPuzzleProgress(resetPuzzleProgress(puzzle.solution));
+  };
+
+  const confirmReset = () => {
+    setRunning(false);
+    setShowRestartModal(true);
   };
 
   const handleStartStopToggle = () => {
@@ -66,6 +75,7 @@ const Timer = ({ providedTimeLimit, puzzleHint }) => {
 
   return (
     <div className="timer border rounded border-solid border-gray-300 p-2 my-3">
+      {showRestartModal && <RestartModal handleReset={handleReset} />}
       {isExpired && <ExpiredModal isExpired={isExpired} />}
       <FinishedModal providedTimeLimit={providedTimeLimit} />
       <div className="text-center text-gray-300 mb-2">
@@ -113,7 +123,7 @@ const Timer = ({ providedTimeLimit, puzzleHint }) => {
             {!reverseCount && <HintModal puzzleHint={puzzleHint} />}
           </>
         )}
-        <button className="btn btn-red" onClick={() => handleReset()}>
+        <button className="btn btn-red" onClick={() => confirmReset()}>
           Reset
         </button>
       </div>

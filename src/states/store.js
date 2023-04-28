@@ -37,6 +37,9 @@ const gameStore = create((set) => ({
 
   reverseCount: false,
   setReverseCount: (bool) => set({ reverseCount: bool }),
+
+  showRestartModal: false,
+  setShowRestartModal: (bool) => set({ showRestartModal: bool }),
 }));
 
 if (process.env.NODE_ENV === "development") {
