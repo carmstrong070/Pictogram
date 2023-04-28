@@ -60,6 +60,10 @@ const gameStore = create((set) => ({
         puzzleObj ? puzzleObj.solution : state.puzzle.solution
       ),
     })),
+
+  showDifficultyChangeModal: false,
+  setShowDifficultyChangeModal: (bool) =>
+    set({ showDifficultyChangeModal: bool }),
 }));
 
 if (process.env.NODE_ENV === "development") {
