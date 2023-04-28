@@ -1,9 +1,10 @@
 import gameStore from "@/states/store";
 
-const RestartModal = ({ handleReset }) => {
+const RestartModal = () => {
   const setRunning = gameStore((state) => state.setRunning);
   const showRestartModal = gameStore((state) => state.showRestartModal);
   const setShowRestartModal = gameStore((state) => state.setShowRestartModal);
+  const handleReset = gameStore((state) => state.handleReset);
 
   const handleConfirmRestartModal = (e) => {
     e.preventDefault();

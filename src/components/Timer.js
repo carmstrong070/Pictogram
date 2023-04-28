@@ -17,6 +17,7 @@ const Timer = ({ providedTimeLimit, puzzleHint }) => {
   const setRunning = gameStore((state) => state.setRunning);
   const setPuzzleProgress = gameStore((state) => state.setPuzzleProgress);
   const puzzle = gameStore((state) => state.puzzle);
+  const setPuzzle = gameStore((state) => state.setPuzzle);
   const isExpired = gameStore((state) => state.isExpired);
   const setIsExpired = gameStore((state) => state.setIsExpired);
   const reverseCount = gameStore((state) => state.reverseCount);
@@ -48,21 +49,7 @@ const Timer = ({ providedTimeLimit, puzzleHint }) => {
   }, [running, time]);
 
   // When user difficulty changes, reset the puzzle
-  useEffect(() => {
-    handleReset();
-  }, [userDifficulty]);
-
-  const handleReset = () => {
-    let isReversed = userDifficulty > 0;
-    setReverseCount(userDifficulty > 0);
-    setRunning(true);
-    setIsFinished(false);
-    setTime(calculateStartTime(isReversed, providedTimeLimit));
-    setIsExpired(false);
-    setShowRestartModal(false);
-
-    setPuzzleProgress(resetPuzzleProgress(puzzle.solution));
-  };
+  useEffect(() => {}, [userDifficulty]);
 
   const confirmReset = () => {
     setRunning(false);
@@ -75,7 +62,7 @@ const Timer = ({ providedTimeLimit, puzzleHint }) => {
 
   return (
     <div className="timer border rounded border-solid border-gray-300 p-2 my-3">
-      {showRestartModal && <RestartModal handleReset={handleReset} />}
+      {showRestartModal && <RestartModal />}
       {isExpired && <ExpiredModal isExpired={isExpired} />}
       <FinishedModal providedTimeLimit={providedTimeLimit} />
       <div className="text-center text-gray-300 mb-2">

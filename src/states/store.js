@@ -1,5 +1,7 @@
 import { create } from "zustand";
 import { mountStoreDevtool } from "simple-zustand-devtools";
+import { calculateStartTime } from "@/helpers/timerHelpers";
+import { resetPuzzleProgress } from "@/helpers/puzzleHelpers";
 
 const gameStore = create((set) => ({
   userDifficulty: 0,
@@ -40,6 +42,24 @@ const gameStore = create((set) => ({
 
   showRestartModal: false,
   setShowRestartModal: (bool) => set({ showRestartModal: bool }),
+
+  handleReset: (puzzleObj) =>
+    set((state) => ({
+      isFinished: false,
+      isExpired: false,
+      running: true,
+      puzzle: puzzleObj || state.puzzle,
+      reverseCount: state.userDifficulty > 0,
+      time: calculateStartTime(
+        state.userDifficulty > 0,
+        puzzleObj
+          ? puzzleObj.timeLimit || puzzleObj.size
+          : state.puzzle.timeLimit || state.puzzle.size
+      ),
+      puzzleProgress: resetPuzzleProgress(
+        puzzleObj ? puzzleObj.solution : state.puzzle.solution
+      ),
+    })),
 }));
 
 if (process.env.NODE_ENV === "development") {
